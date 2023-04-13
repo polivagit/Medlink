@@ -1,0 +1,238 @@
+0,Risedronate,0,0
+1,Alendronate,0,0
+2,Ibandronate,0,0
+3,Raloxifene,0,0
+4,Infliximab,0,0
+5,Adalimumab,0,0
+6,Etanercept,1,0
+7,Methtrexate,1,0
+8,Hydroxychloroquine,1,0
+9,Allopurinol,0,0
+10,Colchicine,1,0
+11,Amiodarone,0,1
+12,Digoxin,0,1
+13,Aspirin,0,1
+14,Aspirin/Dipyridamole,1,1
+15,Clopidogrel,1,1
+16,Prasugrel,1,1
+17,Ticagrelor,1,1
+18,Nitroglycerin,0,1
+19,"Isosorbide mononitrate",0,1
+20,Ranolazine,0,1
+21,Hydrochlorthiazide,0,1
+22,Metolazone,0,1
+23,Furosemide,1,1
+24,Torsemide,0,1
+25,Bumetanide,1,1
+26,Spironolactone,1,1
+27,"Nifedipine XL",1,1
+28,Amlodipine,1,1
+29,Amlodipine/benazepril,0,1
+30,Diltiazem,1,1
+31,Fenofibrate,0,1
+32,Genfibrozil,0,1
+33,"Omega-3 Acid Ethyl Esters",0,1
+34,Niacin,0,1
+35,Ezetimibe,0,1
+36,Colesevelam,1,1
+37,Atenolol,1,1
+38,"Metoprolol tartrate",1,1
+39,"Metoprolol succinate",1,1
+40,Nebivolol,0,1
+41,Propranolol,1,1
+42,Carvedilol,0,1
+43,Lisinopril,1,1
+44,Lisinopril/hydrochlorthiazide,0,1
+45,Enalapril,1,1
+46,Pamipril,0,1
+47,Losartan,0,1
+48,Olmesartan,0,1
+49,Valsartan,0,1
+50,Dabigatran,0,1
+51,Rivaroxaban,1,1
+52,Apixaban,1,1
+53,Warfarin,1,1
+54,Enoxaparin,1,1
+55,Pravastatin,1,1
+56,Simvastatin,1,1
+57,Simvastatin/ezetimibe,0,1
+58,Atorvastatin,1,1
+59,Rosuvastatin,0,1
+60,Adapalene,0,2
+61,Isotretinoin,0,2
+62,Rosiglitazone,0,3
+63,Pioglitazone,1,3
+64,Canagliflozin,1,3
+65,"Norgestimate/ethinyl estradiol",1,3
+66,"Drospirenone/ethinyl estradiol",1,3
+67,Norethindrone,0,3
+68,"Norelgestromin/ethinyl estradiol",0,3
+69,"Etonogestrel/ethinyl estradiol",0,3
+70,"Insulin aspart",0,3
+71,"Insulin lispro",0,3
+72,"Insulin NPH",1,3
+73,"Insulin glargine",1,3
+74,"Insulin detemir",0,3
+75,Exenatide,1,3
+76,Prednisone,0,3
+77,Methylprednisolone,1,3
+78,"Conjugated Estrogens",1,3
+79,Testosterone,1,3
+80,Levothyroxine,0,3
+81,Anastrozole,0,3
+82,Tamoxifen,0,3
+83,Metformin,1,3
+84,Sitagliptin,1,3
+85,Glyburide,1,3
+86,Glimepiride,1,3
+87,Glipizide,0,3
+88,Glyburide/metformin,0,3
+89,Sitagliptin/metformin,0,3
+90,Senna,1,4
+91,Bisacodyl,1,4
+92,Docusate,1,4
+93,Senna/docusate,1,4
+94,"PEG 3350",0,4
+95,"PEG 3350 with electrolytes",0,4
+96,Omeprazole,0,4
+97,Esomeprazole,0,4
+98,Pantoprazole,1,4
+99,Lansoprazole,1,4
+100,Dexlansoprazole,1,4
+101,Famotidine,1,4
+102,Ranitidine,1,4
+103,Ondansetron,1,4
+104,Prochlorperazine,1,4
+105,Promethazine,0,4
+106,Metoclopramide,1,4
+107,Dicyclomine,0,4
+108,Loperamide,0,4
+109,Diphenoxylate/atropine,0,4
+110,Mesalamine,1,4
+111,Amoxicillin,0,5
+112,Amoxicillin/clavulanate,1,5
+113,Cephalexin,1,5
+114,Cefuroxime,1,5
+115,Cefdinir,1,5
+116,Nitrofurantoin,1,5
+117,Metronidazole,1,5
+118,Sulfamethoxazole/trimethoprim,0,5
+119,Clarithromycin,0,5
+120,Azithromycin,1,5
+121,Oseltamivir,1,5
+122,Acyclovir,0,5
+123,Valacyclovir,1,5
+124,Ciprofloxacin,0,5
+125,Levofloxacin,1,5
+126,Moxifloxacin,0,5
+127,Emtricitabine/tenofovir,1,5
+128,Emtricitabine/tenofovir/efavirenz,1,5
+129,Emtricitabine/tenofovir/rilpivirine,1,5
+130,Emtricitabine/tenofovir/elvitegravir/cobicistat,0,5
+131,Fluconazole,0,5
+132,Itraconazole,1,5
+133,Clindamycin,0,5
+134,Doxycycline,1,5
+135,Linezolid,1,5
+136,Donepezil,0,6
+137,Memantine,0,6
+138,Meloxicam,0,6
+139,Naproxen,0,6
+140,Ibuprofen,1,6
+141,Diclofenac,1,6
+142,Celecoxib,1,6
+143,Phenytoin,1,6
+144,"Valproic acid",1,6
+145,Lamotrigine,0,6
+146,Carbamazepine,0,6
+147,Oxcarbazepine,1,6
+148,Levetiracetam,0,6
+149,"Nicotine Patch",1,6
+150,Varenicline,0,6
+151,Sumatriptan,1,6
+152,Eletriptan,1,6
+153,Rizatriptan,1,6
+154,Butalbital/acetaminophen/caffeine,1,6
+155,Butalbital/aspirin/caffeine,0,6
+156,Carisoprodol,1,6
+157,Cyclobenzaprine,0,6
+158,Morphine,1,6
+159,Hydromorphone,0,6
+160,Oxycodone,1,6
+161,Oxycodone/APAP,1,6
+162,Fentanyl,1,6
+163,Hydrocodone/APAP,1,6
+164,Buprenorphine/naloxone,1,6
+165,Codeine/APAP,0,6
+166,Tramadol,0,6
+167,Gabapentin,0,6
+168,Pregabalin,1,6
+169,"Lidocaine patch",0,6
+170,Mometasone,1,7
+171,Fluticasone,0,7
+172,Diphenhydramine,1,7
+173,Loratadine,0,7
+174,Desloratadine,1,7
+175,Fexofenadine,0,7
+176,Olopatadine,1,7
+177,Azelastine,1,7
+178,Epinephrine,1,7
+179,"Cyclosporine (ophthalmic)",1,7
+180,Timolol,0,7
+181,Brimonidine,0,7
+182,Brimonidine/timolol,1,7
+183,Dorzolamide,0,7
+184,Bimatoprost,1,7
+185,Latanoprost,1,7
+186,Travoprost,1,7
+187,Hydrocodone/chlorpheniramine,0,7
+188,Benzonatate,1,7
+189,Guaifenesin,0,7
+190,Dextromethorphan,0,7
+191,Pseudoephedrine,0,7
+192,Clonazepam,0,8
+193,Lorazepam,0,8
+194,Diazepam,0,8
+195,Alprazolam,1,8
+196,Amitriptyline,1,8
+197,Nortriptyline,0,8
+198,Trazodone,1,8
+199,Mirtazapine,1,8
+200,Bupropion,0,8
+201,Fluoxetine,0,8
+202,Sertraline,1,8
+203,Paroxetine,1,8
+204,Citalopram,1,8
+205,Escitalopram,1,8
+206,Zolpidem,0,8
+207,Eszopiclone,0,8
+208,Methylphenidate,0,8
+209,Amphetamine/dextroamphetamine,0,8
+210,Lisdexamfetamine,1,8
+211,Atomoxetine,1,8
+212,Modafinil,1,8
+213,Venlafaxine,1,8
+214,Desvenlafaxine,1,8
+215,Duloxetine,0,8
+216,Olanzapine,1,8
+217,Quetiapine,0,8
+218,Risperidone,1,8
+219,Ziprasidone,0,8
+220,Aripiprazole,1,8
+221,"Epoetin alfa",1,9
+222,Darbepoetin,1,9
+223,Cinacalcet,0,9
+224,"Sevelamer carbonate",1,9
+225,"Potassium chloride",0,9
+226,Sildenafil,0,10
+227,Vardenafil,0,10
+228,Tadalafil,0,10
+229,Tolterodine,0,10
+230,Solifenacin,1,10
+231,Darifenacin,1,10
+232,Dutasteride,0,10
+233,Finasteride,1,10
+234,Terazosin,1,10
+235,Doxazosin,1,10
+236,Alfuzosin,1,10
+237,Tamsulosin,1,10

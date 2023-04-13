@@ -1,0 +1,72 @@
+{
+  "data": {
+    "ffe9d678-582f-4af7-bddf-ab71b512f56c": {
+      "drugs": [
+        {
+          "drugName": "Sildenafil",
+          "otherName": "Viagra"
+        },
+        {
+          "drugName": "Vardenafil",
+          "otherName": "Levitra"
+        },
+        {
+          "drugName": "Tadalafil",
+          "otherName": "Cialis"
+        }
+      ],
+      "groupName": "Erectile Dysfunction"
+    },
+    "f75cf3f4-21dc-4289-9739-7386083967e5": {
+      "drugs": [
+        {
+          "drugName": "Tolterodine",
+          "otherName": "Detrol"
+        },
+        {
+          "drugName": "Solifenacin",
+          "otherName": "VESIcare"
+        },
+        {
+          "drugName": "Darifenacin",
+          "otherName": "Enablex"
+        }
+      ],
+      "groupName": "Overactive Bladder"
+    },
+    "3c71e1ed-2c9b-4862-b48f-60d58fdc1e43": {
+      "drugs": [
+        {
+          "drugName": "Dutasteride",
+          "otherName": "Avodart"
+        },
+        {
+          "drugName": "Finasteride",
+          "otherName": "Proscar, Propecia"
+        }
+      ],
+      "groupName": "Benign Prostatic Hypertrophy - 5-Alpha Reductase Inhibitors"
+    },
+    "f0584336-9189-49c4-bb59-9c50fba62077": {
+      "drugs": [
+        {
+          "drugName": "Terazosin",
+          "otherName": "Hytrin"
+        },
+        {
+          "drugName": "Doxazosin",
+          "otherName": "Cardura"
+        },
+        {
+          "drugName": "Alfuzosin",
+          "otherName": "Uroxatral"
+        },
+        {
+          "drugName": "Tamsulosin",
+          "otherName": "Flomax"
+        }
+      ],
+      "groupName": "Benign Prostatic Hypertrophy - Alpha Blockers"
+    }
+  }
+}

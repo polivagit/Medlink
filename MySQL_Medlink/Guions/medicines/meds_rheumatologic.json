@@ -1,0 +1,63 @@
+{
+  "data": {
+    "4dc53623-5746-4e5c-9aa8-6669ef325846": {
+      "drugs": [
+        {
+          "drugName": "Risedronate",
+          "otherName": "Actonel"
+        },
+        {
+          "drugName": "Alendronate",
+          "otherName": "Fosamax"
+        },
+        {
+          "drugName": "Ibandronate",
+          "otherName": "Boniva"
+        },
+        {
+          "drugName": "Raloxifene",
+          "otherName": "Evista"
+        }
+      ],
+      "groupName": "Osteoporosis"
+    },
+    "b594379b-e23a-4f80-b80a-bcf2e231c324": {
+      "drugs": [
+        {
+          "drugName": "Infliximab",
+          "otherName": "Remicade"
+        },
+        {
+          "drugName": "Adalimumab",
+          "otherName": "Humira"
+        },
+        {
+          "drugName": "Etanercept",
+          "otherName": "Enbrel"
+        },
+        {
+          "drugName": "Methtrexate",
+          "otherName": "Rheumatrex, Trexall"
+        },
+        {
+          "drugName": "Hydroxychloroquine",
+          "otherName": "Plaquenil"
+        }
+      ],
+      "groupName": "Rheumatoid Arthritis"
+    },
+    "2462bd3c-b194-44f9-ad3d-57f6790386d5": {
+      "drugs": [
+        {
+          "drugName": "Allopurinol",
+          "otherName": "Zyloprim"
+        },
+        {
+          "drugName": "Colchicine",
+          "otherName": "Colcrys"
+        }
+      ],
+      "groupName": "Gout"
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "data": {
+    "a31e955e-e904-4b71-a9cb-ce00083c1e4b": {
+      "drugs": [
+        {
+          "drugName": "Senna",
+          "otherName": "Senokot"
+        },
+        {
+          "drugName": "Bisacodyl",
+          "otherName": "Dulcolax"
+        },
+        {
+          "drugName": "Docusate",
+          "otherName": "Colace"
+        },
+        {
+          "drugName": "Senna/docusate",
+          "otherName": "Senokot-S"
+        },
+        {
+          "drugName": "PEG 3350",
+          "otherName": "MiraLAX"
+        },
+        {
+          "drugName": "PEG 3350 with electrolytes",
+          "otherName": "GoLYTELY"
+        }
+      ],
+      "groupName": "Laxatives"
+    },
+    "db4ce9d8-67db-4fd0-977b-b3736960b4f7": {
+      "drugs": [
+        {
+          "drugName": "Omeprazole",
+          "otherName": "Prilosec"
+        },
+        {
+          "drugName": "Esomeprazole",
+          "otherName": "Nexium"
+        },
+        {
+          "drugName": "Pantoprazole",
+          "otherName": "Protonix"
+        },
+        {
+          "drugName": "Lansoprazole",
+          "otherName": "Prevacid"
+        },
+        {
+          "drugName": "Dexlansoprazole",
+          "otherName": "Dexilant"
+        }
+      ],
+      "groupName": "Proton Pump Inhibitors"
+    },
+    "ec3a4d94-0a3b-425a-9dc4-6da3993505ac": {
+      "drugs": [
+        {
+          "drugName": "Famotidine",
+          "otherName": "Pepcid"
+        },
+        {
+          "drugName": "Ranitidine",
+          "otherName": "Zantac"
+        }
+      ],
+      "groupName": "Histamine (H2) Receptor Blockers"
+    },
+    "26afec02-1afb-45e2-ab83-d961d1fd0341": {
+      "drugs": [
+        {
+          "drugName": "Ondansetron",
+          "otherName": "Zofran"
+        },
+        {
+          "drugName": "Prochlorperazine",
+          "otherName": "Compazine"
+        },
+        {
+          "drugName": "Promethazine",
+          "otherName": "Phenergan"
+        },
+        {
+          "drugName": "Metoclopramide",
+          "otherName": "Reglan"
+        }
+      ],
+      "groupName": "Nausea"
+    },
+    "a872bf91-94e7-4d3b-af03-b9a14f5e2f62": {
+      "drugs": [
+        {
+          "drugName": "Dicyclomine",
+          "otherName": "Bentyl"
+        },
+        {
+          "drugName": "Loperamide",
+          "otherName": "Imodium"
+        },
+        {
+          "drugName": "Diphenoxylate/atropine",
+          "otherName": "Compazine"
+        },
+        {
+          "drugName": "Mesalamine",
+          "otherName": "Asacol-HD, Delzicol, and more"
+        }
+      ],
+      "groupName": "Diarrhea and Ulcerative Colitis"
+    }
+  }
+}

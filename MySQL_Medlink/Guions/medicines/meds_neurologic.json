@@ -1,0 +1,180 @@
+{
+  "data": {
+    "8b852a19-64c4-482c-8e13-6b5c8a0b33b5": {
+      "drugs": [
+        {
+          "drugName": "Donepezil",
+          "otherName": "Aricept"
+        },
+        {
+          "drugName": "Memantine",
+          "otherName": "Namenda XR"
+        }
+      ],
+      "groupName": "Alzheimer's Disease"
+    },
+    "6fc42397-857d-4269-a924-2cdcfa3ef250": {
+      "drugs": [
+        {
+          "drugName": "Meloxicam",
+          "otherName": "Mobic"
+        },
+        {
+          "drugName": "Naproxen",
+          "otherName": "Naprosyn, Aleve"
+        },
+        {
+          "drugName": "Ibuprofen",
+          "otherName": "Advil, Motrin"
+        },
+        {
+          "drugName": "Diclofenac",
+          "otherName": "Voltaren"
+        },
+        {
+          "drugName": "Celecoxib",
+          "otherName": "Celebrex"
+        }
+      ],
+      "groupName": "Non-Steroidal Anti-Inflammatory Drugs (NSAIDs)"
+    },
+    "93c41a9e-6e0c-41a9-b390-f4acdd419e02": {
+      "drugs": [
+        {
+          "drugName": "Phenytoin",
+          "otherName": "Dilantin"
+        },
+        {
+          "drugName": "Valproic acid",
+          "otherName": "Depakote, Depakene"
+        },
+        {
+          "drugName": "Lamotrigine",
+          "otherName": "Lamictal"
+        },
+        {
+          "drugName": "Carbamazepine",
+          "otherName": "Tegretol, Carbatrol"
+        },
+        {
+          "drugName": "Oxcarbazepine",
+          "otherName": "Trileptal"
+        },
+        {
+          "drugName": "Levetiracetam",
+          "otherName": "Keppra"
+        }
+      ],
+      "groupName": "Epilepsy"
+    },
+    "d81ac666-c31f-4823-8bf0-2f111a4b6e53": {
+      "drugs": [
+        {
+          "drugName": "Nicotine Patch",
+          "otherName": "Nicoderm CQ"
+        },
+        {
+          "drugName": "Varenicline",
+          "otherName": "Chantix"
+        }
+      ],
+      "groupName": "Smoking Cessation"
+    },
+    "b1b9f878-0e04-4b89-b2ce-1fa1ca656729": {
+      "drugs": [
+        {
+          "drugName": "Sumatriptan",
+          "otherName": "Imitrex"
+        },
+        {
+          "drugName": "Eletriptan",
+          "otherName": "Relpax"
+        },
+        {
+          "drugName": "Rizatriptan",
+          "otherName": "Maxalt"
+        },
+        {
+          "drugName": "Butalbital, acetaminophen, caffeine",
+          "otherName": "Fioricet"
+        },
+        {
+          "drugName": "Butalbital, aspirin, caffeine",
+          "otherName": "Fiorinal"
+        }
+      ],
+      "groupName": "Headache"
+    },
+    "e313fe54-96c4-4a96-b6e3-344ca6b84fb8": {
+      "drugs": [
+        {
+          "drugName": "Carisoprodol",
+          "otherName": "Soma"
+        },
+        {
+          "drugName": "Cyclobenzaprine",
+          "otherName": "Flexeril"
+        }
+      ],
+      "groupName": "Muscle Relaxants"
+    },
+    "0a5b5a74-0f96-4595-9ed1-c833a329dde8": {
+      "drugs": [
+        {
+          "drugName": "Morphine",
+          "otherName": "MS Contin (ER), more"
+        },
+        {
+          "drugName": "Hydromorphone",
+          "otherName": "Dilaudid (IR)"
+        },
+        {
+          "drugName": "Oxycodone",
+          "otherName": "Oxycontin (ER)"
+        },
+        {
+          "drugName": "Oxycodone/APAP",
+          "otherName": "Percocet, Roxicet, more"
+        },
+        {
+          "drugName": "Fentanyl",
+          "otherName": "Duragesic, more"
+        },
+        {
+          "drugName": "Hydrocodone/APAP",
+          "otherName": "Vicodin, Norco, more"
+        },
+        {
+          "drugName": "Buprenorphine/naloxone",
+          "otherName": "Suboxone"
+        },
+        {
+          "drugName": "Codeine/APAP",
+          "otherName": "Tylenol #3, Tylenol #4"
+        },
+        {
+          "drugName": "Tramadol",
+          "otherName": "Ultram"
+        }
+      ],
+      "groupName": "Opioid Analgesics"
+    },
+    "d52cce05-b87c-4bfe-8195-6ec9e0bcbefa": {
+      "drugs": [
+        {
+          "drugName": "Gabapentin",
+          "otherName": "Neurontin"
+        },
+        {
+          "drugName": "Pregabalin",
+          "otherName": "Lyrica"
+        },
+        {
+          "drugName": "Lidocaine patch",
+          "otherName": "Lidoderm"
+        }
+      ],
+      "groupName": "Adjunct Medicaitions for Pain"
+    }
+  }
+}

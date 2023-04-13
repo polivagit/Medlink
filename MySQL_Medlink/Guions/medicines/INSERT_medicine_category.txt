@@ -1,0 +1,18 @@
+-- -----------------------------------------------------
+-- Data for table `medlink`.`medicine_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `medlink`;
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (0, 'Rheumatologic', 'Rheumatoid Arthritis');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (1, 'Cardiovascular', 'Other Cardiovascular Agents');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (2, 'Dermatologic', 'Acne vulgaris');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (3, 'Endocrinology', 'Oral diabetic agents');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (4, 'Gastrointestinal', 'Laxatives');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (5, 'Infectious', 'Antivirals');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (6, 'Neurologic', 'Analgesics');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (7, 'Ophtalmotolarying', 'Allergies');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (8, 'Psychiatric', 'Other Antidepressants and Anti-Anxiety Agents');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (9, 'Renal', 'Renal Medications');
+INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`, `meca_description`) VALUES (10, 'Urologic', 'Benign Prostatic Hypertrophy');
+
+COMMIT;

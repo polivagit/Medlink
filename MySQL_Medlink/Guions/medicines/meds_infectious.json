@@ -1,0 +1,144 @@
+{
+  "data": {
+    "afc65e49-f41b-4576-8161-2c3a724d8685": {
+      "drugs": [
+        {
+          "drugName": "Amoxicillin",
+          "otherName": "Amoxil"
+        },
+        {
+          "drugName": "Amoxicillin/clavulanate",
+          "otherName": "Augmentin"
+        },
+        {
+          "drugName": "Cephalexin",
+          "otherName": "Keflex"
+        },
+        {
+          "drugName": "Cefuroxime",
+          "otherName": "Ceftin"
+        },
+        {
+          "drugName": "Cefdinir",
+          "otherName": "Omnicef"
+        }
+      ],
+      "groupName": "Antibiotics - Beta-Lactams"
+    },
+    "f6fe8a96-abbe-4c01-ad2c-0aaa7c93b895": {
+      "drugs": [
+        {
+          "drugName": "Nitrofurantoin",
+          "otherName": "Macrobid, Macrodantin"
+        },
+        {
+          "drugName": "Metronidazole",
+          "otherName": "Flagyl"
+        },
+        {
+          "drugName": "Sulfamethoxazole/trimethoprim",
+          "otherName": "Bactrim"
+        }
+      ],
+      "groupName": "Antibiotics - Other Agents II"
+    },
+    "af0fe885-01b0-4eec-870e-b8ac3cc790d3": {
+      "drugs": [
+        {
+          "drugName": "Clarithromycin",
+          "otherName": "Biaxin"
+        },
+        {
+          "drugName": "Azithromycin",
+          "otherName": "Zithromax, Z-Pak"
+        }
+      ],
+      "groupName": "Antibiotics - Macrolides"
+    },
+    "0c203fec-e8ee-42c5-9a35-c877967fba97": {
+      "drugs": [
+        {
+          "drugName": "Oseltamivir",
+          "otherName": "Tamiflu"
+        },
+        {
+          "drugName": "Acyclovir",
+          "otherName": "Zovirax"
+        },
+        {
+          "drugName": "Valacyclovir",
+          "otherName": "Valtrex"
+        }
+      ],
+      "groupName": "Antivirals - Influenza and Herpes Simplex"
+    },
+    "b39e482f-f39a-4dde-a48c-4eb72d803f01": {
+      "drugs": [
+        {
+          "drugName": "Ciprofloxacin",
+          "otherName": "Cipro"
+        },
+        {
+          "drugName": "Levofloxacin",
+          "otherName": "Levaquin"
+        },
+        {
+          "drugName": "Moxifloxacin",
+          "otherName": "Avelox"
+        }
+      ],
+      "groupName": "Antibiotics - Fluoroquinolons"
+    },
+    "71e6602e-0f2e-4dcc-83d1-73c5dcab7471": {
+      "drugs": [
+        {
+          "drugName": "Emtricitabine; tenofovir",
+          "otherName": "Truvada"
+        },
+        {
+          "drugName": "Emtricitabine; tenofovir; efavirenz",
+          "otherName": "Atripla"
+        },
+        {
+          "drugName": "Emtricitabine; tenofovir; rilpivirine",
+          "otherName": "Complera"
+        },
+        {
+          "drugName": "Emtricitabine; tenofovir; elvitegravir; cobicistat",
+          "otherName": "Stribild"
+        }
+      ],
+      "groupName": "Antivirals - Human Immunodeficiency Virus (HIV)"
+    },
+    "9e8889f3-7c0c-41ea-bfca-e1b5a3189d22": {
+      "drugs": [
+        {
+          "drugName": "Fluconazole",
+          "otherName": "Diflucan"
+        },
+        {
+          "drugName": "Itraconazole",
+          "otherName": "Sporanox"
+        }
+      ],
+      "groupName": "Triazole Antifungals"
+    },
+    "2638003c-0265-4ad0-8268-d212e4a33178": {
+      "drugs": [
+        {
+          "drugName": "Clindamycin",
+          "otherName": "Cleocin"
+        },
+        {
+          "drugName": "Doxycycline",
+          "otherName": "Vibramycin, more"
+        },
+        {
+          "drugName": "Linezolid",
+          "otherName": "Zyvox"
+        }
+      ],
+      "groupName": "Antibiotics - Other Agents I"
+    }
+  }
+}

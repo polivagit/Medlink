@@ -1,0 +1,254 @@
+{
+  "data": {
+    "0bc8ae8b-1ab0-4479-8d77-b3993f76a328": {
+      "drugs": [
+        {
+          "drugName": "Amiodarone",
+          "otherName": "Cordarone, Pacerone"
+        },
+        {
+          "drugName": "Digoxin",
+          "otherName": "Lanoxin"
+        }
+      ],
+      "groupName": "Other Cardiovascular Agents"
+    },
+    "ab03f1a6-8e12-4274-9556-c9eeedfc8929": {
+      "drugs": [
+        {
+          "drugName": "Aspirin"
+        },
+        {
+          "drugName": "Aspirin/Dipyridamole",
+          "otherName": "Aggrenox"
+        },
+        {
+          "drugName": "Clopidogrel",
+          "otherName": "Plavix"
+        },
+        {
+          "drugName": "Prasugrel",
+          "otherName": "Effient"
+        },
+        {
+          "drugName": "Ticagrelor",
+          "otherName": "Brilinta"
+        }
+      ],
+      "groupName": "Antiplatelets"
+    },
+    "7e08bcc0-95a0-455a-894d-9ecd1da0c896": {
+      "groupName": "Antianginals",
+      "grugs": [
+        {
+          "drugName": "Nitroglycerin",
+          "otherName": "Nitrostat"
+        },
+        {
+          "drugName": "Isosorbide mononitrate",
+          "otherName": "Imdur"
+        },
+        {
+          "drugName": "Ranolazine",
+          "otherName": "Ranexa"
+        }
+      ]
+    },
+    "c0a603f1-22b1-45eb-a6d6-e8fbeddcb0a3": {
+      "drugs": [
+        {
+          "drugName": "Hydrochlorthiazide",
+          "otherName": "Microzide"
+        },
+        {
+          "drugName": "Metolazone",
+          "otherName": "Zaroxolyn"
+        },
+        {
+          "drugName": "Furosemide",
+          "otherName": "Lasix"
+        },
+        {
+          "drugName": "Torsemide",
+          "otherName": "Demadex"
+        },
+        {
+          "drugName": "Bumetanide",
+          "otherName": "Bumex"
+        },
+        {
+          "drugName": "Spironolactone",
+          "otherName": "Aldactone"
+        }
+      ],
+      "groupName": "Diuretics"
+    },
+    "46ba1b46-de85-43ad-8815-463bcc8676b6": {
+      "drugs": [
+        {
+          "drugName": "Nifedipine XL",
+          "otherName": "Procardia XL"
+        },
+        {
+          "drugName": "Amlodipine",
+          "otherName": "Norvasc"
+        },
+        {
+          "drugName": "Amlodipine/benazepril",
+          "otherName": "Lotrel"
+        },
+        {
+          "drugName": "Diltiazem",
+          "otherName": "Cardizem CD, more"
+        }
+      ],
+      "groupName": "Calcium Channel Blockers"
+    },
+    "67234db0-fdd3-4331-8f2d-18b933b104b4": {
+      "drugs": [
+        {
+          "drugName": "Fenofibrate",
+          "otherName": "Tricor"
+        },
+        {
+          "drugName": "Genfibrozil",
+          "otherName": "Lopid"
+        },
+        {
+          "drugName": "Omega-3 Acid Ethyl Esters",
+          "otherName": "Lovaza"
+        },
+        {
+          "drugName": "Niacin",
+          "otherName": "Niaspan"
+        },
+        {
+          "drugName": "Ezetimibe",
+          "otherName": "Zetia"
+        },
+        {
+          "drugName": "Colesevelam",
+          "otherName": "Welchol"
+        }
+      ],
+      "groupName": "Other Agents for Dyslipidemias"
+    },
+    "b8f609fd-d111-4609-95d3-98e59b9803b4": {
+      "drugs": [
+        {
+          "drugName": "Atenolol",
+          "otherName": "Tenormin"
+        },
+        {
+          "drugName": "Metoprolol tartrate",
+          "otherName": "Lopressor"
+        },
+        {
+          "drugName": "Metoprolol succinate",
+          "otherName": "Toprol XL"
+        },
+        {
+          "drugName": "Nebivolol",
+          "otherName": "Bystolic"
+        },
+        {
+          "drugName": "Propranolol",
+          "otherName": "Inderal"
+        },
+        {
+          "drugName": "Carvedilol",
+          "otherName": "Coreg"
+        }
+      ],
+      "groupName": "Beta Blockers"
+    },
+    "7aa64f34-ed1d-4dc2-95df-abc6c6593e7d": {
+      "drugs": [
+        {
+          "drugName": "Lisinopril",
+          "otherName": "Prinivil, Zestril"
+        },
+        {
+          "drugName": "Lisinopril/hydrochlorthiazide",
+          "otherName": "Prinzide, Zestoretic"
+        },
+        {
+          "drugName": "Enalapril",
+          "otherName": "Vasotec"
+        },
+        {
+          "drugName": "Pamipril",
+          "otherName": "Altace"
+        },
+        {
+          "drugName": "Losartan",
+          "otherName": "Cozaar"
+        },
+        {
+          "drugName": "Olmesartan",
+          "otherName": "Benicar"
+        },
+        {
+          "drugName": "Valsartan",
+          "otherName": "Diovan"
+        }
+      ],
+      "groupName": "Renin-Angiotensin-Aldosterone System (RAAS)"
+    },
+    "9077bfa0-16a9-4ab2-9752-bd5fc34a3f04": {
+      "drugs": [
+        {
+          "drugName": "Dabigatran",
+          "otherName": "Pradaxa"
+        },
+        {
+          "drugName": "Rivaroxaban",
+          "otherName": "Xarelto"
+        },
+        {
+          "drugName": "Apixaban",
+          "otherName": "Eliquis"
+        }
+      ],
+      "groupName": "Novel Oral Anticoagulants (NOACs)"
+    },
+    "15db3589-e421-474c-9be8-bbce070aac0a": {
+      "drugs": [
+        {
+          "drugName": "Warfarin",
+          "otherName": "Coumadin"
+        },
+        {
+          "drugName": "Enoxaparin",
+          "otherName": "Lovenox"
+        }
+      ],
+      "groupName": "Traditional Anticoagulants"
+    },
+    "062a2a20-1d32-4857-aa13-5bfb22a51061": {
+      "drugs": [
+        {
+          "drugName": "Pravastatin",
+          "otherName": "Pravachol"
+        },
+        {
+          "drugName": "Simvastatin",
+          "otherName": "Zocor"
+        },
+        {
+          "drugName": "Simvastatin/ezetimibe",
+          "otherName": "Vytorin"
+        },
+        {
+          "drugName": "Atorvastatin",
+          "otherName": "Lipitor"
+        },
+        {
+          "drugName": "Rosuvastatin",
+          "otherName": "Crestor"
+        }
+      ],
+      "groupName": "Statins"
+    }
+  }
+}

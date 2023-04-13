@@ -1,0 +1,146 @@
+{
+  "data": {
+    "fbe6da86-0f64-47c9-abf5-6834b2e8474b": {
+      "drugs": [
+        {
+          "drugName": "Rosiglitazone",
+          "otherName": "Avandia"
+        },
+        {
+          "drugName": "Pioglitazone",
+          "otherName": "Actos"
+        },
+        {
+          "drugName": "Canagliflozin",
+          "otherName": "Invokana"
+        }
+      ],
+      "groupName": "Oral diabetic agents - II"
+    },
+    "7b2f43c2-60aa-4452-b887-a266c37ab485": {
+      "drugs": [
+        {
+          "drugName": "Norgestimate/ethinyl estradiol",
+          "otherName": "Sprintec, Ortho Tri-Cyclen, TriNessa, many more"
+        },
+        {
+          "drugName": "Drospirenone/ethinyl estradiol",
+          "otherName": "Yaz, Yasmin, many more"
+        },
+        {
+          "drugName": "Norethindrone",
+          "otherName": "Micronor, many more"
+        },
+        {
+          "drugName": "Norelgestromin/ethinyl estradiol",
+          "otherName": "Ortho Evra"
+        },
+        {
+          "drugName": "Etonogestrel/ethinyl estradiol",
+          "otherName": "NuvaRing"
+        }
+      ],
+      "groupName": "Contraceptives"
+    },
+    "36392b46-283c-44a7-a951-41cb12d32ad4": {
+      "drugs": [
+        {
+          "drugName": "Insulin aspart",
+          "otherName": "NovoLOG"
+        },
+        {
+          "drugName": "Insulin lispro",
+          "otherName": "HumaLOG"
+        },
+        {
+          "drugName": "Insulin NPH",
+          "otherName": "HumuLIN N, NovoLIN N"
+        },
+        {
+          "drugName": "Insulin glargine",
+          "otherName": "Lantus"
+        },
+        {
+          "drugName": "Insulin detemir",
+          "otherName": "Levemir"
+        },
+        {
+          "drugName": "Exenatide",
+          "otherName": "Byetta"
+        }
+      ],
+      "groupName": "Injectable diabetic agents"
+    },
+    "07eca4f1-1eb5-46cb-97b3-fd2b5e6f138a": {
+      "drugs": [
+        {
+          "drugName": "Prednisone",
+          "otherName": "Deltasone"
+        },
+        {
+          "drugName": "Methylprednisolone",
+          "otherName": "Medrol"
+        }
+      ],
+      "groupName": "Corticosteroids"
+    },
+    "2e97cb56-d06d-4247-9c81-0a84b6b62e35": {
+      "drugs": [
+        {
+          "drugName": "Conjugated Estrogens",
+          "otherName": "Premarin, Enjuvia, Cenestin"
+        },
+        {
+          "drugName": "Testosterone",
+          "otherName": "AndroGel and more"
+        },
+        {
+          "drugName": "Levothyroxine",
+          "otherName": "Synthroid"
+        },
+        {
+          "drugName": "Anastrozole",
+          "otherName": "Arimidex"
+        },
+        {
+          "drugName": "Tamoxifen",
+          "otherName": "Nolvadex"
+        }
+      ],
+      "groupName": "Hormonal Therapy"
+    },
+    "4eb87cc5-dc8a-481c-ab9f-796af61aacbc": {
+      "drugs": [
+        {
+          "drugName": "Metformin",
+          "otherName": "Glucophage"
+        },
+        {
+          "drugName": "Sitagliptin",
+          "otherName": "Januvia"
+        },
+        {
+          "drugName": "Glyburide",
+          "otherName": "DiaBeta, Glynase"
+        },
+        {
+          "drugName": "Glimepiride",
+          "otherName": "Amaryl"
+        },
+        {
+          "drugName": "Glipizide",
+          "otherName": "Glucotrol"
+        },
+        {
+          "drugName": "Glyburide/metformin",
+          "otherName": "Glucovance"
+        },
+        {
+          "drugName": "Sitagliptin/metformin",
+          "otherName": "Janumet"
+        }
+      ],
+      "groupName": "Oral diabetic agents - I"
+    }
+  }
+}

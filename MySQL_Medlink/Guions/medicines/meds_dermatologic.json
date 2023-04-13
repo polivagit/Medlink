@@ -1,0 +1,17 @@
+{
+  "data": {
+    "9ccca584-ca53-47ef-bf20-e91b98cabc7a": {
+      "drugs": [
+        {
+          "drugName": "Adapalene",
+          "otherName": "Differin"
+        },
+        {
+          "drugName": "Isotretinoin",
+          "otherName": "Amnesteem, Claravis, Absorica, Accutane"
+        }
+      ],
+      "groupName": "Acne vulgaris"
+    }
+  }
+}

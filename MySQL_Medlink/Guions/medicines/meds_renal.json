@@ -1,0 +1,34 @@
+{
+  "data": {
+    "22078149-924c-4eb7-a8ff-b6e597dfd934": {
+      "drugs": [
+        {
+          "drugName": "Epoetin alfa",
+          "otherName": "Epogen, Procrit"
+        },
+        {
+          "drugName": "Darbepoetin",
+          "otherName": "Aranesp"
+        }
+      ],
+      "groupName": "Erythropoiesis-Stimulating Agents (ESAs)"
+    },
+    "790a025d-cffb-4652-a91c-f1970aca0596": {
+      "drugs": [
+        {
+          "drugName": "Cinacalcet",
+          "otherName": "Sensipar"
+        },
+        {
+          "drugName": "Sevelamer carbonate",
+          "otherName": "Renvela"
+        },
+        {
+          "drugName": "Potassium chloride",
+          "otherName": "Klor-Con and more"
+        }
+      ],
+      "groupName": "Renal Medications"
+    }
+  }
+}

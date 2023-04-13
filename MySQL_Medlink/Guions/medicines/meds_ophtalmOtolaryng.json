@@ -1,0 +1,117 @@
+{
+  "data": {
+    "53d1da38-3042-49a8-8187-c523f716394d": {
+      "drugs": [
+        {
+          "drugName": "Mometasone",
+          "otherName": "Nasonex"
+        },
+        {
+          "drugName": "Fluticasone",
+          "otherName": "Flonase"
+        }
+      ],
+      "groupName": "Nasal Corticosteroids"
+    },
+    "4225f533-8273-49c3-86a4-6530034bf845": {
+      "drugs": [
+        {
+          "drugName": "Diphenhydramine",
+          "otherName": "Benadryl"
+        },
+        {
+          "drugName": "Loratadine",
+          "otherName": "Claritin"
+        },
+        {
+          "drugName": "Desloratadine",
+          "otherName": "Clarinex"
+        },
+        {
+          "drugName": "Fexofenadine",
+          "otherName": "Allegra"
+        },
+        {
+          "drugName": "Olopatadine",
+          "otherName": "Patanase, Patanol, Pataday"
+        },
+        {
+          "drugName": "Azelastine",
+          "otherName": "Astelin, Astepro, Optivar"
+        },
+        {
+          "drugName": "Epinephrine",
+          "otherName": "EpiPen"
+        }
+      ],
+      "groupName": "Allergies"
+    },
+    "a62b2a30-457b-4ba9-b606-8ee3beb467e3": {
+      "drugs": [
+        {
+          "drugName": "Cyclosporine (ophthalmic)",
+          "otherName": "Restasis"
+        }
+      ],
+      "groupName": "Other Ophtalmic Agents"
+    },
+    "de52c8b1-23b7-4ba0-8df7-16a66cb54d56": {
+      "drugs": [
+        {
+          "drugName": "Timolol",
+          "otherName": "Timoptic"
+        },
+        {
+          "drugName": "Brimonidine",
+          "otherName": "Alphagan P"
+        },
+        {
+          "drugName": "Brimonidine/timolol",
+          "otherName": "Combigan"
+        },
+        {
+          "drugName": "Dorzolamide",
+          "otherName": "Trusopt"
+        },
+        {
+          "drugName": "Bimatoprost",
+          "otherName": "Lumigan"
+        },
+        {
+          "drugName": "Latanoprost",
+          "otherName": "Xalatan"
+        },
+        {
+          "drugName": "Travoprost",
+          "otherName": "Travatan Z"
+        }
+      ],
+      "groupName": "Glaucoma"
+    },
+    "b6d70fb7-ce2c-4a2f-8a21-83962f3af1bc": {
+      "drugs": [
+        {
+          "drugName": "Hydrocodone/chlorpheniramine",
+          "otherName": "Tussionex Pennkinetic"
+        },
+        {
+          "drugName": "Benzonatate",
+          "otherName": "Tessalon Perles"
+        },
+        {
+          "drugName": "Guaifenesin",
+          "otherName": "Mucinex, more"
+        },
+        {
+          "drugName": "Dextromethorphan",
+          "otherName": "Robitussin, more"
+        },
+        {
+          "drugName": "Pseudoephedrine",
+          "otherName": "Sudafed, more"
+        }
+      ],
+      "groupName": "Cough and Cold"
+    }
+  }
+}

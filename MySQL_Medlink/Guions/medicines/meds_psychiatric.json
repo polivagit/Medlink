@@ -1,0 +1,155 @@
+{
+  "data": {
+    "b07b0860-9630-44df-8831-a6cfc075f0a6": {
+      "drugs": [
+        {
+          "drugName": "Clonazepam",
+          "otherName": "Klonopin"
+        },
+        {
+          "drugName": "Lorazepam",
+          "otherName": "Ativan"
+        },
+        {
+          "drugName": "Diazepam",
+          "otherName": "Valium"
+        },
+        {
+          "drugName": "Alprazolam",
+          "otherName": "Xanax"
+        }
+      ],
+      "groupName": "Benzodiazepines"
+    },
+    "65b06a66-3f0f-4324-8485-8fbeaf8905b2": {
+      "drugs": [
+        {
+          "drugName": "Amitriptyline",
+          "otherName": "Elavil"
+        },
+        {
+          "drugName": "Nortriptyline",
+          "otherName": "Pamelor"
+        },
+        {
+          "drugName": "Trazodone",
+          "otherName": "Desyrel"
+        },
+        {
+          "drugName": "Mirtazapine",
+          "otherName": "Remeron"
+        },
+        {
+          "drugName": "Bupropion",
+          "otherName": "Wellbutrin"
+        }
+      ],
+      "groupName": "Other Antidepressants and Anti-Anxiety Agents"
+    },
+    "b807f9a5-60cd-43a3-ad65-e50366fc0335": {
+      "drugs": [
+        {
+          "drugName": "Fluoxetine",
+          "otherName": "Prozac"
+        },
+        {
+          "drugName": "Sertraline",
+          "otherName": "Zoloft"
+        },
+        {
+          "drugName": "Paroxetine",
+          "otherName": "Paxil"
+        },
+        {
+          "drugName": "Citalopram",
+          "otherName": "Celexa"
+        },
+        {
+          "drugName": "Escitalopram",
+          "otherName": "Lexapro"
+        }
+      ],
+      "groupName": "Selective Serotonin Reuptake Inhibitors (SSRIs)"
+    },
+    "d17fa76f-eb73-4f7f-9f75-21e38b144fe5": {
+      "drugs": [
+        {
+          "drugName": "Zolpidem",
+          "otherName": "Ambien"
+        },
+        {
+          "drugName": "Eszopiclone",
+          "otherName": "Lunesta"
+        }
+      ],
+      "groupName": "Non-Benzodiazepine Hypnotics"
+    },
+    "d4c285c0-26dc-4980-81d3-9b4cb682006e": {
+      "drugs": [
+        {
+          "drugName": "Methylphenidate",
+          "otherName": "Ritalin, Concerta, more"
+        },
+        {
+          "drugName": "Amphetamine/dextroamphetamine",
+          "otherName": "Adderall"
+        },
+        {
+          "drugName": "Lisdexamfetamine",
+          "otherName": "Vyvanse"
+        },
+        {
+          "drugName": "Atomoxetine",
+          "otherName": "Strattera"
+        },
+        {
+          "drugName": "Modafinil",
+          "otherName": "Provigil"
+        }
+      ],
+      "groupName": "Stimulants and Attention Deficit Hyperactivity Disorder (ADHD) Agents"
+    },
+    "2e424f57-af00-442f-9b63-f6ce2c8af8c7": {
+      "drugs": [
+        {
+          "drugName": "Venlafaxine",
+          "otherName": "Effexor, Effexor XR"
+        },
+        {
+          "drugName": "Desvenlafaxine",
+          "otherName": "Pristiq"
+        },
+        {
+          "drugName": "Duloxetine",
+          "otherName": "Cymbalta"
+        }
+      ],
+      "groupName": "Serotonin-Norepinephrine Reuptake Inhibitors (SNRIs)"
+    },
+    "c5f34895-60f0-4dc8-8442-a04bc59dda8d": {
+      "drugs": [
+        {
+          "drugName": "Olanzapine",
+          "otherName": "Zyprexa"
+        },
+        {
+          "drugName": "Quetiapine",
+          "otherName": "Seroquel"
+        },
+        {
+          "drugName": "Risperidone",
+          "otherName": "Risperdal"
+        },
+        {
+          "drugName": "Ziprasidone",
+          "otherName": "Geodon"
+        },
+        {
+          "drugName": "Aripiprazole",
+          "otherName": "Abilify"
+        }
+      ],
+      "groupName": "Atypical Antipsychotics"
+    }
+  }
+}
