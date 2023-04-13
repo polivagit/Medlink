@@ -1,0 +1,1 @@
+D:\Projecte_23\Medlink\UWP_MedlinkApp\UWP_MedlinkApp\UWP_MedlinkApp.csproj;x86
