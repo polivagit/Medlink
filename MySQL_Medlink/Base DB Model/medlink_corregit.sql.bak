@@ -77,8 +77,7 @@ CREATE TABLE `medlink`.`specialty` (
   `spec_id` INT AUTO_INCREMENT,
   `spec_name` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`spec_id`),
-  UNIQUE INDEX `spec_name_UNIQUE` (`spec_name` ASC)
-)
+  UNIQUE INDEX `spec_name_UNIQUE` (`spec_name` ASC),
 ENGINE = InnoDB;
 
 
@@ -148,8 +147,7 @@ CREATE TABLE `medlink`.`medicine_category` (
   `meca_id` INT AUTO_INCREMENT,
   `meca_name` VARCHAR(60) NOT NULL,
   `meca_description` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`meca_id`)    
-)
+  PRIMARY KEY (`meca_id`),
 ENGINE = InnoDB;
 
 
@@ -201,7 +199,7 @@ CREATE TABLE `medlink`.`treatment_medicine` (
     FOREIGN KEY (`trme_unit_of_measure`)
     REFERENCES `medlink`.`units` (`uni_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    ON UPDATE NO ACTION,	
 )
 ENGINE = InnoDB;
 
