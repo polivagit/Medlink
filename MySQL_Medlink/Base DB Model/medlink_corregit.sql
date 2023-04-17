@@ -1,15 +1,7 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
 -- -----------------------------------------------------
 -- Schema medlink
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `medlink` ;
-
--- -----------------------------------------------------
--- Schema medlink
--- -----------------------------------------------------
 CREATE SCHEMA `medlink` DEFAULT CHARACTER SET utf8 ;
 USE `medlink` ;
 
@@ -24,7 +16,9 @@ CREATE TABLE `medlink`.`person` (
   `pers_first_name` VARCHAR(50) NOT NULL,
   `pers_last_name_1` VARCHAR(50) NOT NULL,
   `pers_last_name_2` VARCHAR(50),
-  `pers_birthdate` DATE NOT NULL CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENT_DATE),
+  -- FIX CURRENT_DATE ERROR: ADD TRIGGER.
+  `pers_birthdate` DATE NOT NULL CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENTDATE),
+  `pers_birthdate` DATE NOT NULL,
   `pers_phone_number` VARCHAR(9) NOT NULL,
   `pers_email` VARCHAR(50) NOT NULL,
   `pers_gender` INT NOT NULL CHECK (`pers_gender` IN (0,1,2,3)),
@@ -35,9 +29,8 @@ CREATE TABLE `medlink`.`person` (
   UNIQUE INDEX `pers_nif_UNIQUE` (`pers_nif` ASC),
   UNIQUE INDEX `pers_phone_number_UNIQUE` (`pers_phone_number` ASC),
   UNIQUE INDEX `pers_email_UNIQUE` (`pers_email` ASC),
-  UNIQUE INDEX `pers_login_username_UNIQUE` (`pers_login_username` ASC))
-ENGINE = InnoDB;
-
+  UNIQUE INDEX `pers_login_username_UNIQUE` (`pers_login_username` ASC)
+  );
 
 -- -----------------------------------------------------
 -- Table `medlink`.`patient`
@@ -58,9 +51,7 @@ CREATE TABLE `medlink`.`patient` (
   CONSTRAINT `fk_caregiver_person`
     FOREIGN KEY (`pati_caregiver_id`)
     REFERENCES `medlink`.`person` (`pers_id`)
-    	
-	)
-ENGINE = InnoDB;
+	);
 
 
 -- -----------------------------------------------------
@@ -73,8 +64,7 @@ CREATE TABLE `medlink`.`specialty` (
   `spec_name` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`spec_id`),
   UNIQUE INDEX `spec_name_UNIQUE` (`spec_name` ASC)
-)
-ENGINE = InnoDB;
+);
 
 
 -- -----------------------------------------------------
@@ -96,8 +86,7 @@ CREATE TABLE `medlink`.`doctor` (
   CONSTRAINT `fk_doctor_specialty`
     FOREIGN KEY (`doct_specialty_id`)
     REFERENCES `medlink`.`specialty` (`spec_id`)
-    )
-ENGINE = InnoDB;
+    );
 
 
 -- -----------------------------------------------------
@@ -109,6 +98,7 @@ CREATE TABLE `medlink`.`treatment` (
   `trea_id` INT AUTO_INCREMENT,
   `trea_name` VARCHAR(60) NOT NULL,
   `trea_description` VARCHAR(60) NOT NULL,
+  -- FIX CURRENT_DATE ERROR: ADD TRIGGER.
   `trea_date_start` DATE CHECK (date(`trea_date_start`) IS NOT NULL AND `trea_date_start` BETWEEN '2000-01-01' AND CURRENT_DATE),
   `trea_date_end` DATE CHECK (date(`trea_date_end`) IS NOT NULL AND `trea_date_end` BETWEEN `trea_date_start` AND '3000-01-01'),
   `trea_observations` MEDIUMTEXT,
@@ -124,8 +114,7 @@ CREATE TABLE `medlink`.`treatment` (
   CONSTRAINT `fk_treatment_patient`
     FOREIGN KEY (`trea_patient_id`)
     REFERENCES `medlink`.`patient` (`pati_person_id`)
-    )
-ENGINE = InnoDB;
+    );
 
 
 -- -----------------------------------------------------
@@ -138,8 +127,7 @@ CREATE TABLE `medlink`.`medicine_category` (
   `meca_name` VARCHAR(60) NOT NULL,
   `meca_description` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`meca_id`)    
-)
-ENGINE = InnoDB;
+);
 
 
 -- -----------------------------------------------------
@@ -156,8 +144,7 @@ CREATE TABLE `medlink`.`medicine` (
   CONSTRAINT `fk_medicine_medicine_category`
     FOREIGN KEY (`medi_category_id`)
     REFERENCES `medlink`.`medicine_category` (`meca_id`)
-    )
-ENGINE = InnoDB;
+    );
 
 
 -- -----------------------------------------------------
@@ -185,8 +172,7 @@ CREATE TABLE `medlink`.`treatment_medicine` (
     FOREIGN KEY (`trme_unit_of_measure_id`)
     REFERENCES `medlink`.`units_of_measure` (`unme_id`)
     
-)
-ENGINE = InnoDB;
+);
 
 -- -----------------------------------------------------
 -- Table `medlink`.`units_of_measure`
@@ -197,10 +183,4 @@ CREATE TABLE `medlink`.`units_of_measure` (
   `unme_id` INT AUTO_INCREMENT,
   `unme_name` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`unme_id`)
- )
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+ );
