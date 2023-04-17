@@ -24,15 +24,13 @@ CREATE TABLE `medlink`.`person` (
   `pers_first_name` VARCHAR(50) NOT NULL,
   `pers_last_name_1` VARCHAR(50) NOT NULL,
   `pers_last_name_2` VARCHAR(50),
-  `pers_birthdate` DATE CHECK (date(`pers_birthdate`) IS NOT NULL AND `pers_birthdate` BETWEEN '1900-01-01' AND CURRENT_DATE),
+  `pers_birthdate` DATE NOT NULL CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENT_DATE),
   `pers_phone_number` VARCHAR(9) NOT NULL,
   `pers_email` VARCHAR(50) NOT NULL,
-  `pers_gender` INT CHECK (`pers_gender` IS NOT NULL AND `pers_gender` IN (0,1,2,3)),
+  `pers_gender` INT NOT NULL CHECK (`pers_gender` IN (0,1,2,3)),
   `pers_address` VARCHAR(100) NOT NULL,
   `pers_login_username` VARCHAR(40) NOT NULL,
   `pers_login_password` VARCHAR(40) NOT NULL,
-  `pers_is_caregiver` TINYINT CHECK (`pers_is_caregiver` IS NOT NULL AND `pers_is_caregiver` IN (0,1)),
-  `pers_type` TINYINT CHECK (`pers_type` IS NOT NULL AND `pers_type` IN (0,1)),
   PRIMARY KEY (`pers_id`),
   UNIQUE INDEX `pers_nif_UNIQUE` (`pers_nif` ASC),
   UNIQUE INDEX `pers_phone_number_UNIQUE` (`pers_phone_number` ASC),
@@ -48,22 +46,19 @@ DROP TABLE IF EXISTS `medlink`.`patient` ;
 
 CREATE TABLE `medlink`.`patient` (
   `pati_person_id` INT,
-  `pati_height` INT CHECK (`pati_height` IS NOT NULL AND `pati_height` >= 30 AND `pati_height` <= 260),
-  `pati_weight` FLOAT CHECK (`pati_weight` IS NOT NULL AND `pati_weight` >= 3 AND `pati_weight` <= 400),
+  `pati_height` INT NOT NULL CHECK (`pati_height` >= 30 AND `pati_height` <= 260),
+  `pati_weight` FLOAT NOT NULL CHECK (`pati_weight` >= 2 AND `pati_weight` <= 400),
   `pati_remarks` MEDIUMTEXT,
   `pati_caregiver_id` INT,
   PRIMARY KEY (`pati_person_id`),
   INDEX `fk_patient_person_idx` (`pati_person_id` ASC),
   CONSTRAINT `fk_patient_person`
     FOREIGN KEY (`pati_person_id`)
-    REFERENCES `medlink`.`person` (`pers_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `medlink`.`person` (`pers_id`),
   CONSTRAINT `fk_caregiver_person`
     FOREIGN KEY (`pati_caregiver_id`)
     REFERENCES `medlink`.`person` (`pers_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION	
+    	
 	)
 ENGINE = InnoDB;
 
@@ -97,14 +92,11 @@ CREATE TABLE `medlink`.`doctor` (
   INDEX `fk_doctor_specialty_idx` (`doct_specialty_id` ASC),
   CONSTRAINT `fk_doctor_person`
     FOREIGN KEY (`doct_person_id`)
-    REFERENCES `medlink`.`person` (`pers_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `medlink`.`person` (`pers_id`),
   CONSTRAINT `fk_doctor_specialty`
     FOREIGN KEY (`doct_specialty_id`)
     REFERENCES `medlink`.`specialty` (`spec_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    )
 ENGINE = InnoDB;
 
 
@@ -120,7 +112,7 @@ CREATE TABLE `medlink`.`treatment` (
   `trea_date_start` DATE CHECK (date(`trea_date_start`) IS NOT NULL AND `trea_date_start` BETWEEN '2000-01-01' AND CURRENT_DATE),
   `trea_date_end` DATE CHECK (date(`trea_date_end`) IS NOT NULL AND `trea_date_end` BETWEEN `trea_date_start` AND '3000-01-01'),
   `trea_observations` MEDIUMTEXT,
-  `trea_is_active` TINYINT CHECK (`pers_type` IS NOT NULL AND `pers_type` IN (0,1)),
+  `trea_is_active` TINYINT NOT NULL CHECK (`trea_is_active` IN (0,1)),
   `trea_doctor_id` INT NOT NULL,
   `trea_patient_id` INT NOT NULL,
   PRIMARY KEY (`trea_id`),
@@ -128,14 +120,11 @@ CREATE TABLE `medlink`.`treatment` (
   INDEX `fk_treatment_patient_idx` (`trea_patient_id` ASC),
   CONSTRAINT `fk_treatment_doctor`
     FOREIGN KEY (`trea_doctor_id`)
-    REFERENCES `medlink`.`doctor` (`doct_person_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `medlink`.`doctor` (`doct_person_id`),
   CONSTRAINT `fk_treatment_patient`
     FOREIGN KEY (`trea_patient_id`)
     REFERENCES `medlink`.`patient` (`pati_person_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    )
 ENGINE = InnoDB;
 
 
@@ -167,8 +156,7 @@ CREATE TABLE `medlink`.`medicine` (
   CONSTRAINT `fk_medicine_medicine_category`
     FOREIGN KEY (`medi_category_id`)
     REFERENCES `medlink`.`medicine_category` (`meca_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    )
 ENGINE = InnoDB;
 
 
@@ -182,35 +170,33 @@ CREATE TABLE `medlink`.`treatment_medicine` (
   `trme_medicine_id` INT,
   `trme_quantity_per_day` FLOAT NOT NULL,
   `trme_total_quantity` FLOAT NOT NULL,
-  `trme_unit_of_measure` INT NOT NULL,
+  `trme_unit_of_measure_id` INT NOT NULL,
   PRIMARY KEY (`trme_treatment_id`, `trme_medicine_id`),
   INDEX `fk_treatment_medicine_medicine_idx` (`trme_medicine_id` ASC),
   INDEX `fk_treatment_medicine_treatment_idx` (`trme_treatment_id` ASC),
   UNIQUE INDEX `trme_medicine_id_UNIQUE` (`trme_medicine_id` ASC),
   CONSTRAINT `fk_treatment_medicine_medicine`
     FOREIGN KEY (`trme_medicine_id`)
-    REFERENCES `medlink`.`medicine` (`medi_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `medlink`.`medicine` (`medi_id`),
   CONSTRAINT `fk_treatment_medicine_treatment`
     FOREIGN KEY (`trme_treatment_id`)
-    REFERENCES `medlink`.`treatment` (`trea_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_treatment_unit_of_measure_treatment`
-    FOREIGN KEY (`trme_unit_of_measure`)
-    REFERENCES `medlink`.`units` (`uni_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    REFERENCES `medlink`.`treatment` (`trea_id`),
+  CONSTRAINT `fk_treatment_treatment_unit_of_measure`
+    FOREIGN KEY (`trme_unit_of_measure_id`)
+    REFERENCES `medlink`.`units_of_measure` (`unme_id`)
+    
 )
 ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `medlink`.`units` ;
+-- -----------------------------------------------------
+-- Table `medlink`.`units_of_measure`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `medlink`.`units_of_measure` ;
 
-CREATE TABLE `medlink`.`units` (
-  `uni_id` INT AUTO_INCREMENT,
-  `uni_name` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`uni_id`)
+CREATE TABLE `medlink`.`units_of_measure` (
+  `unme_id` INT AUTO_INCREMENT,
+  `unme_name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`unme_id`)
  )
 ENGINE = InnoDB;
 
