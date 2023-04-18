@@ -122,7 +122,6 @@ DROP TABLE IF EXISTS `medlink`.`medicine_category` ;
 CREATE TABLE `medlink`.`medicine_category` (
   `meca_id` INT AUTO_INCREMENT,
   `meca_name` VARCHAR(60) NOT NULL,
-  `meca_description` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`meca_id`)    
 );
 
