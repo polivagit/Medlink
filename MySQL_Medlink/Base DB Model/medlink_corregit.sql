@@ -16,9 +16,7 @@ CREATE TABLE `medlink`.`person` (
   `pers_first_name` VARCHAR(50) NOT NULL,
   `pers_last_name_1` VARCHAR(50) NOT NULL,
   `pers_last_name_2` VARCHAR(50),
-  -- FIX CURRENT_DATE ERROR: ADD TRIGGER.
-  `pers_birthdate` DATE NOT NULL CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENTDATE),
-  `pers_birthdate` DATE NOT NULL,
+  `pers_birthdate` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
   `pers_phone_number` VARCHAR(9) NOT NULL,
   `pers_email` VARCHAR(50) NOT NULL,
   `pers_gender` INT NOT NULL CHECK (`pers_gender` IN (0,1,2,3)),
@@ -98,9 +96,8 @@ CREATE TABLE `medlink`.`treatment` (
   `trea_id` INT AUTO_INCREMENT,
   `trea_name` VARCHAR(60) NOT NULL,
   `trea_description` VARCHAR(60) NOT NULL,
-  -- FIX CURRENT_DATE ERROR: ADD TRIGGER.
-  `trea_date_start` DATE CHECK (date(`trea_date_start`) IS NOT NULL AND `trea_date_start` BETWEEN '2000-01-01' AND CURRENT_DATE),
-  `trea_date_end` DATE CHECK (date(`trea_date_end`) IS NOT NULL AND `trea_date_end` BETWEEN `trea_date_start` AND '3000-01-01'),
+  `trea_date_start` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
+  `trea_date_end` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
   `trea_observations` MEDIUMTEXT,
   `trea_is_active` TINYINT NOT NULL CHECK (`trea_is_active` IN (0,1)),
   `trea_doctor_id` INT NOT NULL,
@@ -184,3 +181,40 @@ CREATE TABLE `medlink`.`units_of_measure` (
   `unme_name` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`unme_id`)
  );
+ 
+-- -----------------------------------------------------
+-- TRIGGERS
+-- -----------------------------------------------------
+
+-- [`pers_birthdate` DATE NOT NULL] CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENT_DATE):
+CREATE OR REPLACE TRIGGER trg_check_person_pers_birthdate
+BEFORE INSERT OR UPDATE ON person
+AS
+BEGIN
+    IF(:new.pers_birthdate < '1900-01-01' OR :new.pers_birthdate > SYSDATE)THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Invalid person birthdate. Birthdate must be between ''1900-01-01'' and ''CURRENT DATE''!')
+    END IF;
+END;
+/
+
+-- [`trea_date_start` DATE NOT NULL] CHECK (`trea_date_start` BETWEEN '2000-01-01' AND CURRENT_DATE):
+CREATE OR REPLACE TRIGGER trg_check_treatment_date_start
+BEFORE INSERT OR UPDATE ON treatment
+AS
+BEGIN
+    IF(:new.trea_date_start < '2000-01-01' OR :new.trea_date_start > SYSDATE)THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Invalid treatment date_start. Date_start of treatment must be between ''2000-01-01'' and ''CURRENT DATE''!')
+    END IF;
+END;
+/
+
+-- [`trea_date_end` DATE NOT NULL] CHECK (`trea_date_end` BETWEEN `trea_date_start` AND '3000-01-01'):
+CREATE OR REPLACE TRIGGER trg_check_treatment_date_end
+BEFORE INSERT OR UPDATE ON treatment
+AS
+BEGIN
+    IF(:new.trea_date_end < :new.trea_date_start OR :new.trea_date_end > '3000-01-01')THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Invalid treatment date_end. Date_end of treatment must be between ''date_start'' and ''3000-01-01''!')
+    END IF;
+END;
+/
