@@ -143,6 +143,17 @@ CREATE TABLE `medlink`.`medicine` (
     REFERENCES `medlink`.`medicine_category` (`meca_id`)
     );
 
+-- -----------------------------------------------------
+-- Table `medlink`.`units_of_measure`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `medlink`.`units_of_measure` ;
+
+CREATE TABLE `medlink`.`units_of_measure` (
+  `unme_id` INT AUTO_INCREMENT,
+  `unme_name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`unme_id`)
+ );
+ 
 
 -- -----------------------------------------------------
 -- Table `medlink`.`treatment_medicine`
@@ -170,51 +181,77 @@ CREATE TABLE `medlink`.`treatment_medicine` (
     REFERENCES `medlink`.`units_of_measure` (`unme_id`)
     
 );
-
--- -----------------------------------------------------
--- Table `medlink`.`units_of_measure`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `medlink`.`units_of_measure` ;
-
-CREATE TABLE `medlink`.`units_of_measure` (
-  `unme_id` INT AUTO_INCREMENT,
-  `unme_name` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`unme_id`)
- );
- 
 -- -----------------------------------------------------
 -- TRIGGERS
 -- -----------------------------------------------------
 
 -- [`pers_birthdate` DATE NOT NULL] CHECK (`pers_birthdate` BETWEEN '1900-01-01' AND CURRENT_DATE):
-CREATE OR REPLACE TRIGGER trg_check_person_pers_birthdate
-BEFORE INSERT OR UPDATE ON person
-AS
+-- BEFORE INSERT 
+DELIMITER //
+CREATE TRIGGER trg_check_before_insert_person_pers_birthdate BEFORE INSERT ON person
+FOR EACH ROW
 BEGIN
-    IF(:new.pers_birthdate < '1900-01-01' OR :new.pers_birthdate > SYSDATE)THEN
-        RAISE_APPLICATION_ERROR(-20000, 'Invalid person birthdate. Birthdate must be between ''1900-01-01'' and ''CURRENT DATE''!')
+    IF NEW.pers_birthdate < '1900-01-01' OR NEW.pers_birthdate > CURDATE() THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid person birthdate. Birthdate must be between 1900-01-01 and CURRENT DATE!';
     END IF;
 END;
-/
+//
+
+
+-- BEFORE UPDATE
+DELIMITER //
+CREATE TRIGGER trg_check_before_update_person_pers_birthdate BEFORE UPDATE ON person
+FOR EACH ROW
+BEGIN
+    IF NEW.pers_birthdate < '1900-01-01' OR NEW.pers_birthdate > CURDATE() THEN
+        SIGNAL SQLSTATE '45001' SET MESSAGE_TEXT = 'Invalid person birthdate. Birthdate must be between 1900-01-01 and CURRENT DATE!';
+    END IF;
+END;
+//
 
 -- [`trea_date_start` DATE NOT NULL] CHECK (`trea_date_start` BETWEEN '2000-01-01' AND CURRENT_DATE):
-CREATE OR REPLACE TRIGGER trg_check_treatment_date_start
-BEFORE INSERT OR UPDATE ON treatment
-AS
+-- BEFORE INSERT 
+DELIMITER //
+CREATE TRIGGER trg_check_before_insert_treatment_trea_date_start BEFORE INSERT ON treatment
+FOR EACH ROW
 BEGIN
-    IF(:new.trea_date_start < '2000-01-01' OR :new.trea_date_start > SYSDATE)THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Invalid treatment date_start. Date_start of treatment must be between ''2000-01-01'' and ''CURRENT DATE''!')
+    IF NEW.trea_date_start < '2000-01-01' OR NEW.trea_date_start > CURDATE() THEN
+        SIGNAL SQLSTATE '45002' SET MESSAGE_TEXT = 'Invalid treatment date_start. Date_start of treatment must be between ''2000-01-01'' and ''CURRENT DATE''!';
     END IF;
 END;
-/
+//
+
+-- BEFORE UPDATE
+DELIMITER //
+CREATE TRIGGER trg_check_before_update_treatment_trea_date_start BEFORE UPDATE ON treatment
+FOR EACH ROW
+BEGIN
+    IF NEW.trea_date_start < '2000-01-01' OR NEW.trea_date_start > CURDATE() THEN
+        SIGNAL SQLSTATE '45003' SET MESSAGE_TEXT = 'Invalid treatment date_start. Date_start of treatment must be between ''2000-01-01'' and ''CURRENT DATE''!';
+    END IF;
+END;
+//
 
 -- [`trea_date_end` DATE NOT NULL] CHECK (`trea_date_end` BETWEEN `trea_date_start` AND '3000-01-01'):
-CREATE OR REPLACE TRIGGER trg_check_treatment_date_end
-BEFORE INSERT OR UPDATE ON treatment
-AS
+-- BEFORE INSERT
+DELIMITER //
+CREATE TRIGGER trg_check_treatment_before_insert_date_end 
+BEFORE INSERT ON treatment
+FOR EACH ROW
 BEGIN
-    IF(:new.trea_date_end < :new.trea_date_start OR :new.trea_date_end > '3000-01-01')THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Invalid treatment date_end. Date_end of treatment must be between ''date_start'' and ''3000-01-01''!')
+    IF NEW.trea_date_end < NEW.trea_date_start OR NEW.trea_date_end > '3000-01-01' THEN
+        SIGNAL SQLSTATE '45004' SET MESSAGE_TEXT = 'Invalid treatment date_end. Date_end of treatment must be between date_start and ''3000-01-01!';
     END IF;
 END;
-/
+//
+
+-- BEFORE UPDATE
+DELIMITER //
+CREATE TRIGGER trg_check_treatment_before_update_date_end BEFORE UPDATE ON treatment
+FOR EACH ROW
+BEGIN
+    IF NEW.trea_date_end < NEW.trea_date_start OR NEW.trea_date_end > '3000-01-01' THEN
+        SIGNAL SQLSTATE '45005' SET MESSAGE_TEXT = 'Invalid treatment date_end. Date_end of treatment must be between date_start and 3000-01-01!';
+    END IF;
+END; 
+//
