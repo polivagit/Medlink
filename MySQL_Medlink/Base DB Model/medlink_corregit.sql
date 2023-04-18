@@ -150,7 +150,10 @@ DROP TABLE IF EXISTS `medlink`.`units_of_measure` ;
 CREATE TABLE `medlink`.`units_of_measure` (
   `unme_id` INT AUTO_INCREMENT,
   `unme_name` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`unme_id`)
+  `unme_abbreviation` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`unme_id`),
+  UNIQUE INDEX `fk_units_of_measure_name_UNIQUE` (`unme_name` ASC),
+  UNIQUE INDEX `fk_units_of_measure_abbreviation_UNIQUE` (`unme_abbreviation` ASC)
  );
  
 
