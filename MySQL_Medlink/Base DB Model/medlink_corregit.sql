@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `medlink`.`person` ;
 
 CREATE TABLE `medlink`.`person` (
   `pers_id` INT AUTO_INCREMENT,
-  `pers_nif` VARCHAR(9) NOT NULL,
+  `pers_nif` VARCHAR(9) NOT NULL CHECK (REGEXP_INSTR(pers_nif, '^[0-9]{8}[A-Z]{1}$')),
   `pers_first_name` VARCHAR(50) NOT NULL,
   `pers_last_name_1` VARCHAR(50) NOT NULL,
   `pers_last_name_2` VARCHAR(50),
