@@ -11,3 +11,14 @@ Main repoistory for Medlink project (2023).
 
 ## References
 **Google Drive:** https://drive.google.com/drive/folders/1kNGE-nnjWzz3GkoWWWPkcDfd2wF4k6vs?usp=share_link
+
+## Schedule tracking
+![Calendari](https://user-images.githubusercontent.com/80911118/233130831-923ad141-93ac-463b-9ca4-d05b33c5028b.jpg)
+  
+| Setmana | TODO |
+| --- | --- |
+| **Setmana 1 (dies 10-14)** |<ul><li>[ ] Funcionalitats identificades.</li><li>[ ] Repartiment de responsabilitats.</li></ul>|
+| **Setmana 2 (dies 17-21)** |<ul><li>[ ] Creació del repositori Github/Projecte.</li><li>[ ] Disseny E/R.</li><li>[ ] Maquetes de la UI de cada part.</li></ul>|
+| **Setmana 3 (dies 24-28)** |<ul><li>[ ] Scripts de Base de dades.</li><li>[ ] Serveis comuns (Web Services).</li><li>[ ] Wrappers dels APIs de tercers.</li></ul>|
+| **🚧 Setmanes 4-7 (dies 01-26) 🚧** |<ul><li>[ ] Desenvolupament.</li></ul>|
+| **🚀 Setmana 8 (dies 29-31) 🚀** |<ul><li>[ ] Lliurament.</li></ul>|
