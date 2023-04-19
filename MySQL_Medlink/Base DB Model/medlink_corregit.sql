@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `medlink`.`doctor` ;
 
 CREATE TABLE `medlink`.`doctor` (
   `doct_person_id` INT,
-  `doct_collegiate_uid` VARCHAR(11) NOT NULL,
+  `doct_collegiate_uid` VARCHAR(12) NOT NULL,
   `doct_specialty_id` INT NOT NULL,
   PRIMARY KEY (`doct_person_id`),
   UNIQUE INDEX `doct_collegiate_uid_UNIQUE` (`doct_collegiate_uid` ASC),

@@ -3,16 +3,16 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medlink`;
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (0, 'rheumatologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (1, 'cardiovascular');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (2, 'dermatologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (3, 'endocrinology');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (4, 'gastrointestinal');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (5, 'infectious');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (6, 'neurologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (7, 'ophtalmotolarying');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (8, 'psychiatric');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (9, 'renal');
-INSERT INTO `medlink`.`medicine_category` (`meca_id`, `meca_name`) VALUES (10, 'urologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('rheumatologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('cardiovascular');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('dermatologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('endocrinology');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('gastrointestinal');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('infectious');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('neurologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('ophtalmotolarying');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('psychiatric');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('renal');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('urologic');
 
 COMMIT;
