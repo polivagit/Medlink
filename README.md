@@ -14,11 +14,11 @@ Main repoistory for Medlink project (2023).
 
 ## Schedule tracking
 ![Calendari](https://user-images.githubusercontent.com/80911118/233130831-923ad141-93ac-463b-9ca4-d05b33c5028b.jpg)
-  
+
 | Setmana | TODO |
 | --- | --- |
-| **Setmana 1 (dies 10-14)** |<ul><li>[ ] Funcionalitats identificades.</li><li>[ ] Repartiment de responsabilitats.</li></ul>|
-| **Setmana 2 (dies 17-21)** |<ul><li>[ ] Creació del repositori Github/Projecte.</li><li>[ ] Disseny E/R.</li><li>[ ] Maquetes de la UI de cada part.</li></ul>|
-| **Setmana 3 (dies 24-28)** |<ul><li>[ ] Scripts de Base de dades.</li><li>[ ] Serveis comuns (Web Services).</li><li>[ ] Wrappers dels APIs de tercers.</li></ul>|
-| **🚧 Setmanes 4-7 (dies 01-26) 🚧** |<ul><li>[ ] Desenvolupament.</li></ul>|
-| **🚀 Setmana 8 (dies 29-31) 🚀** |<ul><li>[ ] Lliurament.</li></ul>|
+| **Setmana 1 (dies 10-14)** |1. ✔ Funcionalitats identificades.<br/>2. ✔ Repartiment de responsabilitats.|
+| **Setmana 2 (dies 17-21)** |1. ✔ Creació del repositori Github/Projecte.<br/>2. ✔ Disseny E/R.<br/>3. ⚠ Maquetes de la UI de cada part.|
+| **Setmana 3 (dies 24-28)** |1. ✔ Scripts de Base de dades.<br/>2. ❌ Serveis comuns (Web Services).<br/>3. ❌ Wrappers dels APIs de tercers.|
+| **🚧 Setmanes 4-7 (dies 01-26) 🚧** |❌ Desenvolupament.|
+| **🚀 Setmana 8 (dies 29-31) 🚀** |❌ Lliurament.|
