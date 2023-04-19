@@ -3,7 +3,7 @@ Main repoistory for Medlink project (2023).
 
 ## Main tasks:
 
-> CHECK PROJECT STATUS (Dashboard): https://github.com/users/polivagit/projects/3
+> **CHECK PROJECT STATUS (Dashboard):** https://github.com/users/polivagit/projects/3
 
  - Android App (Java): https://github.com/polivagit/Medlink/issues/1
  - Web App: https://github.com/polivagit/Medlink/issues/2
@@ -11,4 +11,4 @@ Main repoistory for Medlink project (2023).
  - MySQL DB Development & Integration: https://github.com/polivagit/Medlink/issues/4
 
 ## References:
-Drive: https://drive.google.com/drive/folders/1kNGE-nnjWzz3GkoWWWPkcDfd2wF4k6vs?usp=share_link
+**Google Drive:** https://drive.google.com/drive/folders/1kNGE-nnjWzz3GkoWWWPkcDfd2wF4k6vs?usp=share_link
