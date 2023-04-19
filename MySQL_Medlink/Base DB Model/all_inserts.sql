@@ -359,3 +359,40 @@ INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_s
 INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (6,'02-200-BBBBB',8);
 
 COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `medlink`.`treatment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `medlink`;
+
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 1', 'Description for Treatment 1', '2022-05-01','2023-10-12', null, 0, 5, 1);
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 2', 'Description for Treatment 2', '2021-07-08','2023-10-12', null, 0, 5, 1);
+
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 1', 'Description for Treatment 1', '2022-01-20','2023-09-01', null, 0, 5, 2);
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 2', 'Description for Treatment 2', '2022-07-08','2023-08-14', null, 0, 5, 2);
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 3', 'Description for Treatment 3', '2023-01-03','2023-10-03', null, 0, 5, 2);
+
+INSERT INTO `medlink`.`treatment` (`trea_name`, `trea_description`, `trea_date_start`, `trea_date_end`, `trea_observations`, `trea_is_active`, `trea_doctor_id`, `trea_patient_id`) VALUES ('Treatment 1', 'Description for Treatment 1', '2022-09-01','2023-11-20', null, 0, 6, 3);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `medlink`.`treatment_medicine`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `medlink`;
+
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (1, 4, 10, 5290, 3);
+
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (2, 12, 30, 24780, 5);
+
+
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, 24, 14136, 5);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (4, 33, 50, 16400, 3);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, 32, 8768, 5);
+
+
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (6, 80, 80, 35680, 3);
+
+COMMIT;

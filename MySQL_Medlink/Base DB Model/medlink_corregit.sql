@@ -99,7 +99,7 @@ CREATE TABLE `medlink`.`treatment` (
   `trea_date_start` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
   `trea_date_end` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
   `trea_observations` MEDIUMTEXT,
-  `trea_is_active` TINYINT NOT NULL CHECK (`trea_is_active` IN (0,1)),
+  `trea_is_active` TINYINT NOT NULL CHECK (`trea_is_active` IN (0,1)), -- 0 = true or 1 = false
   `trea_doctor_id` INT NOT NULL,
   `trea_patient_id` INT NOT NULL,
   PRIMARY KEY (`trea_id`),
