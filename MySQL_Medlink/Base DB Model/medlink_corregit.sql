@@ -165,6 +165,8 @@ DROP TABLE IF EXISTS `medlink`.`treatment_medicine` ;
 CREATE TABLE `medlink`.`treatment_medicine` (
   `trme_treatment_id` INT,
   `trme_medicine_id` INT,
+  `trme_date_start` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
+  `trme_date_end` DATE NOT NULL, -- VALUE RANGE DEFINED BY TRIGGER
   `trme_quantity_per_day` FLOAT NOT NULL,
   `trme_total_quantity` FLOAT NOT NULL,
   `trme_unit_of_measure_id` INT NOT NULL,
@@ -256,4 +258,33 @@ BEGIN
         SIGNAL SQLSTATE '45005' SET MESSAGE_TEXT = 'Invalid treatment date_end. Date_end of treatment must be between date_start and 3000-01-01!';
     END IF;
 END; 
+//
+
+-- [`trme_date_start` DATE NOT NULL] CHECK (`trme_date_start` BETWEEN trea_date_start AND trea_date_end):
+-- BEFORE INSERT 
+DELIMITER //
+CREATE TRIGGER trg_check_before_insert_treatment_medicine_trme_date_start_end BEFORE INSERT ON treatment_medicine
+FOR EACH ROW
+BEGIN
+	SET @trea_date_start = (SELECT trea_date_start FROM treatment WHERE trea_id = NEW.trme_treatment_id);
+	SET @trea_date_end = (SELECT trea_date_end FROM treatment WHERE trea_id = NEW.trme_treatment_id);
+	
+    IF NEW.trme_date_start < @trea_date_start OR NEW.trme_date_end > @trea_date_end THEN
+        SIGNAL SQLSTATE '45006' SET MESSAGE_TEXT = 'Invalid treatment_medicine date_start or date_end. Date_start and date_end of treatment_medicine must be between parent treatment ''trea_date_start'' and ''trea_date_end''!';
+    END IF;
+END;
+//
+
+-- BEFORE UPDATE
+DELIMITER //
+CREATE TRIGGER trg_check_before_update_treatment_medicine_trme_date_start_end BEFORE UPDATE ON treatment_medicine
+FOR EACH ROW
+BEGIN
+	SET @trea_date_start = (SELECT trea_date_start FROM treatment WHERE trea_id = NEW.trme_treatment_id);
+	SET @trea_date_end = (SELECT trea_date_end FROM treatment WHERE trea_id = NEW.trme_treatment_id);
+
+    IF NEW.trme_date_start < @trea_date_start OR NEW.trme_date_end > @trea_date_end THEN
+        SIGNAL SQLSTATE '45007' SET MESSAGE_TEXT = 'Invalid treatment_medicine date_start or date_end. Date_start and date_end of treatment_medicine must be between parent treatment ''trea_date_start'' and ''trea_date_end''!';
+    END IF;
+END;
 //

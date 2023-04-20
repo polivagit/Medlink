@@ -383,16 +383,13 @@ COMMIT;
 START TRANSACTION;
 USE `medlink`;
 
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (1, 4, 10, 5290, 3);
-
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (2, 12, 30, 24780, 5);
-
-
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, 24, 14136, 5);
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (4, 33, 50, 16400, 3);
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, 32, 8768, 5);
-
-
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (6, 80, 80, 35680, 3);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (1, 4, '2022-05-01', '2023-10-12', 10, 5290, 3);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (2, 12, '2021-07-08', '2023-10-12', 30, 24780, 5);
+                                                                                                                                                                                                                                                                                                                                        
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, '2022-01-20', '2023-09-01', 24, 14136, 5);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (4, 33, '2022-07-08', '2023-08-14', 50, 16400, 3);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, '2023-01-03', '2023-10-03', 32, 8768, 5);
+                                                                                                                                                                                                                  
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (6, 80, '2022-09-01', '2023-11-20', 80, 35680, 3);
 
 COMMIT;
