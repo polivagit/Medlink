@@ -4,11 +4,11 @@ Main repoistory for Medlink project (2023).
 ## Main tasks
 > **CHECK PROJECT STATUS (Dashboard):** https://github.com/users/polivagit/projects/3
 
- - Android App (Java): https://github.com/polivagit/Medlink/issues/1
- - Web App: https://github.com/polivagit/Medlink/issues/2
- - UWP Desktop App (C#): https://github.com/polivagit/Medlink/issues/3
- - MySQL DB Development & Integration: https://github.com/polivagit/Medlink/issues/4
- - ISARD Set-Up & Integration: https://github.com/polivagit/Medlink/issues/5
+ - [https://github.com/polivagit/Medlink/issues/1] Android App (Java)
+ - [https://github.com/polivagit/Medlink/issues/2] Web App
+ - [https://github.com/polivagit/Medlink/issues/3] UWP Desktop App (C#)
+ - [https://github.com/polivagit/Medlink/issues/4] MySQL DB Development & Integration
+ - [https://github.com/polivagit/Medlink/issues/5] ISARD Set-Up & Integration
 
 ## References
 **Google Drive:** https://drive.google.com/drive/folders/1kNGE-nnjWzz3GkoWWWPkcDfd2wF4k6vs?usp=share_link
