@@ -8,6 +8,7 @@ Main repoistory for Medlink project (2023).
  - Web App: https://github.com/polivagit/Medlink/issues/2
  - UWP Desktop App (C#): https://github.com/polivagit/Medlink/issues/3
  - MySQL DB Development & Integration: https://github.com/polivagit/Medlink/issues/4
+ - ISARD Set-Up & Integration: https://github.com/polivagit/Medlink/issues/5
 
 ## References
 **Google Drive:** https://drive.google.com/drive/folders/1kNGE-nnjWzz3GkoWWWPkcDfd2wF4k6vs?usp=share_link
