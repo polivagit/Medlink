@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        android:id="@+id/grdlHisotry"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        >
+        <TextView
+            android:id="@+id/txvTreatmentLasted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="3"
+            android:padding="10dp"
+            android:text="Lasted"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_column="3"
+            android:layout_row="0"
+            >
+        </TextView>
+        <TextView
+            android:id="@+id/txvTreatmentName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="3"
+            android:padding="10dp"
+            android:text="Treatment Name"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_column="2"
+            android:layout_row="0"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="3"
+            android:padding="10dp"
+            android:text="Description:"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_row="1"
+            android:layout_column="2"
+            >
+        </TextView>
+        <TextView
+            android:id="@+id/txvTreatmentDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="3"
+            android:padding="10dp"
+            android:text="sfuioeutiorutiorutioruyioroiyr"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_row="1"
+            android:layout_column="3"
+            >
+        </TextView>
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

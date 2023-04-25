@@ -9,16 +9,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medlinkapp.R;
+import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentHistoryBinding;
+import com.example.medlinkapp.model.Treatment;
 
 public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
+    public HistoryFragment(){
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HistoryViewModel historyViewModel =
+        View v = inflater.inflate(R.layout.fragment_history,container,false);
+        RecyclerView rcyHistory = v.findViewById(R.id.rcyHistory);
+        rcyHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rcyHistory.setHasFixedSize(true);
+
+        TreatmentAdapter adapter = new TreatmentAdapter(Treatment.getTreatments());
+        rcyHistory.setAdapter(adapter);
+        /*HistoryViewModel historyViewModel =
                 new ViewModelProvider(this).get(HistoryViewModel.class);
 
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
@@ -26,7 +41,8 @@ public class HistoryFragment extends Fragment {
 
         final TextView textView = binding.textHistory;
         historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        return root;*/
+        return v;
     }
 
     @Override

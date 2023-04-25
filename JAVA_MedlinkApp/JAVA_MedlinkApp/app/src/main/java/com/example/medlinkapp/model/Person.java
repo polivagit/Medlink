@@ -50,27 +50,6 @@ public abstract class Person {
         this.pers_login_password = pers_login_password;
     }
 
-    public Person(int pers_id, String pers_nif, String pers_first_name, String pers_last_name_1,
-                  Date pers_birthdate, String pers_phone_number, String pers_email,
-                  GenderType pers_gender, String pers_addrs_street, String pers_addrs_zip_code,
-                  String pers_addrs_city, String pers_addrs_province, String pers_addrs_country,
-                  String pers_login_username, String pers_login_password) {
-        this.pers_id = pers_id;
-        this.pers_nif = pers_nif;
-        this.pers_first_name = pers_first_name;
-        this.pers_last_name_1 = pers_last_name_1;
-        this.pers_birthdate = pers_birthdate;
-        this.pers_phone_number = pers_phone_number;
-        this.pers_email = pers_email;
-        this.pers_gender = pers_gender;
-        this.pers_addrs_street = pers_addrs_street;
-        this.pers_addrs_zip_code = pers_addrs_zip_code;
-        this.pers_addrs_city = pers_addrs_city;
-        this.pers_addrs_province = pers_addrs_province;
-        this.pers_addrs_country = pers_addrs_country;
-        this.pers_login_username = pers_login_username;
-        this.pers_login_password = pers_login_password;
-    }
     //endregion
 
     //region GETTERS & SETTERS ---------------------------------------------------------------------
