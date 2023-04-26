@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MedlinkApp</string>
+    <string
+        name="forgotPasswordLink"><a href="https://www.google.com/">Forgot Password?</a></string>
+    <string
+        name="restorePasswordLink"><a href="https://www.google.com/">Restore Password</a></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_start">Start</string>
+    <string name="menu_history">History</string>
+</resources>

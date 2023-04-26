@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projecte_23\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {}
+    "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {}
   },
   "projects": {
-    "D:\\Projecte_23\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {
+    "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projecte_23\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
+        "projectUniqueName": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
         "projectName": "DBLib",
-        "projectPath": "D:\\Projecte_23\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
-        "packagesPath": "C:\\Users\\xamfr\\.nuget\\packages\\",
-        "outputPath": "D:\\Projecte_23\\Medlink\\UWP_MedlinkApp\\DBLib\\obj\\",
+        "projectPath": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
+        "packagesPath": "C:\\Users\\isard\\.nuget\\packages\\",
+        "outputPath": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,7 +19,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\xamfr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\isard\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -35,5 +35,7 @@ namespace DBLib.Model
         public float Pers_pati_weight { get => pers_pati_weight; set => pers_pati_weight = value; }
         public string Pers_pati_remarks { get => pers_pati_remarks; set => pers_pati_remarks = value; }
         public int Pers_pati_caregiver_id { get => pers_pati_caregiver_id; set => pers_pati_caregiver_id = value; }
+
+
     }
 }
