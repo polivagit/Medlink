@@ -37,7 +37,7 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Treatment t = mTreatments.get(position);
         holder.txvTreatmentName.setText(t.getTrea_name());
-        holder.txvTreatmentLasted.setText(t.getTrea_date_start() + " - " + t.getTrea_date_end());
+        holder.txvTreatmentLasted.setText(t.getDateStartFormatted() + " - " + t.getDateEndFormatted());
         holder.txvTreatmentDesc.setText(t.getTrea_description());
 
     }

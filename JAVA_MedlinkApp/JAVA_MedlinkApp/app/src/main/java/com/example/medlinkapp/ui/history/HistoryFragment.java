@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,9 @@ public class HistoryFragment extends Fragment {
         RecyclerView rcyHistory = v.findViewById(R.id.rcyHistory);
         rcyHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcyHistory.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyHistory.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rcyHistory.addItemDecoration(dividerItemDecoration);
 
         TreatmentAdapter adapter = new TreatmentAdapter(Treatment.getTreatments());
         rcyHistory.setAdapter(adapter);

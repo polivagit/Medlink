@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,9 @@ public class StartFragment extends Fragment {
         RecyclerView rcyStart = v.findViewById(R.id.rcyStart);
         rcyStart.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcyStart.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyStart.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rcyStart.addItemDecoration(dividerItemDecoration);
 
         MedicineStartAdapter adapter = new MedicineStartAdapter(TreatmentMedicine.getTreatmentMedicines());
         rcyStart.setAdapter(adapter);
