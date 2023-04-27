@@ -1,6 +1,8 @@
 package com.example.medlinkapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TreatmentMedicine {
 
@@ -12,6 +14,8 @@ public class TreatmentMedicine {
     private float trme_quantity_per_day;
     private float trme_total_quantity;
     private int trme_units_of_measure_id;
+
+    private static ArrayList<TreatmentMedicine> mTreatmentMedicine;
     //endregion
 
     //region CONSTRUCTORS --------------------------------------------------------------------------
@@ -28,6 +32,18 @@ public class TreatmentMedicine {
         this.trme_quantity_per_day = trme_quantity_per_day;
         this.trme_total_quantity = trme_total_quantity;
         this.trme_units_of_measure_id = trme_units_of_measure_id;
+    }
+    //endregion
+
+    //region METHODS -------------------------------------------------------------------------------
+    public static List<TreatmentMedicine> getTreatmentMedicines(){
+        if (mTreatmentMedicine == null){
+            mTreatmentMedicine = new ArrayList<TreatmentMedicine>();
+            mTreatmentMedicine.add(new TreatmentMedicine(1,200,new Date(2023,04,27),new Date(2023,05,12),3,48,2));
+            mTreatmentMedicine.add(new TreatmentMedicine(1,23,new Date(2023,04,27),new Date(2023,05,4),1,7,1));
+            mTreatmentMedicine.add(new TreatmentMedicine(2,100,new Date(2023,04,27),new Date(2023,05,4),2,14,3));
+        }
+        return mTreatmentMedicine;
     }
     //endregion
 

@@ -44,7 +44,7 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mTreatments.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

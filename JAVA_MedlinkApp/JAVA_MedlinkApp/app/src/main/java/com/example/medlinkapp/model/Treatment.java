@@ -52,6 +52,7 @@ public class Treatment {
     }
     //endregion
 
+    //format dates https://stackoverflow.com/questions/454315/how-to-format-date-and-time-in-android
     //region METHODS -------------------------------------------------------------------------------
     public static List<Treatment> getTreatments(){
         if (mTreatments == null){

@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.start.StartFragment">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Today:"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"></TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Observations:"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"></TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stoortiritopreitoreitoriotrotoreitioretopritopirotioritoritoporitoritoeritoiertioroptioreitoritoirotiroeitoritoritop"
+        android:textSize="20dp"
+        android:textColor="#4B4B4B"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"></TextView>
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_columnWeight="1"
+            android:src="@drawable/speaker_photo"
+            android:background="@null"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="Text to speech ">
+        </ImageButton>
+    <!--<TextView
         android:id="@+id/text_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,5 +64,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />-->
+</LinearLayout>

@@ -9,8 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medlinkapp.R;
+import com.example.medlinkapp.adapters.MedicineStartAdapter;
+import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentStartBinding;
+import com.example.medlinkapp.model.Treatment;
+import com.example.medlinkapp.model.TreatmentMedicine;
 
 public class StartFragment extends Fragment {
 
@@ -18,7 +25,14 @@ public class StartFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        StartViewModel startViewModel =
+        View v = inflater.inflate(R.layout.fragment_start,container,false);
+        RecyclerView rcyStart = v.findViewById(R.id.rcyStart);
+        rcyStart.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rcyStart.setHasFixedSize(true);
+
+        MedicineStartAdapter adapter = new MedicineStartAdapter(TreatmentMedicine.getTreatmentMedicines());
+        rcyStart.setAdapter(adapter);
+        /*StartViewModel startViewModel =
                 new ViewModelProvider(this).get(StartViewModel.class);
 
         binding = FragmentStartBinding.inflate(inflater, container, false);
@@ -26,7 +40,8 @@ public class StartFragment extends Fragment {
 
         final TextView textView = binding.textStart;
         startViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        return root;*/
+        return v;
     }
 
     @Override
