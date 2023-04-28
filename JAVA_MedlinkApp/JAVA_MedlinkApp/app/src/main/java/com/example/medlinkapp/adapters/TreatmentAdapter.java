@@ -14,6 +14,7 @@ import com.example.medlinkapp.model.Treatment;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.ViewHolder> {
@@ -25,6 +26,11 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
         mTreatments = pTreatments;
     }
 
+    public void filterList(ArrayList<Treatment> filterlist) {
+
+        mTreatments = filterlist;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
