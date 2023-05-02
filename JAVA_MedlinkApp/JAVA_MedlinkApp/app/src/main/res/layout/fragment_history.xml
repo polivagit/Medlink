@@ -34,7 +34,7 @@
             android:background="@drawable/edit_text_border"
             android:hint="Search treatment">
         </EditText>
-        <ImageButton
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_row="0"
@@ -45,7 +45,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:contentDescription="Search Filtered Treatments Button">
-        </ImageButton>
+        </ImageView>
     </GridLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyHistory"

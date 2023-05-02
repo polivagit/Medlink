@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".LoginActivity">
 
     <GridLayout
         android:id="@+id/glLogin"
@@ -49,22 +50,22 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
-        <TextView
-            android:id="@+id/forgotPasswordLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="right"
-            android:textSize="15sp"
-            android:text="@string/restorePasswordLink" />
-        <TextView
-            android:id="@+id/restorePasswordLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="60dp"
-            android:textSize="15sp"
-            android:text="@string/forgotPasswordLink" />
+            <TextView
+                android:id="@+id/forgotPasswordLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:text="@string/restorePasswordLink" />
+            <TextView
+                android:id="@+id/restorePasswordLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="60dp"
+                android:textSize="15sp"
+                android:text="@string/forgotPasswordLink" />
         </GridLayout>
 
         <!-- Continuacion del tutorial para que vaya el link:

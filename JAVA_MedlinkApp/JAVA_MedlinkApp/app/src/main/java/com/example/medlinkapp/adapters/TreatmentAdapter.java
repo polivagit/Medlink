@@ -1,6 +1,5 @@
 package com.example.medlinkapp.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.medlinkapp.R;
 import com.example.medlinkapp.model.Treatment;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

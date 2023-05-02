@@ -86,8 +86,9 @@ public class HistoryFragment extends Fragment {
     private void filter (String text){
         ArrayList<Treatment>filteredTreatments = new ArrayList<>();
         for (Treatment t: mTreatments){
-            if(t.getTrea_name().contains(text))
-            filteredTreatments.add(t);
+            if(t.getTrea_name().toLowerCase().contains(text.toLowerCase())) {
+                filteredTreatments.add(t);
+            }
         }
         adapter.filterList(filteredTreatments);
     }

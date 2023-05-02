@@ -6,6 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -59,7 +60,6 @@ public class Treatment {
     }
     //endregion
 
-    //format dates https://stackoverflow.com/questions/454315/how-to-format-date-and-time-in-android
     //region METHODS -------------------------------------------------------------------------------
     public static List<Treatment> getTreatments(){
         if (mTreatments == null){
@@ -145,20 +145,22 @@ public class Treatment {
         this.trea_patient_id = trea_patient_id;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDateStartFormatted (){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         GregorianCalendar gc = getTrea_date_start();
-        sdf.setCalendar(gc);
-        String sortida = sdf.format(gc.getTime());
-        return sortida;
+        LocalDate date = gc.toZonedDateTime().toLocalDate();
+        date.minusMonths(1);
+        LocalDate date2 = date.minusMonths(1);
+        return date2.toString();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDateEndFormatted (){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         GregorianCalendar gc = getTrea_date_end();
-        sdf.setCalendar(gc);
-        String sortida = sdf.format(gc.getTime());
-        return sortida;
+        LocalDate date = gc.toZonedDateTime().toLocalDate();
+        date.minusMonths(1);
+        LocalDate date2 = date.minusMonths(1);
+        return date2.toString();
     }
     //endregion
 }
