@@ -149,7 +149,6 @@ public class Treatment {
     public String getDateStartFormatted (){
         GregorianCalendar gc = getTrea_date_start();
         LocalDate date = gc.toZonedDateTime().toLocalDate();
-        date.minusMonths(1);
         LocalDate date2 = date.minusMonths(1);
         return date2.toString();
     }
@@ -158,7 +157,6 @@ public class Treatment {
     public String getDateEndFormatted (){
         GregorianCalendar gc = getTrea_date_end();
         LocalDate date = gc.toZonedDateTime().toLocalDate();
-        date.minusMonths(1);
         LocalDate date2 = date.minusMonths(1);
         return date2.toString();
     }

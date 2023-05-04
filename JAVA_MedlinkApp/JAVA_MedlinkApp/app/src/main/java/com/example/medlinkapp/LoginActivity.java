@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.medlinkapp.databinding.ActivityLoginBinding;
+import com.example.medlinkapp.databinding.ActivityMainBinding;
+import com.example.medlinkapp.ui.login.ForgotPasswordFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
 
@@ -35,25 +39,32 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String USER_NAME = "pau";
     private static final String PASSWORD = "admin";
-    private static final String WEBSERVICE_URL = "http://169.254.30.133/WebService/index.php/apix/Login/login";
+    private static final String WEBSERVICE_URL = "http://169.254.30.133/WebService/index.php/apix/Request/login";
 
-    EditText etUser,etPassword;
-    Button btnSignIn;
+    ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        etUser = findViewById(R.id.etUser);
-        etPassword = findViewById(R.id.etPassword);
-        btnSignIn = findViewById(R.id.btnSignIn);
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = etUser.getText().toString();
-                String password = etPassword.getText().toString();
+                getSupportFragmentManager().beginTransaction().replace(R.id.glCanviLogin, new ForgotPasswordFragment()).commit();
+                binding.glLogin.setVisibility(View.GONE);
+                binding.glCanviLogin.setVisibility(View.VISIBLE);
+
+            }
+        });
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userName = binding.etUser.getText().toString();
+                String password = binding.etPassword.getText().toString();
                 // checking if the entered text is empty or not.
                 if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Please enter user name and password", Toast.LENGTH_SHORT).show();
@@ -62,6 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                 new PostDataTask().execute();
             }
         });
+
+
+
+
     }
 
     private class PostDataTask extends AsyncTask<Void, Void, String> {
@@ -80,8 +95,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 // JSON BODY PARAMETERS
                 Map<String, String> jsonMap = new HashMap<>();
-                jsonMap.put("user", etUser.getText().toString());
-                jsonMap.put("pass", etPassword.getText().toString());
+                jsonMap.put("user", binding.etUser.getText().toString());
+                jsonMap.put("pass", binding.etPassword.getText().toString());
 
                 // ObjectMapper below use Jackson (add dependencies in gradle)
                 ObjectMapper objectMapper = new ObjectMapper();
