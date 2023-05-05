@@ -9,7 +9,14 @@
     tools:context=".LoginActivity">
 
     <GridLayout
-        android:id="@+id/glCanviLogin"
+        android:id="@+id/glChangeLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"></GridLayout>
+    <GridLayout
+        android:id="@+id/glRestoreLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
