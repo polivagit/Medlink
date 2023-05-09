@@ -1,6 +1,7 @@
 package com.example.medlinkapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
+    private int patientId;
+    String aux;
+
     DrawerLayout drawer;
 
     @Override
@@ -36,7 +40,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            aux = extras.getString("pati_person_id");
+            //The key argument here must match that used in the other activity
+        }
+        patientId = Integer.parseInt(aux);
+        Log.e("patata","Patient id: " + patientId);
         setNavigationViewListener();
+
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
