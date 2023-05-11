@@ -327,10 +327,46 @@ INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,
 VALUES ( '46372813J','Lucas','Fernández','Ruiz','1954-06-02','931639934','lfernandez1@gmail.com',0,'Carrer de Santa Anna 22','08700','Igualada','Barcelona','España','lfernandez1','2813J');
 INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
 VALUES ( '48339921N','Lucía','Moreno','Díaz','1993-07-23','960628778','lmoreno1@gmail.com',3,'Carrer de la Trinitat 7','08700','Igualada','Barcelona','España','lmoreno1','9921N');
+
+-- DOCTORS:
 INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
 VALUES ( '45884032H','Martín','Hernández','Muñoz','1969-11-05','653460845','mhernandez1@gmail.com',3,'Carrer de Vic 2','08700','Igualada','Barcelona','España','mhernandez1','4032H');
 INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
 VALUES ( '47849493T','Martina','Álvarez','Jiménez','1991-08-14','685332940','malvarez1@gmail.com',1,'Carrer de Grècia 31','08700','Igualada','Barcelona','España','malvarez1','9493T');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '47443923Z','Toni','Olmo','Rovira','1988-06-16','685228394','lolmo1@gmail.com',0,'Carrer de les flors 2','08700','Igualada','Barcelona','España','lolmo1','3923Z');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '47904030J','Laura','Jové','Roldan','1983-04-13','685428276','ljove1@gmail.com',1,'Carrer de les fonts 19','08700','Igualada','Barcelona','España','ljove1','4030J');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48911829H','Ricard','Pla','Solé','1980-03-11','694875286','rpla1@gmail.com',0,'Carrer de les portes 44','08700','Igualada','Barcelona','España','rpla1','1829H');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '47944883T','Jaume','García','Font','1971-07-18','694879311','jgarcia1@gmail.com',0,'Carrer de les llums 11','08700','Igualada','Barcelona','España','jgarcia1','4883T');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45130849A','Anna','Ansaldo','Fandos','1974-10-01','694283714','aansaldo1@gmail.com',1,'Carrer de Barcelona 2','08700','Igualada','Barcelona','España','aansaldo1','0849A');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48584924N','Carme','Rodríguez','Rodríguez','1981-03-19','694211234','crodriguez1@gmail.com',1,'Carrer de Valencia 6','08700','Igualada','Barcelona','España','crodriguez1','4924N');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48331824H','Carla','Fombona','Delgado','1977-06-22','694987555','cfombona1@gmail.com',1,'Carrer de Vilafranca 9','08700','Igualada','Barcelona','España','cfombona1','1824H');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45832913T','Carlos','Berga','Farrés','1970-11-01','694695381','cberga1@gmail.com',0,'Carrer de Vallbona 12','08700','Igualada','Barcelona','España','cberga1','2913T');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45829134A','Jordi','Ubaldo','Fabregat','1971-12-05','688832922','jubaldo1@gmail.com',0,'Carrer de Carme 33','08700','Igualada','Barcelona','España','jubaldo1','9134A');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45859438Z','Georgina','Rius','Rius','1990-01-01','687893821','grius1@gmail.com',1,'Carrer de la Torre 8','08700','Igualada','Barcelona','España','grius1','9438Z');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45172394J','Francina','Gallardo','Margarit','1994-05-05','693342102','fgallardo1@gmail.com',1,'Carrer de les Cireres 14','08700','Igualada','Barcelona','España','fgallardo1','2394J');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45432012H','Àngel','Blaya','Riba','1981-06-07','693753824','ablaya1@gmail.com',0,'Carrer de les Pomes 25','08700','Igualada','Barcelona','España','ablaya1','2012H');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48493209T','Siro','Rodríguez','Fernández','1971-02-11','696477832','srodriguez1@gmail.com',0,'Carrer de Manresa 1','08700','Igualada','Barcelona','España','srodriguez1','3209T');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48777954A','Lídia','Sanz','Smith','1975-11-04','697448963','lsanz1@gmail.com',0,'Carrer de Carme 35','08700','Igualada','Barcelona','España','lsanz1','7954A');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45423434Z','Angela','Barrios','Madrid','1969-10-13','664783928','abarrios1@gmail.com',1,'Carrer de Florida 4','08700','Igualada','Barcelona','España','abarrios1','3434Z');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45084543A','Manel','Alonso','Iglesias','1980-02-11','688942340','aiglesias1@gmail.com',0,'Carrer de Madrid 7','08700','Igualada','Barcelona','España','aiglesias1','4543A');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '45834985T','Didac','Roure','Mensa','1972-07-03','687483921','droure1@gmail.com',0,'Carrer Universitat 12','08700','Igualada','Barcelona','España','droure1','4985T');
 
 COMMIT;
 
@@ -353,8 +389,25 @@ COMMIT;
 START TRANSACTION;
 USE `medlink`;
 
-INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (5,'01-100-AHBAA',3);
-INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (6,'02-200-BHBAA',8);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (5,'01-110-AHBAA',1);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (6,'02-210-BHBAA',2);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (7,'03-310-CHBAA',3);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (8,'04-410-DHBAA',4);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (9,'05-510-EHBAA',5);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (10,'06-610-FHBAA',6);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (11,'07-710-GHBAA',7);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (12,'08-810-HHBAA',8);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (13,'09-910-IHBAA',9);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (14,'10-110-JHBAA',10);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (15,'11-210-KHBAA',11);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (16,'12-310-LHBAA',12);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (17,'13-410-MHBAA',13);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (18,'14-510-NHBAA',14);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (19,'15-610-OHBAA',15);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (20,'16-710-PHBAA',16);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (21,'17-810-QHBAA',17);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (22,'18-910-RHBAA',18);
+INSERT INTO `medlink`.`doctor` (`doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`) VALUES (23,'19-110-SHBAA',19);
 
 COMMIT;
 
