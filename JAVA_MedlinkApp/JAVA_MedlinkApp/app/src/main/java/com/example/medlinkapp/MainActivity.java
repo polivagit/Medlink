@@ -1,11 +1,21 @@
 package com.example.medlinkapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
+import com.example.medlinkapp.model.Treatment;
+import com.example.medlinkapp.ui.history.HistoryFragment;
+import com.example.medlinkapp.utils.ApiService;
+import com.example.medlinkapp.utils.LoginData;
+import com.example.medlinkapp.utils.LoginResponse;
+import com.example.medlinkapp.utils.TreatmentData;
+import com.example.medlinkapp.utils.TreatmentResponse;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,6 +30,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medlinkapp.databinding.ActivityMainBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 //Tutoriales para usar la API Text To Speech de Google Cloud:
 //https://github.com/changemyminds/Google-Cloud-TTS-Android
 //https://github.com/ivso0001/GoogleCloudTextToSpeech
@@ -28,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
 
     private int patientId;
     String aux;
@@ -89,6 +113,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_history:
+                HistoryFragment fragment = new HistoryFragment();
+                Bundle args = new Bundle();
+                args.putInt("patientId", patientId);
+
+                fragment.setArguments(args);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_history, fragment)
+                        .commit();
                 break;
             case R.id.nav_start:
                 break;
@@ -101,4 +134,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 }

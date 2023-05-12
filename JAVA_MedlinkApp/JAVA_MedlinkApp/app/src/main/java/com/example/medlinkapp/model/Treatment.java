@@ -63,7 +63,7 @@ public class Treatment {
     //region METHODS -------------------------------------------------------------------------------
     public static List<Treatment> getTreatments(){
         if (mTreatments == null){
-            mTreatments = new ArrayList<Treatment>();
+            mTreatments = new ArrayList<>();
             mTreatments.add(new Treatment(1,"Shoulder pain","Treatment for healing shoulder pain",new GregorianCalendar(2023,4,25),new GregorianCalendar(2023,6,12),true,12,3));
             mTreatments.add(new Treatment(2,"Flu treatment","Treatment for the flu",new GregorianCalendar(2021,11,9),new GregorianCalendar(2021,12,20),false,2,4));
             mTreatments.add(new Treatment(3,"Broken leg","Treatment for healing a broken leg",new GregorianCalendar(2022,7,3),new GregorianCalendar(2023,1,23),false,4,10));

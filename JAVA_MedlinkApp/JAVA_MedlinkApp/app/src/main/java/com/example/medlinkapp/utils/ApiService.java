@@ -18,5 +18,13 @@ public interface ApiService {
             @Field("pass") String password
     );
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @POST("treatments")
+    @FormUrlEncoded
+    Call<TreatmentResponse> treatments(
+            @Header("Authorization") String authHeader,
+            @Field("id")  int patientId
+    );
+
 
 }

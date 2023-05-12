@@ -1,11 +1,13 @@
 package com.example.medlinkapp.adapters;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medlinkapp.R;
@@ -37,6 +39,7 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
         return vh;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Treatment t = mTreatments.get(position);

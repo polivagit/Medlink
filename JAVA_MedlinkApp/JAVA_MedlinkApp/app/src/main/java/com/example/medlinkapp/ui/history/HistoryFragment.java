@@ -1,18 +1,18 @@
 package com.example.medlinkapp.ui.history;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,16 +21,52 @@ import com.example.medlinkapp.R;
 import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentHistoryBinding;
 import com.example.medlinkapp.model.Treatment;
+import com.example.medlinkapp.utils.ApiService;
+import com.example.medlinkapp.utils.TreatmentData;
+import com.example.medlinkapp.utils.TreatmentResponse;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
     EditText etSearchTreatment;
-    List<Treatment> mTreatments = Treatment.getTreatments();
+    //List<Treatment> mTreatments = Treatment.getTreatments();
+    List<Treatment> mTreatments2;
     TreatmentAdapter adapter;
+
+    Context context = getActivity();
+
+    private static final String WEBSERVICE_URL = "http://169.254.30.133/WebService/index.php/apix/Request/";
+
+    String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
+
+    private String treaId;
+    private String treaName;
+    private String treaDescription;
+    private String treaDateStart;
+    private String treaDateEnd;
+    private String treaObservations;
+    private String treaIsActive;
+    private String treaDoctorId;
+    private String treaPatientId;
+
+    private int treaIdInt,patientIdInt,doctorId,patientId;
+    private GregorianCalendar dateStart, dateEnd;
+    private boolean isActive;
+
+    RecyclerView rcyHistory;
     public HistoryFragment(){
 
     }
@@ -38,15 +74,25 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history,container,false);
-        RecyclerView rcyHistory = v.findViewById(R.id.rcyHistory);
+        mTreatments2 = new ArrayList<>();
+        Bundle args = getArguments();
+        if (args != null) {
+
+            patientId = args.getInt("patientId");
+        }
+
+
+
+
+        rcyHistory = v.findViewById(R.id.rcyHistory);
         rcyHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcyHistory.setHasFixedSize(true);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyHistory.getContext(),
                 DividerItemDecoration.VERTICAL);
         rcyHistory.addItemDecoration(dividerItemDecoration);
 
-        adapter = new TreatmentAdapter(Treatment.getTreatments());
-        rcyHistory.setAdapter(adapter);
+        getTreatmentsFromWebService(patientId);
+
 
         etSearchTreatment = v.findViewById(R.id.etSearchTreatment);
         etSearchTreatment.addTextChangedListener(new TextWatcher() {
@@ -85,11 +131,91 @@ public class HistoryFragment extends Fragment {
 
     private void filter (String text){
         ArrayList<Treatment>filteredTreatments = new ArrayList<>();
-        for (Treatment t: mTreatments){
+        for (Treatment t: mTreatments2){
             if(t.getTrea_name().toLowerCase().contains(text.toLowerCase())) {
                 filteredTreatments.add(t);
             }
         }
         adapter.filterList(filteredTreatments);
+    }
+
+    public void getTreatmentsFromWebService(int patientId){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WEBSERVICE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<TreatmentResponse> call = apiService.treatments(authHeader,patientId);
+        call.enqueue(new Callback<TreatmentResponse>() {
+            @Override
+            public void onResponse(Call<TreatmentResponse> call, Response<TreatmentResponse> response) {
+                if (response.isSuccessful()) {
+                    TreatmentResponse treatmentResponse = response.body();
+                    Log.e("treatments:","Response: " + response);
+                    List<TreatmentData> treatmentDataList = treatmentResponse.getData();
+                    Log.e("treatments:","holaaaaaaaaaaa");
+                    if (!treatmentDataList.isEmpty()) {
+                        Log.e("treatments:","ENTRO");
+                        for (int i = 0; i < treatmentDataList.size(); i++) {
+                            Log.e("treatments:","ENTRO2");
+                            treaId = treatmentDataList.get(i).getTreaId();
+                            treaName = treatmentDataList.get(i).getTrea_name();
+                            treaDescription = treatmentDataList.get(i).getTrea_description();
+                            treaDateStart = treatmentDataList.get(i).getTrea_date_start();
+                            treaDateEnd = treatmentDataList.get(i).getTrea_date_end();
+                            treaObservations = treatmentDataList.get(i).getTrea_observations();
+                            treaIsActive = treatmentDataList.get(i).getTrea_is_active();
+                            treaDoctorId = treatmentDataList.get(i).getTrea_doctor_id();
+                            treaPatientId = treatmentDataList.get(i).getTrea_patient_id();
+
+                            treaIdInt = Integer.parseInt(treaId);
+                            dateStart = convertStringToGregorianCalendar(treaDateStart);
+                            dateEnd = convertStringToGregorianCalendar(treaDateEnd);
+                            isActive = Boolean.parseBoolean(treaIsActive);
+                            doctorId = Integer.parseInt(treaDoctorId);
+                            patientIdInt = Integer.parseInt(treaPatientId);
+
+
+                            mTreatments2.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
+                            Log.e("treatments:", "Result" + mTreatments2.get(i).toString());
+
+                        }
+                        adapter = new TreatmentAdapter(mTreatments2);
+                        rcyHistory.setAdapter(adapter);
+                    }else {
+                        Log.e("treatments:", "La lista esta vacia");
+                    }
+
+
+                } else {
+                    Log.e("patata","Result" + response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TreatmentResponse> call, Throwable t) {
+                // Handle failure
+                //Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private GregorianCalendar convertStringToGregorianCalendar(String dateString){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(dateFormat.parse(dateString));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(calendar.getTime());
+
+        return gregorianCalendar;
+
     }
 }
