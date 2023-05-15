@@ -4,22 +4,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class TreatmentData {
 
+    @SerializedName("trea_id")
     private String trea_id;
 
+    @SerializedName("trea_name")
     private String trea_name;
 
+    @SerializedName("trea_description")
     private String trea_description;
 
+    @SerializedName("trea_date_start")
     private String trea_date_start;
 
+    @SerializedName("trea_date_end")
     private String trea_date_end;
 
+    @SerializedName("trea_observations")
     private String trea_observations;
 
+    @SerializedName("trea_is_active")
     private String trea_is_active;
 
+    @SerializedName("trea_doctor_id")
     private String trea_doctor_id;
 
+    @SerializedName("trea_patient_id")
     private String trea_patient_id;
 
     public String getTreaId() {

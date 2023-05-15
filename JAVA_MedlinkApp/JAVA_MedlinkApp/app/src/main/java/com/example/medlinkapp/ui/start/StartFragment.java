@@ -1,8 +1,10 @@
 package com.example.medlinkapp.ui.start;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medlinkapp.LoginActivity;
 import com.example.medlinkapp.R;
 import com.example.medlinkapp.adapters.MedicineStartAdapter;
 import com.example.medlinkapp.adapters.TreatmentAdapter;
@@ -89,5 +92,18 @@ public class StartFragment extends Fragment {
             t1.shutdown();
         }
         super.onPause();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_logOut) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

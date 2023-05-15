@@ -8,8 +8,10 @@ import java.util.List;
 public class TreatmentResponse {
 
 
+    @SerializedName("name")
     private String name;
 
+    @SerializedName("data")
     private List<TreatmentData> data;
 
     public String getName() {

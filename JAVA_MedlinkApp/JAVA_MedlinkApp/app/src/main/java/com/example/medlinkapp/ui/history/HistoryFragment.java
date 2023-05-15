@@ -1,12 +1,14 @@
 package com.example.medlinkapp.ui.history;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medlinkapp.LoginActivity;
 import com.example.medlinkapp.R;
 import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentHistoryBinding;
@@ -154,21 +157,20 @@ public class HistoryFragment extends Fragment {
                 if (response.isSuccessful()) {
                     TreatmentResponse treatmentResponse = response.body();
                     Log.e("treatments:","Response: " + response);
+                    Log.e("treatments:","treatment response" + treatmentResponse.getData());
                     List<TreatmentData> treatmentDataList = treatmentResponse.getData();
-                    Log.e("treatments:","holaaaaaaaaaaa");
                     if (!treatmentDataList.isEmpty()) {
                         Log.e("treatments:","ENTRO");
-                        for (int i = 0; i < treatmentDataList.size(); i++) {
-                            Log.e("treatments:","ENTRO2");
-                            treaId = treatmentDataList.get(i).getTreaId();
-                            treaName = treatmentDataList.get(i).getTrea_name();
-                            treaDescription = treatmentDataList.get(i).getTrea_description();
-                            treaDateStart = treatmentDataList.get(i).getTrea_date_start();
-                            treaDateEnd = treatmentDataList.get(i).getTrea_date_end();
-                            treaObservations = treatmentDataList.get(i).getTrea_observations();
-                            treaIsActive = treatmentDataList.get(i).getTrea_is_active();
-                            treaDoctorId = treatmentDataList.get(i).getTrea_doctor_id();
-                            treaPatientId = treatmentDataList.get(i).getTrea_patient_id();
+                        for (TreatmentData treatmentData: treatmentDataList) {
+                            treaId = treatmentData.getTreaId();
+                            treaName = treatmentData.getTrea_name();
+                            treaDescription = treatmentData.getTrea_description();
+                            treaDateStart = treatmentData.getTrea_date_start();
+                            treaDateEnd = treatmentData.getTrea_date_end();
+                            treaObservations = treatmentData.getTrea_observations();
+                            treaIsActive = treatmentData.getTrea_is_active();
+                            treaDoctorId = treatmentData.getTrea_doctor_id();
+                            treaPatientId = treatmentData.getTrea_patient_id();
 
                             treaIdInt = Integer.parseInt(treaId);
                             dateStart = convertStringToGregorianCalendar(treaDateStart);
@@ -179,8 +181,7 @@ public class HistoryFragment extends Fragment {
 
 
                             mTreatments2.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
-                            Log.e("treatments:", "Result" + mTreatments2.get(i).toString());
-
+                            //Log.e("treatments:", "Result" + mTreatments2.get(i).toString());
                         }
                         adapter = new TreatmentAdapter(mTreatments2);
                         rcyHistory.setAdapter(adapter);
@@ -217,5 +218,18 @@ public class HistoryFragment extends Fragment {
 
         return gregorianCalendar;
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_logOut) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
