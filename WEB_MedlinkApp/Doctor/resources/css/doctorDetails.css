@@ -1,0 +1,45 @@
+body{
+    overflow-x: hidden;
+}
+#btnDetail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.labelForm{
+    width: 170px;
+    margin-left: 5px;
+}
+.labelForm1{
+    width: 120px;
+    margin-left: 5px;
+}
+
+#add{
+    width: 200px;
+}
+#cancel{
+    width: 200px;
+}
+#update{
+    width: 200px;
+    background-color: rgb(250, 235, 19);
+}
+#update:hover{
+    background-color: rgb(236, 226, 84);
+
+}
+#remove{
+    width: 200px;
+}
+
+#btns{
+    display: flex;
+    justify-content: space-around;
+}
+#div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

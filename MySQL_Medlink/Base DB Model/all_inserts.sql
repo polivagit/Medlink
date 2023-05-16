@@ -367,6 +367,8 @@ INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,
 VALUES ( '45084543A','Manel','Alonso','Iglesias','1980-02-11','688942340','aiglesias1@gmail.com',0,'Carrer de Madrid 7','08700','Igualada','Barcelona','España','aiglesias1','4543A');
 INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
 VALUES ( '45834985T','Didac','Roure','Mensa','1972-07-03','687483921','droure1@gmail.com',0,'Carrer Universitat 12','08700','Igualada','Barcelona','España','droure1','4985T');
+INSERT INTO `medlink`.`person` (`pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,`pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,`pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`)
+VALUES ( '48110905E','Pere','Lopez','Mensa','1992-06-03','654210099','plopez@gmail.com',0,'Carrer Vidre 122','08700','Igualada','Barcelona','España','plopez','0905E');
 
 COMMIT;
 
@@ -378,7 +380,7 @@ USE `medlink`;
 
 INSERT INTO `medlink`.`patient` (`pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`) VALUES (1,178,77.3,null,null);
 INSERT INTO `medlink`.`patient` (`pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`) VALUES (2,168,67.7,null,null);
-INSERT INTO `medlink`.`patient` (`pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`) VALUES (3,190,83.2,null,4);
+INSERT INTO `medlink`.`patient` (`pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`) VALUES (3,190,83.2,null,24);
 INSERT INTO `medlink`.`patient` (`pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`) VALUES (4,171,69.1,null,null);
 
 COMMIT;
@@ -435,9 +437,9 @@ START TRANSACTION;
 USE `medlink`;
 
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (1, 4, '2022-05-01', '2023-10-12', 10, 5290, 3);
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (2, 12, '2021-07-08', '2023-10-12', 30, 24780, 5);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (2, 12, '2021-07-08', '2023-10-12', 30, 24780, 6);
                                                                                                                                                                                                                                                                                                                                         
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, '2022-01-20', '2023-09-01', 24, 14136, 5);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, '2022-01-20', '2023-09-01', 24, 14136, 6);
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (4, 33, '2022-07-08', '2023-08-14', 50, 16400, 3);
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, '2023-01-03', '2023-10-03', 32, 8768, 5);
                                                                                                                                                                                                                   
