@@ -1,6 +1,8 @@
-package com.example.medlinkapp.utils;
+package com.example.medlinkapp.utils.api;
 
-import okhttp3.ResponseBody;
+import com.example.medlinkapp.utils.login.LoginResponse;
+import com.example.medlinkapp.utils.treatment.TreatmentResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -19,11 +21,11 @@ public interface ApiService {
     );
 
     @Headers("Content-Type: application/x-www-form-urlencoded")
-    @POST("treatments")
+    @POST("treatment")
     @FormUrlEncoded
     Call<TreatmentResponse> treatments(
             @Header("Authorization") String authHeader,
-            @Field("id")  int patientId
+            @Field("id")  String patientId
     );
 
 

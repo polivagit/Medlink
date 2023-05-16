@@ -15,6 +15,6 @@
         android:id="@+id/nav_history"
         android:name="com.example.medlinkapp.ui.history.HistoryFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" /><action android:id="@+id/action_global_nav_start" app:destination="@id/nav_start"/><action android:id="@+id/action_global_nav_history" app:destination="@id/nav_history"/>
 
 </navigation>

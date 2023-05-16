@@ -13,14 +13,12 @@ import android.widget.Toast;
 import com.example.medlinkapp.databinding.ActivityLoginBinding;
 import com.example.medlinkapp.ui.login.ForgotPasswordFragment;
 import com.example.medlinkapp.ui.login.RestorePasswordFragment;
-import com.example.medlinkapp.utils.ApiService;
-import com.example.medlinkapp.utils.LoginData;
-import com.example.medlinkapp.utils.LoginResponse;
-import com.google.gson.Gson;
+import com.example.medlinkapp.utils.api.ApiService;
+import com.example.medlinkapp.utils.login.LoginData;
+import com.example.medlinkapp.utils.login.LoginResponse;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String WEBSERVICE_URL = "http://169.254.30.133/WebService/index.php/apix/Request/";
+    private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
 
     String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
 
@@ -92,15 +90,13 @@ public class LoginActivity extends AppCompatActivity {
                     // Login successful, handle response
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     LoginResponse loginResponse = response.body();
-                    if (loginResponse.getTrobat() == 0) {
-                        List<LoginData> loginDataList = loginResponse.getData();
-                        if (!loginDataList.isEmpty()) {
-                            patiPersonId = loginDataList.get(0).getPatiPersonId();
-                            Log.e("patata","Patient id: " + patiPersonId);
-                            Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                            i.putExtra("pati_person_id",patiPersonId);
-                            startActivity(i);
-                        }
+                    List<LoginData> loginDataList = loginResponse.getData();
+                    if (!loginDataList.isEmpty()) {
+                        patiPersonId = loginDataList.get(0).getPatiPersonId();
+                        Log.e("patata","Patient id: " + patiPersonId);
+                        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                        i.putExtra("pati_person_id",patiPersonId);
+                        startActivity(i);
                     }
 
                     Log.e("patata","Result" + response);

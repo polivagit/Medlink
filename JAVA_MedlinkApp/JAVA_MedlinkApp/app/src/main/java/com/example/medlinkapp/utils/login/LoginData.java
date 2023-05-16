@@ -1,4 +1,4 @@
-package com.example.medlinkapp.utils;
+package com.example.medlinkapp.utils.login;
 
 public class LoginData {
     private String pati_person_id;

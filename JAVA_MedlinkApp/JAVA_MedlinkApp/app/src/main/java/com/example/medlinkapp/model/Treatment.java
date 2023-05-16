@@ -145,20 +145,6 @@ public class Treatment {
         this.trea_patient_id = trea_patient_id;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String getDateStartFormatted (){
-        GregorianCalendar gc = getTrea_date_start();
-        LocalDate date = gc.toZonedDateTime().toLocalDate();
-        LocalDate date2 = date.minusMonths(1);
-        return date2.toString();
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String getDateEndFormatted (){
-        GregorianCalendar gc = getTrea_date_end();
-        LocalDate date = gc.toZonedDateTime().toLocalDate();
-        LocalDate date2 = date.minusMonths(1);
-        return date2.toString();
-    }
     //endregion
 }

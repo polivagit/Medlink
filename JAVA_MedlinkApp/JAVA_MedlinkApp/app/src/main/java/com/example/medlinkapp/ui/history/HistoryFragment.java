@@ -24,14 +24,14 @@ import com.example.medlinkapp.R;
 import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentHistoryBinding;
 import com.example.medlinkapp.model.Treatment;
-import com.example.medlinkapp.utils.ApiService;
-import com.example.medlinkapp.utils.TreatmentData;
-import com.example.medlinkapp.utils.TreatmentResponse;
+import com.example.medlinkapp.utils.api.ApiService;
+import com.example.medlinkapp.utils.treatment.TreatmentData;
+import com.example.medlinkapp.utils.treatment.TreatmentResponse;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class HistoryFragment extends Fragment {
 
     Context context = getActivity();
 
-    private static final String WEBSERVICE_URL = "http://169.254.30.133/WebService/index.php/apix/Request/";
+    private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
 
     String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
 
@@ -63,7 +63,7 @@ public class HistoryFragment extends Fragment {
     private String treaObservations;
     private String treaIsActive;
     private String treaDoctorId;
-    private String treaPatientId;
+    private String treaPatientId,patientIdString;
 
     private int treaIdInt,patientIdInt,doctorId,patientId;
     private GregorianCalendar dateStart, dateEnd;
@@ -78,14 +78,17 @@ public class HistoryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history,container,false);
         mTreatments2 = new ArrayList<>();
-        Bundle args = getArguments();
+        /*Bundle args = getArguments();
         if (args != null) {
 
             patientId = args.getInt("patientId");
-        }
+            Log.e("patata","id " + patientId);
+        }*/
+        patientId = TreatmentData.get_treatmentId();
+        Log.e("patata","id " + patientId);
 
 
-
+        patientIdString = String.valueOf(patientId);
 
         rcyHistory = v.findViewById(R.id.rcyHistory);
         rcyHistory.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -94,7 +97,7 @@ public class HistoryFragment extends Fragment {
                 DividerItemDecoration.VERTICAL);
         rcyHistory.addItemDecoration(dividerItemDecoration);
 
-        getTreatmentsFromWebService(patientId);
+        getTreatmentsFromWebService(patientIdString);
 
 
         etSearchTreatment = v.findViewById(R.id.etSearchTreatment);
@@ -142,7 +145,7 @@ public class HistoryFragment extends Fragment {
         adapter.filterList(filteredTreatments);
     }
 
-    public void getTreatmentsFromWebService(int patientId){
+    public void getTreatmentsFromWebService(String patientId){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WEBSERVICE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -205,18 +208,15 @@ public class HistoryFragment extends Fragment {
     }
 
     private GregorianCalendar convertStringToGregorianCalendar(String dateString){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+        GregorianCalendar calendar = new GregorianCalendar();
         try {
-            calendar.setTime(dateFormat.parse(dateString));
+            Date date = sdf.parse(dateString);
+            calendar.setTime(date);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTime(calendar.getTime());
-
-        return gregorianCalendar;
+        return calendar;
 
     }
 

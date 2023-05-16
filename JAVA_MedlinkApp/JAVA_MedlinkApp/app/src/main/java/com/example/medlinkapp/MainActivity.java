@@ -1,25 +1,17 @@
 package com.example.medlinkapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
-import com.example.medlinkapp.model.Treatment;
 import com.example.medlinkapp.ui.history.HistoryFragment;
-import com.example.medlinkapp.utils.ApiService;
-import com.example.medlinkapp.utils.LoginData;
-import com.example.medlinkapp.utils.LoginResponse;
-import com.example.medlinkapp.utils.TreatmentData;
-import com.example.medlinkapp.utils.TreatmentResponse;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.medlinkapp.utils.treatment.TreatmentData;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,24 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medlinkapp.databinding.ActivityMainBinding;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 //Tutoriales para usar la API Text To Speech de Google Cloud:
 //https://github.com/changemyminds/Google-Cloud-TTS-Android
 //https://github.com/ivso0001/GoogleCloudTextToSpeech
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity{// implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -57,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String aux;
 
     DrawerLayout drawer;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +51,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         patientId = Integer.parseInt(aux);
         Log.e("patata","Patient id: " + patientId);
-        setNavigationViewListener();
 
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        setSupportActionBar(binding.toolbar);
+
         drawer = binding.drawerLayout;
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         NavigationView navigationView = binding.navView;
+        navigationView.bringToFront();
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -92,7 +75,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        //NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Log.e("patata","patiend id main activity" + patientId);
+                switch (item.getItemId()){
+
+                    case R.id.nav_history:
+                        HistoryFragment fragment = new HistoryFragment();
+                        TreatmentData.set_treatmentId(patientId);
+                        //Bundle args = new Bundle();
+                        //args.putInt("patientId", patientId);
+                        Log.e("patata","patiend id main activity" + patientId);
+
+                        //fragment.setArguments(args);
+
+                        Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_history);
+                        break;
+                    case R.id.nav_start:
+                        break;
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -109,13 +116,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-    @Override
+    /*@Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.e("patata","patiend id main activity" + patientId);
         switch (item.getItemId()){
+
             case R.id.nav_history:
                 HistoryFragment fragment = new HistoryFragment();
                 Bundle args = new Bundle();
                 args.putInt("patientId", patientId);
+                Log.e("patata","patiend id main activity" + patientId);
 
                 fragment.setArguments(args);
 
@@ -128,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     private void setNavigationViewListener() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setNavigationItemSelectedListener(this);
     }
 
 

@@ -49,6 +49,7 @@
             android:layout_width="300dp"
             android:layout_height="48dp"
             android:hint="User"
+            android:text="pgarcia1"
             android:background="@drawable/edit_text_border"
             android:layout_marginLeft="20dp">
         </EditText>
@@ -56,6 +57,7 @@
             android:id="@+id/etPassword"
             android:layout_width="300dp"
             android:layout_height="48dp"
+            android:text="4720A"
             android:hint="Password"
             android:background="@drawable/edit_text_border"
             android:layout_marginTop="20dp"

@@ -1,9 +1,12 @@
-package com.example.medlinkapp.utils;
+package com.example.medlinkapp.utils.treatment;
 
 import com.google.gson.annotations.SerializedName;
 
 public class TreatmentData {
 
+
+
+    private static int _treatmentId;
     @SerializedName("trea_id")
     private String trea_id;
 
@@ -67,7 +70,14 @@ public class TreatmentData {
         return trea_patient_id;
     }
 
+    public static int get_treatmentId() {
+        return _treatmentId;
+    }
 
+    public static int set_treatmentId(int entrada) {
+        _treatmentId = entrada;
+        return _treatmentId;
+    }
 
 
 
