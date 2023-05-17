@@ -1,5 +1,7 @@
 package com.example.medlinkapp.ui.login;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
@@ -89,7 +91,17 @@ public class RestorePasswordFragment extends Fragment {
             @Override
             public void onResponse(Call<RestorePasswordResponse> call, Response<RestorePasswordResponse> response) {
                 if (response.isSuccessful()) {
-
+                    RestorePasswordResponse restorePass = response.body();
+                    if (restorePass != null){
+                        String status = restorePass.getStatus();
+                        if (status.equals("Found")){
+                            showDialog("Password changed successfully!");
+                        }else{
+                            showDialog("Could not change the password. Please check if you have entered your email correctly.");
+                        }
+                    }else{
+                        Log.e("patata","La resposta del webservice esta buida" );
+                    }
 
                     Log.e("patata","Result" + response);
                 } else {
@@ -104,5 +116,17 @@ public class RestorePasswordFragment extends Fragment {
 
             }
         });
+    }
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        builder.create().show();
     }
 }

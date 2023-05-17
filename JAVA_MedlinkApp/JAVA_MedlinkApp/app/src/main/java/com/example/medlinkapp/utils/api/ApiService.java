@@ -30,11 +30,11 @@ public interface ApiService {
     );
 
     @Headers("Content-Type: application/x-www-form-urlencoded")
-    @POST("treatment")
+    @POST("changePassword")
     @FormUrlEncoded
     Call<RestorePasswordResponse> restorePassword(
             @Header("Authorization") String authHeader,
-            @Field("id")  String patientId
+            @Field("mail")  String mail
     );
 
 
