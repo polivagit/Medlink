@@ -68,15 +68,6 @@ public class StartFragment extends Fragment {
                 t1.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
             }
         });
-        /*StartViewModel startViewModel =
-                new ViewModelProvider(this).get(StartViewModel.class);
-
-        binding = FragmentStartBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textStart;
-        startViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;*/
         return v;
     }
 

@@ -6,7 +6,7 @@ public class TreatmentData {
 
 
 
-    private static int _treatmentId;
+    private static int _patientId;
     @SerializedName("trea_id")
     private String trea_id;
 
@@ -70,13 +70,13 @@ public class TreatmentData {
         return trea_patient_id;
     }
 
-    public static int get_treatmentId() {
-        return _treatmentId;
+    public static int get_patientId() {
+        return _patientId;
     }
 
     public static int set_treatmentId(int entrada) {
-        _treatmentId = entrada;
-        return _treatmentId;
+        _patientId = entrada;
+        return _patientId;
     }
 
 

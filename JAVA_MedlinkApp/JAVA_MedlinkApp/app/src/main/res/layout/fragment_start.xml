@@ -51,21 +51,8 @@
             android:layout_columnWeight="1"
             android:src="@drawable/speaker_photo"
             android:background="@null"
-            android:layout_marginLeft="350dp"
+            android:layout_marginLeft="320dp"
             android:layout_marginTop="20dp"
             android:contentDescription="Text to speech ">
         </ImageButton>
-    <!--<TextView
-        android:id="@+id/text_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
 </LinearLayout>

@@ -40,18 +40,6 @@ public class ForgotPasswordFragment extends Fragment {
         return v;
     }
 
-    /*@Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding.btnCancelChangePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-
-            }
-        });
-    }*/
 
     @Override
     public void onDestroyView() {

@@ -45,8 +45,7 @@ public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
     EditText etSearchTreatment;
-    //List<Treatment> mTreatments = Treatment.getTreatments();
-    List<Treatment> mTreatments2;
+    List<Treatment> mTreatments;
     TreatmentAdapter adapter;
 
     Context context = getActivity();
@@ -77,14 +76,8 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history,container,false);
-        mTreatments2 = new ArrayList<>();
-        /*Bundle args = getArguments();
-        if (args != null) {
-
-            patientId = args.getInt("patientId");
-            Log.e("patata","id " + patientId);
-        }*/
-        patientId = TreatmentData.get_treatmentId();
+        mTreatments = new ArrayList<>();
+        patientId = TreatmentData.get_patientId();
         Log.e("patata","id " + patientId);
 
 
@@ -117,15 +110,6 @@ public class HistoryFragment extends Fragment {
                 filter(s.toString());
             }
         });
-        /*HistoryViewModel historyViewModel =
-                new ViewModelProvider(this).get(HistoryViewModel.class);
-
-        binding = FragmentHistoryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textHistory;
-        historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;*/
         return v;
     }
 
@@ -137,7 +121,7 @@ public class HistoryFragment extends Fragment {
 
     private void filter (String text){
         ArrayList<Treatment>filteredTreatments = new ArrayList<>();
-        for (Treatment t: mTreatments2){
+        for (Treatment t: mTreatments){
             if(t.getTrea_name().toLowerCase().contains(text.toLowerCase())) {
                 filteredTreatments.add(t);
             }
@@ -183,10 +167,9 @@ public class HistoryFragment extends Fragment {
                             patientIdInt = Integer.parseInt(treaPatientId);
 
 
-                            mTreatments2.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
-                            //Log.e("treatments:", "Result" + mTreatments2.get(i).toString());
+                            mTreatments.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
                         }
-                        adapter = new TreatmentAdapter(mTreatments2);
+                        adapter = new TreatmentAdapter(mTreatments);
                         rcyHistory.setAdapter(adapter);
                     }else {
                         Log.e("treatments:", "La lista esta vacia");
@@ -201,7 +184,6 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onFailure(Call<TreatmentResponse> call, Throwable t) {
                 // Handle failure
-                //Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show();
             }
         });
 

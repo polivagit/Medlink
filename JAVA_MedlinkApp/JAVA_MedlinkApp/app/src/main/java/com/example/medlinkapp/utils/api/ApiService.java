@@ -1,6 +1,7 @@
 package com.example.medlinkapp.utils.api;
 
 import com.example.medlinkapp.utils.login.LoginResponse;
+import com.example.medlinkapp.utils.login.RestorePasswordResponse;
 import com.example.medlinkapp.utils.treatment.TreatmentResponse;
 
 import retrofit2.Call;
@@ -24,6 +25,14 @@ public interface ApiService {
     @POST("treatment")
     @FormUrlEncoded
     Call<TreatmentResponse> treatments(
+            @Header("Authorization") String authHeader,
+            @Field("id")  String patientId
+    );
+
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @POST("treatment")
+    @FormUrlEncoded
+    Call<RestorePasswordResponse> restorePassword(
             @Header("Authorization") String authHeader,
             @Field("id")  String patientId
     );
