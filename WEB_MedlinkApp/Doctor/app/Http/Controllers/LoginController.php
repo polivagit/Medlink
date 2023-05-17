@@ -57,13 +57,15 @@ class LoginController extends Controller
             return redirect()->route('forget')->with("error","Invalid Mail");
 
         }else{
-            $newPass=$token = bin2hex(random_bytes(10));
+            $newPass= bin2hex(random_bytes(10));
             $body="Hello, your new password is: " . $newPass ." ,remember your username is: " . $doctor->pers_login_username;
-            DB::table('person')
-            ->where('pers_email', $mail)
-            ->update(['pers_login_password' => $newPass
-            ]);
-            $this->composeEmail($mail,$body);
+            $ok=$this->composeEmail($mail,$body);
+            if($ok){
+                DB::table('person')
+                ->where('pers_email', $mail)
+                ->update(['pers_login_password' => $newPass
+                ]);
+            }
             return redirect()->route('login')->with("success","Check your mail to restore password");
         }
     }

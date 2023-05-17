@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicines</title>
+    <title>Doctor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -21,7 +21,7 @@
                         <h2 class="text-center flex-grow-1">Patients List</h2>
                     </div>
                     <div class="col-md-12 d-flex" id="divFilter">
-                        <label class="ms-3 label"><b>Full Name:</b></label>
+                        <label style="width:120px;" class="mt-1 ms-3 label"><b>Full Name:</b></label>
                         <input type="text" id="filter" name="filter" class="form-control ms-3">
                         <button type="submit" name="btns" value="filter" class="btn btn-primary ms-3">Filter</button>
                     </div>                

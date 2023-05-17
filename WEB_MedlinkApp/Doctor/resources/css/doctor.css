@@ -49,15 +49,29 @@ body{
     z-index: 10;
     display:none;
   }
-  #errorModal h2 {
+#errorModal h2 {
     text-align: center;
     margin-top: 0;
   }
-  #errorModal ul {
+#errorModal ul {
     list-style: disc;
     padding-left: 20px;
-  }
-  #closeModal {
+
+}
+
+#closeModal {
     margin: auto;
     
-  }
+}
+
+#patientsTable{
+    max-height: 250px; 
+    overflow-y: auto; 
+  
+}
+
+#treatmentsTable{
+    max-height: 250px; 
+    overflow-y: auto; 
+    
+}

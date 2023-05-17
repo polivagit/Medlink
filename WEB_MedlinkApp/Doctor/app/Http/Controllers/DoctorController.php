@@ -73,6 +73,13 @@ class DoctorController extends Controller
         ->where('p.pers_id', '=', $patientId)
         ->select('*')
         ->get();
+
+        $treatmentss = DB::table('treatment')
+        ->where('trea_doctor_id', session()->get('doctor')->pers_id)
+        ->where('trea_patient_id', $patientId)
+        ->get();
+        $request->session()->put("treatmentsPatient",$treatmentss);
+
         $request->session()->put("patientId",$patientId);
         return response()->json(['info' => $info]);
     }
@@ -84,8 +91,15 @@ class DoctorController extends Controller
         ->select('*')
         ->where('t.trea_patient_id', '=', $patientId)
         ->get();
+
         $request->session()->put("treatments",$treatments);    
         $request->session()->put("patientId",$patientId);
+
+        $treatmentss = DB::table('treatment')
+            ->where('trea_doctor_id', session()->get('doctor')->pers_id)
+            ->where('trea_patient_id', $patientId)
+            ->get();
+        $request->session()->put("treatmentsPatient",$treatmentss);
     
         return response()->json(['treatments' => $treatments]);
     }
@@ -261,7 +275,7 @@ class DoctorController extends Controller
                         ->join('specialty as s', 'd.doct_specialty_id', '=', 's.spec_id')
                         ->where('p.pers_id', '=', 5)
                         ->select('*')
-                        ->get();
+                        ->first();
             $request->session()->put("fullDoctor",$fullDoctor);
             return view('doctorDetail'); 
         }else{
@@ -278,9 +292,9 @@ class DoctorController extends Controller
             $ok=$this->validFormDetails($request);
             if($ok){
                 try{
-
-                DB::table('person')
-                    ->where('pers_id', $request->input('doctorId'))
+                    $doctor=session()->get('fullDoctor');
+                    DB::table('person')
+                    ->where('pers_id', $doctor->pers_id)
                     ->update([
                         'pers_first_name' => $request->input('first_name'),
                         'pers_last_name_1' => $request->input('last_name'),

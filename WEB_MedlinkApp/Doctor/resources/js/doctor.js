@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    $("#miElemento").hide(true);
     $("#cancel").hide(true);
     $("#update").hide(true);
     $("#remove").hide(true);
@@ -7,6 +6,7 @@ $(document).ready(function() {
     $("#yes1").hide(true);
     $("#yes2").hide(true);
     $("#no").hide(true);
+    $("#treatmentDetails").hide(true);
     $("#lblAvis").hide(true);
     $('#nif').prop('readonly', false);
     $('#username').prop('readonly', false);
@@ -16,6 +16,7 @@ $(document).ready(function() {
         $("#cancel").show(true);
         $("#update").show(true);
         $("#remove").show(true);
+        $("#treatmentDetails").show(true);
         $("#add").hide(true);
         $('#nif').prop('readonly', true);
         $('#username').prop('readonly', true);
