@@ -2,8 +2,7 @@ package com.example.medlinkapp.utils.login;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RestorePasswordResponse {
-
+public class ChangePasswordResponse {
     @SerializedName("message")
     private String message;
     @SerializedName("status")
@@ -16,6 +15,4 @@ public class RestorePasswordResponse {
     public String getStatus() {
         return status;
     }
-
-
 }

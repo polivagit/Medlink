@@ -1,5 +1,6 @@
 package com.example.medlinkapp.utils.api;
 
+import com.example.medlinkapp.utils.login.ChangePasswordResponse;
 import com.example.medlinkapp.utils.login.LoginResponse;
 import com.example.medlinkapp.utils.login.RestorePasswordResponse;
 import com.example.medlinkapp.utils.treatment.TreatmentResponse;
@@ -35,6 +36,16 @@ public interface ApiService {
     Call<RestorePasswordResponse> restorePassword(
             @Header("Authorization") String authHeader,
             @Field("mail")  String mail
+    );
+
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @POST("changePasswordUser")
+    @FormUrlEncoded
+    Call<ChangePasswordResponse> changePassword(
+            @Header("Authorization") String authHeader,
+            @Field("user")  String userName,
+            @Field("pass")  String oldPassword,
+            @Field("new")  String newPassword
     );
 
 

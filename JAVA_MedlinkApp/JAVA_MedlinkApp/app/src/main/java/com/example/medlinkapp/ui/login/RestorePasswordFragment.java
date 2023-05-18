@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import com.example.medlinkapp.LoginActivity;
 import com.example.medlinkapp.MainActivity;
 import com.example.medlinkapp.R;
-import com.example.medlinkapp.databinding.FragmentForgotPasswordBinding;
 import com.example.medlinkapp.databinding.FragmentRestorePasswordBinding;
 import com.example.medlinkapp.utils.api.ApiService;
 import com.example.medlinkapp.utils.login.LoginData;
@@ -38,6 +37,7 @@ public class RestorePasswordFragment extends Fragment {
     private FragmentRestorePasswordBinding binding;
     Button btnCancelRestorePass,btnOkRestorePass;
     String eMail;
+    EditText restorePassMail;
 
     private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
 
@@ -64,7 +64,8 @@ public class RestorePasswordFragment extends Fragment {
         btnOkRestorePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eMail = binding.etMailRestorePass.getText().toString();
+                restorePassMail = v.findViewById(R.id.etMailRestorePass);
+                eMail = restorePassMail.getText().toString();
                 restorePassword(eMail);
             }
         });
@@ -95,9 +96,9 @@ public class RestorePasswordFragment extends Fragment {
                     if (restorePass != null){
                         String status = restorePass.getStatus();
                         if (status.equals("Found")){
-                            showDialog("Password changed successfully!");
+                            showDialog("Password restored successfully!");
                         }else{
-                            showDialog("Could not change the password. Please check if you have entered your email correctly.");
+                            showDialog("Could not restore the password. Please check if you have entered your email correctly.");
                         }
                     }else{
                         Log.e("patata","La resposta del webservice esta buida" );

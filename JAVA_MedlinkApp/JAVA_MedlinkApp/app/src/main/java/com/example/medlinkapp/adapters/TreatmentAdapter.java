@@ -1,5 +1,6 @@
 package com.example.medlinkapp.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
 
 
     private List<Treatment> mTreatments;
+
+
 
     public TreatmentAdapter(List<Treatment> pTreatments){
         mTreatments = pTreatments;
@@ -44,11 +47,21 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Treatment t = mTreatments.get(position);
+
         holder.txvTreatmentName.setText(t.getTrea_name());
         holder.txvTreatmentLasted.setText(sdf.format(t.getTrea_date_start().getTime()) + " - " + sdf.format(t.getTrea_date_end().getTime()));
         holder.txvTreatmentDesc.setText(t.getTrea_description());
-        int backgroundColor = t.isTrea_is_active() ? R.color.colorInactive : R.color.colorActive;
-        holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
+        int backgroundColor = R.color.white;
+        if (t.isTrea_is_active() == false){
+            backgroundColor = R.color.colorActive;
+            holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
+            Log.e("patata", "color de fons" + t.isTrea_is_active());
+        }else if (t.isTrea_is_active()){
+            backgroundColor = R.color.colorInactive;
+            holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
+            Log.e("patata", "color de fons inactiu" + t.isTrea_is_active());
+        }
+
 
     }
 

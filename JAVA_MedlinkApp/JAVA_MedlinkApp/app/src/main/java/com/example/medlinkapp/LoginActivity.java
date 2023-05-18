@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.medlinkapp.databinding.ActivityLoginBinding;
-import com.example.medlinkapp.ui.login.ForgotPasswordFragment;
+import com.example.medlinkapp.ui.login.ChangePasswordFragment;
 import com.example.medlinkapp.ui.login.RestorePasswordFragment;
 import com.example.medlinkapp.utils.api.ApiService;
 import com.example.medlinkapp.utils.login.LoginData;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.glChangeLogin, new ForgotPasswordFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.glChangeLogin, new ChangePasswordFragment()).commit();
                 binding.glLogin.setVisibility(View.GONE);
                 binding.glChangeLogin.setVisibility(View.VISIBLE);
 
