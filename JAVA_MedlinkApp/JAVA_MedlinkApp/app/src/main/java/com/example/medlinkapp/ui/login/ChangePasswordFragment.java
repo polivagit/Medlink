@@ -54,7 +54,7 @@ public class ChangePasswordFragment extends Fragment {
         btnCancelChangePass = v.findViewById(R.id.btnCancelChangePass);
         btnOkChangePass = v.findViewById(R.id.btnOkChangePass);
         etNewPass = v.findViewById(R.id.etNewPass);
-        etRepeatNewPass = v.findViewById(R.id.etNewPass);
+        etRepeatNewPass = v.findViewById(R.id.etRepeatNewPass);
         etUserName = v.findViewById(R.id.etUserNameChangePass);
         etOldPass = v.findViewById(R.id.etOldPass);
 
@@ -74,52 +74,14 @@ public class ChangePasswordFragment extends Fragment {
                 oldPass = etOldPass.getText().toString();
                 newPass = etNewPass.getText().toString();
                 repeatNewPass = etRepeatNewPass.getText().toString();
-                /*if (newPass.equals(repeatNewPass)) {
-                    // Las contraseñas coinciden
-                    etRepeatNewPass.setBackgroundColor(Color.WHITE);
-                    changePassword(userName, oldPass, newPass); // Llama al webservice
-                } else {
-                    // Las contraseñas no coinciden
-                    etRepeatNewPass.setBackgroundColor(Color.RED);
-                    Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }*/
 
-
+                    if (newPass.equals(repeatNewPass)) {
+                        changePassword(userName, oldPass, newPass);
+                    } else if (!newPass.equals(repeatNewPass)){
+                        etRepeatNewPass.setError("The new password does not match with the new repeated password");
+                    }
             }
         });
-        TextWatcher passwordTextWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No se requiere implementación
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // No se requiere implementación
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                userName = etUserName.getText().toString();
-                oldPass = etOldPass.getText().toString();
-                newPass = etNewPass.getText().toString();
-                repeatNewPass = etRepeatNewPass.getText().toString();
-
-                if (newPass.equals(repeatNewPass)) {
-                    // Las contraseñas coinciden
-                    etRepeatNewPass.setBackgroundColor(Color.WHITE);
-                    Log.e("patata","afterTexthanged if ");
-                    changePassword(userName, oldPass, newPass); // Llama al webservice
-                } else {
-                    // Las contraseñas no coinciden
-                    etRepeatNewPass.setBackgroundColor(Color.RED);
-                    Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    Log.e("patata","afterTexthanged else ");
-                }
-            }
-        };
-        etNewPass.addTextChangedListener(passwordTextWatcher);
-        etRepeatNewPass.addTextChangedListener(passwordTextWatcher);
 
         return v;
     }
@@ -148,15 +110,13 @@ public class ChangePasswordFragment extends Fragment {
                     ChangePasswordResponse changePass = response.body();
                     if (changePass != null){
                         String status = changePass.getStatus();
+                        Log.e("patata","status" + status);
                         if (status.equals("Found")){
                             showDialog("Password changed successfully!");
                         }else{
-                            showDialog("Could not change the password. Please check if you have entered your username correctly.");
+                            showDialog2("Could not change the password. Please check if you have entered your username and old password correctly.");
                         }
-                    }else{
-                        Log.e("patata","La resposta del webservice esta buida" );
                     }
-
                     Log.e("patata","Result" + response);
                 } else {
 
@@ -179,6 +139,17 @@ public class ChangePasswordFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void showDialog2(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
                     }
                 });
         builder.create().show();
