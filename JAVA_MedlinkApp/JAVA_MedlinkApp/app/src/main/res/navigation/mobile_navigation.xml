@@ -3,18 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_start">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/nav_start"
-        android:name="com.example.medlinkapp.ui.start.StartFragment"
+        android:id="@+id/nav_medicines"
+        android:name="com.example.medlinkapp.ui.start.MedicinesFragment"
         android:label="@string/menu_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_medicines" />
 
     <fragment
         android:id="@+id/nav_history"
         android:name="com.example.medlinkapp.ui.history.HistoryFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_history" /><action android:id="@+id/action_global_nav_start" app:destination="@id/nav_start"/><action android:id="@+id/action_global_nav_history" app:destination="@id/nav_history"/>
+        tools:layout="@layout/fragment_history" /><action android:id="@+id/action_global_nav_start" app:destination="@id/nav_medicines"/><action android:id="@+id/action_global_nav_history" app:destination="@id/nav_history"/>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.medlinkapp.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home" />
 
 </navigation>

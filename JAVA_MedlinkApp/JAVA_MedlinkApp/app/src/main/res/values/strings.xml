@@ -11,6 +11,7 @@
 
     <string name="menu_start">Start</string>
     <string name="menu_history">History</string>
+    <string name="menu_home">Home</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_login_activity.java">LoginActivity.java</string>
     <!-- TODO: Remove or change this placeholder text -->

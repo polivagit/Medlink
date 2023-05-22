@@ -159,10 +159,15 @@ public class HistoryFragment extends Fragment {
                             treaDoctorId = treatmentData.getTrea_doctor_id();
                             treaPatientId = treatmentData.getTrea_patient_id();
 
+                            if (treaIsActive.equals("0")){
+                                isActive = false;
+                            }else{
+                                isActive = true;
+                            }
+
                             treaIdInt = Integer.parseInt(treaId);
                             dateStart = convertStringToGregorianCalendar(treaDateStart);
                             dateEnd = convertStringToGregorianCalendar(treaDateEnd);
-                            isActive = Boolean.parseBoolean(treaIsActive);
                             doctorId = Integer.parseInt(treaDoctorId);
                             patientIdInt = Integer.parseInt(treaPatientId);
 
@@ -201,6 +206,7 @@ public class HistoryFragment extends Fragment {
         return calendar;
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

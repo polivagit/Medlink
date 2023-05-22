@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
 
+    private String persName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,10 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     List<LoginData> loginDataList = loginResponse.getData();
                     if (!loginDataList.isEmpty()) {
-                        patiPersonId = loginDataList.get(0).getPatiPersonId();
+                        for (LoginData loginData: loginDataList) {
+                            patiPersonId = loginData.getPatiPersonId();
+                            persName = loginData.getPers_first_name();
+                        }
                         Log.e("patata","Patient id: " + patiPersonId);
                         Intent i = new Intent(LoginActivity.this,MainActivity.class);
                         i.putExtra("pati_person_id",patiPersonId);
+                        i.putExtra("personaName",persName);
                         startActivity(i);
                     }
 

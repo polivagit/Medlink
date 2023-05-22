@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.medlinkapp.R;
 import com.example.medlinkapp.model.Treatment;
 import com.example.medlinkapp.model.TreatmentMedicine;
+import com.example.medlinkapp.utils.medicines.MedicineTreatmentData;
 
 import java.util.List;
 
 public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdapter.ViewHolder> {
 
-    private List<TreatmentMedicine> mTreatmentMedicines;
+    private List<MedicineTreatmentData> mTreatmentMedicines;
 
-    public MedicineStartAdapter(List<TreatmentMedicine> pTreatmentMedicines){
+    public MedicineStartAdapter(List<MedicineTreatmentData> pTreatmentMedicines){
         mTreatmentMedicines = pTreatmentMedicines;
     }
 
@@ -32,9 +33,10 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TreatmentMedicine tm = mTreatmentMedicines.get(position);
-        holder.txvMedicineName.setText(tm.getTrme_medicine_id()+"");
+        MedicineTreatmentData tm = mTreatmentMedicines.get(position);
+        holder.txvMedicineName.setText(tm.getMedi_name()+"");
         holder.txvMedicineQuantity.setText(tm.getTrme_quantity_per_day()+"");
+        holder.txvMedicineUnitOfMeasure.setText(tm.getUnme_abbreviation());
     }
 
 
@@ -47,10 +49,12 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
 
         TextView txvMedicineName;
         TextView txvMedicineQuantity;
+        TextView txvMedicineUnitOfMeasure;
         public ViewHolder(@NonNull View filaview) {
             super(filaview);
             txvMedicineName = filaview.findViewById(R.id.txvMedicineName);
             txvMedicineQuantity = filaview.findViewById(R.id.txvMedicineQuantity);
+            txvMedicineUnitOfMeasure = filaview.findViewById(R.id.txvMedicineUnitOfMeasure);
         }
     }
 }

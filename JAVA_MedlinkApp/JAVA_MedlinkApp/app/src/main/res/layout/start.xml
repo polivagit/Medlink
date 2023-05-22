@@ -49,17 +49,43 @@
             android:layout_row="0"
             >
         </TextView>
+            <TextView
+                android:id="@+id/txvMedicineQuantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="3"
+                android:padding="10dp"
+                android:text="1"
+                android:textColor="#4B4B4B"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_column="1"
+                android:layout_row="1"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/txvMedicineUnitOfMeasure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="3"
+                android:padding="10dp"
+                android:text="mg"
+                android:textColor="#4B4B4B"
+                android:textSize="20dp"
+                android:layout_column="2"
+                android:layout_row="1"
+                >
+            </TextView>
         <TextView
-            android:id="@+id/txvMedicineQuantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="3"
+            android:layout_columnWeight="2"
             android:padding="10dp"
-            android:text="1mg"
-            android:textColor="#4B4B4B"
+            android:text="Unit of measure"
             android:textSize="20dp"
-            android:layout_column="1"
-            android:layout_row="1"
+            android:textColor="@color/black"
+            android:layout_column="2"
+            android:layout_row="0"
             >
         </TextView>
 

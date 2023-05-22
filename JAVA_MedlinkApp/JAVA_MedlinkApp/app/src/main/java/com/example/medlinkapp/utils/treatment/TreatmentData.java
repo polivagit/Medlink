@@ -7,6 +7,7 @@ public class TreatmentData {
 
 
     private static int _patientId;
+
     @SerializedName("trea_id")
     private String trea_id;
 
@@ -78,6 +79,7 @@ public class TreatmentData {
         _patientId = entrada;
         return _patientId;
     }
+
 
 
 

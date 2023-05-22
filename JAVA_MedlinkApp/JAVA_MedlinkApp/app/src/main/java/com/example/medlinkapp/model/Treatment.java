@@ -25,7 +25,6 @@ public class Treatment {
     private int trea_doctor_id;
     private int trea_patient_id;
 
-    private static ArrayList<Treatment> mTreatments;
     //endregion
 
     //region CONSTRUCTORS --------------------------------------------------------------------------
@@ -57,18 +56,6 @@ public class Treatment {
         this.trea_is_active = trea_is_active;
         this.trea_doctor_id = trea_doctor_id;
         this.trea_patient_id = trea_patient_id;
-    }
-    //endregion
-
-    //region METHODS -------------------------------------------------------------------------------
-    public static List<Treatment> getTreatments(){
-        if (mTreatments == null){
-            mTreatments = new ArrayList<>();
-            mTreatments.add(new Treatment(1,"Shoulder pain","Treatment for healing shoulder pain",new GregorianCalendar(2023,4,25),new GregorianCalendar(2023,6,12),true,12,3));
-            mTreatments.add(new Treatment(2,"Flu treatment","Treatment for the flu",new GregorianCalendar(2021,11,9),new GregorianCalendar(2021,12,20),false,2,4));
-            mTreatments.add(new Treatment(3,"Broken leg","Treatment for healing a broken leg",new GregorianCalendar(2022,7,3),new GregorianCalendar(2023,1,23),false,4,10));
-        }
-        return mTreatments;
     }
     //endregion
 
