@@ -18,30 +18,24 @@ class MedicineController extends Controller
             if($category==null){
                 $cats = DB::table('medicine_category')->get();
                 $request->session()->put("category",$cats);
-
             }
             $units=session()->get('units');
             if($units==null){
                 $units = DB::table('units_of_measure')->get();
                 $request->session()->put("units",$units);
             }
-            $medis=session()->get('medicinesList');
-            if($medis==null){
-                $medis = DB::table('medicine')
-                ->join('medicine_category', 'medicine.medi_category_id', '=', 'medicine_category.meca_id')
-                ->select('*')
-                ->get();                
-                $request->session()->put("medicinesList",$medis);
-            }
+            $medis = DB::table('medicine')
+            ->join('medicine_category', 'medicine.medi_category_id', '=', 'medicine_category.meca_id')
+            ->select('*')
+            ->get();                
+            $request->session()->put("medicinesList",$medis);
             return view('medicine'); 
-
         }
         return redirect()->route('login')->with("error","WRITE CREDENTIALS!!");
     }
 
     public function filter(Request $request){
         $btn = $request->input("btns");  
-
         if($btn=="filter"){
             $name="%".strtoupper($request->input('filter'))."%";
             $cat=$request->input('medicines');
@@ -60,7 +54,6 @@ class MedicineController extends Controller
 
         }else if($btn=="treatment"){
             return redirect()->route('treatment/index'); 
-
         }
     }
 
@@ -83,14 +76,7 @@ class MedicineController extends Controller
                     'trme_unit_of_measure_id' => $request->input('unit'),
                 ]);
 
-                $medicines = DB::table('treatment_medicine AS t')
-                ->leftJoin('medicine AS m', 't.trme_medicine_id', '=', 'm.medi_id')
-                ->leftJoin('units_of_measure AS u', 't.trme_unit_of_measure_id', '=', 'u.unme_id')
-                ->leftJoin('medicine_category AS mm', 'm.medi_category_id', '=', 'mm.meca_id')
-                ->select('*')
-                ->where('t.trme_treatment_id', $treatId)
-                ->get();
-                $request->session()->put("medicines",$medicines);
+                $this->actMedicines($treatId,$request);
             }catch(\Illuminate\Database\QueryException $ex){
                 return redirect()->route('medicine/index')->with("error","Insert Error")->withInput();
             }
@@ -112,16 +98,7 @@ class MedicineController extends Controller
                         'trme_total_quantity' => $request->input('total'),
                         'trme_unit_of_measure_id' => $request->input('unit'),
                 ]);
-
-                $medicines = DB::table('treatment_medicine AS t')
-                ->leftJoin('medicine AS m', 't.trme_medicine_id', '=', 'm.medi_id')
-                ->leftJoin('units_of_measure AS u', 't.trme_unit_of_measure_id', '=', 'u.unme_id')
-                ->leftJoin('medicine_category AS mm', 'm.medi_category_id', '=', 'mm.meca_id')
-                ->select('*')
-                ->where('t.trme_treatment_id', $treatId)
-                ->get();
-                $request->session()->put("medicines",$medicines);
-
+                $this->actMedicines($treatId,$request);
             }catch(\Illuminate\Database\QueryException){
                 return redirect()->route('medicine/index')->with("error","Update Error, may be this mail, username, nif, phone... already exist")->withInput();
             }
@@ -129,21 +106,11 @@ class MedicineController extends Controller
 
         }            
         else if($btns == "yes2"){
-
             DB::table('treatment_medicine')
             ->where('trme_treatment_id', $treatId)
             ->where('trme_medicine_id', $request->input('mediId'))
             ->delete();
-
-            $medicines = DB::table('treatment_medicine AS t')
-            ->leftJoin('medicine AS m', 't.trme_medicine_id', '=', 'm.medi_id')
-            ->leftJoin('units_of_measure AS u', 't.trme_unit_of_measure_id', '=', 'u.unme_id')
-            ->leftJoin('medicine_category AS mm', 'm.medi_category_id', '=', 'mm.meca_id')
-            ->select('*')
-            ->where('t.trme_treatment_id', $treatId)
-            ->get();
-            $request->session()->put("medicines",$medicines);
-
+            $this->actMedicines($treatId,$request);
             return redirect()->route('medicine/index')->with("success","Remove OK");
         }
     }
@@ -159,6 +126,17 @@ class MedicineController extends Controller
         $id=session()->get('treatId');
         $medi = DB::table('treatment_medicine')->where('trme_medicine_id', $mediId)->where('trme_treatment_id', $id)->get();
         return response()->json(['info' => $medi]);
+    }
+
+    public function actMedicines($treatId,Request $request){
+        $medicines = DB::table('treatment_medicine AS t')
+        ->leftJoin('medicine AS m', 't.trme_medicine_id', '=', 'm.medi_id')
+        ->leftJoin('units_of_measure AS u', 't.trme_unit_of_measure_id', '=', 'u.unme_id')
+        ->leftJoin('medicine_category AS mm', 'm.medi_category_id', '=', 'mm.meca_id')
+        ->select('*')
+        ->where('t.trme_treatment_id', $treatId)
+        ->get();
+        $request->session()->put("medicines",$medicines);
     }
 
     

@@ -66,29 +66,3 @@ body{
     margin: auto;
     
 }
-
-/* #btnDetail{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.labelForm{
-    width: 140px;
-    margin-left: 5px;
-}
-.labelForm1{
-    width: 120px;
-    margin-left: 5px;
-}
-
-#patientsTable{
-    max-height: 250px; 
-    overflow-y: auto; 
-  
-}
-
-#treatmentsTable{
-    max-height: 250px; 
-    overflow-y: auto; 
-    
-} */

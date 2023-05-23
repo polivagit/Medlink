@@ -52,13 +52,6 @@ $(document).ready(function() {
         $('#start').val("");
         $('#total').val("");
         $('#unit').val("");
-        // $("#cancel").show("true");
-        // $("#update").show("true");
-        // $("#remove").show("true");
-        // $("#treatmentDetails").show("true");
-        // $("#add").hide("true");
-        // $("#medicineDetails").show("true");
-
 
         $('#tableMedicines tr').each(function(){
             $(this).css("background-color", "white");
@@ -72,26 +65,6 @@ $(document).ready(function() {
         let id=$(this).find("input").val();
         $("#mediId").val(id);
 
-
-        // $.ajax({
-        //     type: 'GET',
-        //     url: 'putMedicines?treat='+id,
-        //     success: function(info) {
-        //       let table = $('#medicinesTable tbody');
-        //       table.empty();
-        //       console.info(info);
-        //       for (let i = 0; i < info.medicines.length; i++) {
-        //           let medicine = info.medicines[i];      
-        //           let row = $('<tr>');
-        //           row.append($('<td>').text(medicine.medi_name));
-        //           row.append($('<td>').text(medicine.meca_name));
-        //           row.append($('<td>').text(medicine.trme_quantity_per_day));
-        //           row.append($('<td>').text(medicine.unme_name));
-        //           table.append(row);
-        //       }
-      
-        //     }
-        //   });
       });
       $("#add").click(function(ev){
         ev.preventDefault();

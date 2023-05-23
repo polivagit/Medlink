@@ -49,18 +49,15 @@ class TreatmentController extends Controller
 
     public function putInfo(Request $request){
         $treatId = $request->input('treat');
-
         $treatment = DB::table('treatment')
         ->where('trea_id', $treatId)
         ->get();
- 
         $request->session()->put("treatId",$treatId);
         return response()->json(['info' => $treatment]);
     }
 
     public function putMedicines(Request $request ){
         $treatId = $request->input('treat');
-
         $medicines = DB::table('treatment_medicine AS t')
         ->leftJoin('medicine AS m', 't.trme_medicine_id', '=', 'm.medi_id')
         ->leftJoin('units_of_measure AS u', 't.trme_unit_of_measure_id', '=', 'u.unme_id')
@@ -92,11 +89,7 @@ class TreatmentController extends Controller
                         'trea_doctor_id' => $doctor->pers_id,
                         'trea_patient_id' => $patientId
                     ]);
-                    $treatments = DB::table('treatment')
-                    ->where('trea_doctor_id', $doctor->pers_id)
-                    ->where('trea_patient_id', $patientId)
-                    ->get();
-                    $request->session()->put("treatmentsPatient",$treatments);
+                    $this->actInfo($doctor,$patientId,$request);
 
                 }catch(\Illuminate\Database\QueryException $ex){
                     return redirect()->route('treatment/index')->with("error","Insert Error, may be this mail, username, nif, phone... already exist")->withInput();
@@ -120,11 +113,7 @@ class TreatmentController extends Controller
                         'trea_observations' => $request->input('obs'),
                         'trea_is_active' => $request->input('active'),
                 ]);
-                $treatments = DB::table('treatment')
-                ->where('trea_doctor_id', $doctor->pers_id)
-                ->where('trea_patient_id', $patientId)
-                ->get();
-                $request->session()->put("treatmentsPatient",$treatments);
+                $this->actInfo($doctor,$patientId,$request);
                 return redirect()->route('treatment/index')->with("success","Update OK");            
 
             }catch(\Illuminate\Database\QueryException){
@@ -139,12 +128,7 @@ class TreatmentController extends Controller
             DB::table('treatment')
                 ->where('trea_id', $request->input('treatSelect'))
                 ->delete();
-
-            $treatments = DB::table('treatment')
-                ->where('trea_doctor_id', $doctor->pers_id)
-                ->where('trea_patient_id', $patientId)
-                ->get();
-            $request->session()->put("treatmentsPatient",$treatments);
+            $this->actInfo($doctor,$patientId,$request);
 
             return redirect()->route('treatment/index')->with("success","Remove OK");
         }
@@ -164,7 +148,14 @@ class TreatmentController extends Controller
             'desc.required' => 'Description is required',
             'desc.min' => 'Description must have 10 caracters or more',
         ]);
-
         return true;
+    }
+
+    public function actInfo($doctor,$patientId,$request){
+        $treatments = DB::table('treatment')
+        ->where('trea_doctor_id', $doctor->pers_id)
+        ->where('trea_patient_id', $patientId)
+        ->get();
+        $request->session()->put("treatmentsPatient",$treatments);
     }
 }

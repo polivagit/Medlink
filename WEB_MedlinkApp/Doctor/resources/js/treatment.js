@@ -52,9 +52,10 @@ $(document).ready(function() {
               for (let i = 0; i < info.medicines.length; i++) {
                   let medicine = info.medicines[i];      
                   let row = $('<tr>');
+                  let qtat = (Number.isInteger(medicine.trme_quantity_per_day)) ? medicine.trme_quantity_per_day : medicine.trme_quantity_per_day.toFixed(2);
                   row.append($('<td>').text(medicine.medi_name));
                   row.append($('<td>').text(medicine.meca_name));
-                  row.append($('<td>').text(medicine.trme_quantity_per_day));
+                  row.append($('<td>').text(qtat));
                   row.append($('<td>').text(medicine.unme_name));
                   table.append(row);
               }
@@ -68,7 +69,7 @@ $(document).ready(function() {
         $("#lblAvis").show("true");
         $("#yes").show("true");
         $("#no").show("true");
-    })
+    });
     $("#update").click(function(ev){
         ev.preventDefault();
         let ok= validForm();
@@ -77,13 +78,13 @@ $(document).ready(function() {
             $("#yes1").show("true");
             $("#no").show("true");
         }
-    })
+    });
     $("#remove").click(function(ev){
         ev.preventDefault();
         $("#lblAvis").show("true");
         $("#yes2").show("true");
         $("#no").show("true");
-    })
+    });
     $("#no").click(function(ev){
         ev.preventDefault();
         $("#lblAvis").hide("true");
@@ -91,9 +92,9 @@ $(document).ready(function() {
         $("#yes1").hide("true");
         $("#yes2").hide("true");
         $("#no").hide("true");
-    })
-
+    });
 });
+
 function validForm() {
     let errors = []; 
     let name = $('#name').val();
@@ -131,5 +132,4 @@ function validForm() {
     } else {
         return true;
     }
-
 }  
