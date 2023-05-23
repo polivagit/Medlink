@@ -1,6 +1,7 @@
-package com.example.medlinkapp.ui.start;
+package com.example.medlinkapp.ui.medicines;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,11 +25,14 @@ import com.example.medlinkapp.LoginActivity;
 import com.example.medlinkapp.R;
 import com.example.medlinkapp.adapters.MedicineStartAdapter;
 import com.example.medlinkapp.databinding.FragmentMedicinesBinding;
+import com.example.medlinkapp.model.Treatment;
 import com.example.medlinkapp.utils.api.ApiService;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentData;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentResponse;
-import com.example.medlinkapp.utils.treatment.TreatmentId;
+import com.example.medlinkapp.utils.treatment.TreatmentData;
+import com.example.medlinkapp.utils.treatment.TreatmentResponse;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +57,8 @@ public class MedicinesFragment extends Fragment {
     private String treatmentId;
     MedicineStartAdapter adapter;
 
-    RecyclerView rcyStart;
+    RecyclerView rcyMedicines;
+    List<String> mTreatmentsIds;
 
     List<MedicineTreatmentData>mMedicineTreatment;
 
@@ -62,21 +69,24 @@ public class MedicinesFragment extends Fragment {
     String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        //getTreatmentIdFromWebService(patientId);
-        mMedicineTreatment = new ArrayList<>();
-        View v = inflater.inflate(R.layout.fragment_medicines,container,false);
-        rcyStart = v.findViewById(R.id.rcyStart);
-        rcyStart.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rcyStart.setHasFixedSize(true);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyStart.getContext(),
-                DividerItemDecoration.VERTICAL);
-        rcyStart.addItemDecoration(dividerItemDecoration);
-        //getMedicineTreatmentFromWebService(treatmentId);
-        getTreatmentIdFromWebService(patientId);
+        Bundle b = getArguments();
+        patientId = b.getString("patientId","");
+        Log.d("algo","patient id a medicines frag " + patientId);
 
+        mMedicineTreatment = new ArrayList<>();
+        mTreatmentsIds = new ArrayList<>();
+        View v = inflater.inflate(R.layout.fragment_medicines,container,false);
+        rcyMedicines = v.findViewById(R.id.rcyMedicines);
+        getTreatmentIdFromWebService(patientId);
+        rcyMedicines.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rcyMedicines.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyMedicines.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rcyMedicines.addItemDecoration(dividerItemDecoration);
 
         txvObservations = v.findViewById(R.id.txvObservations);
         btnSpeak = v.findViewById(R.id.btnSpeak);
@@ -114,10 +124,6 @@ public class MedicinesFragment extends Fragment {
         }
         super.onPause();
     }
-    public void receiveData(String data) {
-        patientId = data;
-        Log.d("algo", "Datos recibidos: " + data);
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -132,6 +138,7 @@ public class MedicinesFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void getTreatmentIdFromWebService(String patientId){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WEBSERVICE_URL)
@@ -140,19 +147,24 @@ public class MedicinesFragment extends Fragment {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<TreatmentId>> call = apiService.treatmentsId(authHeader,patientId);
-        call.enqueue(new Callback<List<TreatmentId>>() {
-            @Override
-            public void onResponse(Call<List<TreatmentId>> call, Response<List<TreatmentId>> response) {
-                if (response.isSuccessful()) {
-                    List<TreatmentId> treatments = response.body();
-                    if (treatments != null) {
-                        for(TreatmentId treaId : treatments){
-                            treatmentId = treaId.getTreatmentId();
-                            Log.e("treatments:","TreatmentId a start : " + treatmentId);
-                            getMedicinesFromTreatmentId(treatmentId);
+        Log.e("treatments:","entro al metode");
 
+        Call<TreatmentResponse> call = apiService.treatmentsId(authHeader,patientId);
+        CompletableFuture<List<String>> future = new CompletableFuture<>();
+        call.enqueue(new Callback<TreatmentResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<TreatmentResponse> call, Response<TreatmentResponse> response) {
+                if (response.isSuccessful()) {
+                    TreatmentResponse treatments = response.body();
+                    List<TreatmentData> treatmentDataList = treatments.getData();
+                    if (!treatmentDataList.isEmpty()) {
+                        for(TreatmentData treaId : treatmentDataList){
+                            treatmentId = treaId.getTreaId();
+                            mTreatmentsIds.add((treatmentId));
+                            Log.e("treatments: ","llista d'ids" + mTreatmentsIds);
                         }
+                        future.complete(mTreatmentsIds);
                     }else {
                         Log.e("treatments:", "La lista esta vacia");
                     }
@@ -163,13 +175,64 @@ public class MedicinesFragment extends Fragment {
                 }
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onFailure(Call<List<TreatmentId>> call, Throwable t) {
-                // Handle failure
+            public void onFailure(Call<TreatmentResponse> call, Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+        future.thenAccept(treatmentIds -> {
+            for (String treatId : treatmentIds) {
+                getMedicinesFromTreatmentId(treatId);
             }
         });
 
     }
+
+    /*public void getMedicinesFromTreatmentId(String treatmentId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WEBSERVICE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<MedicineTreatmentResponse> call2 = apiService.medicines(authHeader, treatmentId);
+
+        try {
+            Response<MedicineTreatmentResponse> response = call2.execute(); // Llamada bloqueante
+            if (response.isSuccessful()) {
+                MedicineTreatmentResponse medicineTreatmentResponse = response.body();
+                List<MedicineTreatmentData> medicineTreatmentDataList = medicineTreatmentResponse.getData();
+                if (!medicineTreatmentDataList.isEmpty()) {
+                    Log.e("treatments:","ENTRO");
+                    Calendar currentDate = Calendar.getInstance();
+                    for (MedicineTreatmentData medicineTreatmentData : medicineTreatmentDataList) {
+                        medicineName = medicineTreatmentData.getMedi_name();
+                        dateStart = medicineTreatmentData.getTrme_date_start();
+                        dateEnd = medicineTreatmentData.getTrme_date_end();
+                        quantityPerDay = medicineTreatmentData.getTrme_quantity_per_day();
+                        unitOfMeasure = medicineTreatmentData.getUnme_abbreviation();
+                        Calendar startCalendar = convertToDate(dateStart);
+                        Calendar endCalendar = convertToDate(dateEnd);
+
+                        if ((endCalendar != null && endCalendar.after(currentDate)&&(startCalendar!=null && endCalendar.before(currentDate)))) {
+                            mMedicineTreatment.add(new MedicineTreatmentData(dateStart, dateEnd, quantityPerDay, medicineName, unitOfMeasure));
+                        }
+                    }
+                    adapter = new MedicineStartAdapter(mMedicineTreatment);
+                    rcyMedicines.setAdapter(adapter);
+                } else {
+                    Log.e("treatments:", "La lista está vacía");
+                }
+            } else {
+                Log.e("patata", "Result" + response);
+            }
+        } catch (IOException e) {
+            // Manejar la excepción de IO
+            e.printStackTrace();
+        }
+    }*/
+
 
     public void getMedicinesFromTreatmentId(String treatmentId){
         Retrofit retrofit = new Retrofit.Builder()
@@ -203,7 +266,7 @@ public class MedicinesFragment extends Fragment {
                             }
                         }
                         adapter = new MedicineStartAdapter(mMedicineTreatment);
-                        rcyStart.setAdapter(adapter);
+                        rcyMedicines.setAdapter(adapter);
                     }else {
                         Log.e("treatments:", "La lista esta vacia");
                     }

@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
 
     private String persName;
+    String userName;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = binding.etUser.getText().toString();
-                String password = binding.etPassword.getText().toString();
+                 userName = binding.etUser.getText().toString();
+                password = binding.etPassword.getText().toString();
 
                 if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Please enter user name and password.", Toast.LENGTH_SHORT).show();
@@ -102,6 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                         Intent i = new Intent(LoginActivity.this,MainActivity.class);
                         i.putExtra("pati_person_id",patiPersonId);
                         i.putExtra("personaName",persName);
+                        i.putExtra("userName",userName);
+                        i.putExtra("pass",password);
                         startActivity(i);
                     }
 

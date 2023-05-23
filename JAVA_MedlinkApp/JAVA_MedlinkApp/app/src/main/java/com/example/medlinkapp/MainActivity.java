@@ -5,11 +5,10 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.example.medlinkapp.databinding.ActivityMainBinding;
-import com.example.medlinkapp.ui.history.HistoryFragment;
-import com.example.medlinkapp.ui.home.HomeFragment;
-import com.example.medlinkapp.ui.start.MedicinesFragment;
+import com.example.medlinkapp.ui.userInfo.UserInfoFragment;
 import com.example.medlinkapp.utils.api.ApiService;
 import com.example.medlinkapp.utils.treatment.TreatmentData;
 import com.example.medlinkapp.utils.treatment.TreatmentResponse;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private int patientId;
-    String aux,treaId,personName;
+    String aux,treaId,personName,user,pass;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -59,9 +58,13 @@ public class MainActivity extends AppCompatActivity{
         if (extras != null) {
             aux = extras.getString("pati_person_id");
             personName = extras.getString("personaName");
+            user = extras.getString("userName");
+            pass = extras.getString("pass");
         }
         patientId = Integer.parseInt(aux);
         Log.e("patata","Patient id: " + patientId);
+        Log.e("patata","user name " + user);
+        Log.e("patata","pass " + pass);
 
 
         setSupportActionBar(binding.toolbar);
@@ -75,12 +78,10 @@ public class MainActivity extends AppCompatActivity{
         toggle.syncState();
         NavigationView navigationView = binding.navView;
         navigationView.bringToFront();
-
-        getTreatmentIdFromWebService(aux);
         Log.e("patata","Treatment id: " + aux);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_medicines, R.id.nav_history)
+                R.id.nav_home, R.id.nav_medicines, R.id.nav_history,R.id.nav_user_info)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -88,29 +89,26 @@ public class MainActivity extends AppCompatActivity{
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Log.e("patata","patiend id main activity" + patientId);
                 switch (item.getItemId()){
-
                     case R.id.nav_history:
-                        HistoryFragment fragment = new HistoryFragment();
                         TreatmentData.set_treatmentId(patientId);
-                        Log.e("patata","patiend id main activity" + patientId);
-
                         Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_history);
                         break;
                     case R.id.nav_medicines:
-                        MedicinesFragment fragment2 = new MedicinesFragment();
-                        TreatmentData.set_treatmentId(patientId);
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.llStart,fragment2)
-                                .commit();
-
-                        fragment2.receiveData(aux);
-                        Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_start);
+                        Bundle args = new Bundle();
+                        args.putString("patientId", patientId+"");
+                        Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_start,args);
                         break;
                     case R.id.nav_home:
-                        HomeFragment fragment3 = new HomeFragment();
                         Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_home);
+                        break;
+                    case R.id.nav_user_info:
+                        Bundle args2 = new Bundle();
+                        args2.putString("userName",user);
+                        args2.putString("pass",pass);
+                        Log.e("algo","user name " + user);
+                        Log.e("algo","pass " + pass);
+                        Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_user_info,args2);
                         break;
                 }
                 drawer.closeDrawer(GravityCompat.START);
@@ -131,43 +129,6 @@ public class MainActivity extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    public void getTreatmentIdFromWebService(String patientId){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WEBSERVICE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<TreatmentResponse> call = apiService.treatments(authHeader,patientId);
-        call.enqueue(new Callback<TreatmentResponse>() {
-            @Override
-            public void onResponse(Call<TreatmentResponse> call, Response<TreatmentResponse> response) {
-                if (response.isSuccessful()) {
-                    TreatmentResponse treatmentResponse = response.body();
-                    List<TreatmentData> treatmentDataList = treatmentResponse.getData();
-                    if (!treatmentDataList.isEmpty()) {
-                        for (TreatmentData treatmentData: treatmentDataList) {
-                            treaId = treatmentData.getTreaId();
-                        }
-                    }else {
-                        Log.e("treatments:", "La lista esta vacia");
-                    }
-
-
-                } else {
-                    Log.e("patata","Result" + response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TreatmentResponse> call, Throwable t) {
-                // Handle failure
-            }
-        });
-
     }
 
 }

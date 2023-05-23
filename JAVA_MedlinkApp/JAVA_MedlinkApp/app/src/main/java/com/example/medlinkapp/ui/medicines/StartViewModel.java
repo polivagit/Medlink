@@ -1,4 +1,4 @@
-package com.example.medlinkapp.ui.start;
+package com.example.medlinkapp.ui.medicines;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

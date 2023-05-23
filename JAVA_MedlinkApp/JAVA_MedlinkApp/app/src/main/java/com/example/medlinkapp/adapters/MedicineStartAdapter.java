@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medlinkapp.R;
-import com.example.medlinkapp.model.Treatment;
-import com.example.medlinkapp.model.TreatmentMedicine;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentData;
 
 import java.util.List;
@@ -26,7 +24,7 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View fila = LayoutInflater.from(parent.getContext()).inflate(R.layout.start,parent,false);
+        View fila = LayoutInflater.from(parent.getContext()).inflate(R.layout.medicines,parent,false);
         ViewHolder vh = new ViewHolder(fila);
         return vh;
     }

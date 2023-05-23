@@ -1,16 +1,6 @@
 package com.example.medlinkapp.model;
 
-import android.icu.text.DateFormat;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class Treatment {
 
@@ -56,6 +46,10 @@ public class Treatment {
         this.trea_is_active = trea_is_active;
         this.trea_doctor_id = trea_doctor_id;
         this.trea_patient_id = trea_patient_id;
+    }
+
+    public Treatment (int trea_id){
+        this.trea_id = trea_id;
     }
     //endregion
 
