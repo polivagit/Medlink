@@ -140,18 +140,17 @@ class DoctorController extends Controller
                         'pati_remarks' => $request->input('remarks'),
                         'pati_caregiver_id' => $caregiver
                     ]); 
+                    $patients = DB::table('person as p')
+                    ->join('patient as pp', 'p.pers_id', '=', 'pp.pati_person_id')
+                    ->select('*')
+                    ->get();
+                    $request->session()->put("patients",$patients);
+                    return redirect()->route('doctor')->with("success","Insert OK");
 
 
                 }catch(\Illuminate\Database\QueryException $ex){
                     return redirect()->route('doctor')->with("error","Insert Error, may be this mail, username, nif, phone... already exist")->withInput();
                 }
-
-                $patients = DB::table('person as p')
-                ->join('patient as pp', 'p.pers_id', '=', 'pp.pati_person_id')
-                ->select('*')
-                ->get();
-                $request->session()->put("patients",$patients);
-                return redirect()->route('doctor')->with("success","Insert OK");
                                
             }
             return redirect()->route('doctor');
@@ -189,15 +188,17 @@ class DoctorController extends Controller
                         'pati_caregiver_id' => $caregiver
                     ]);
 
+                $patients = DB::table('person as p')
+                    ->join('patient as pp', 'p.pers_id', '=', 'pp.pati_person_id')
+                    ->select('*')
+                    ->get();
+                $request->session()->put("patients",$patients);
+                return redirect()->route('doctor')->with("success","Update OK");                 
+
             }catch(\Illuminate\Database\QueryException){
                 return redirect()->route('doctor')->with("error","Update Error, may be this mail, username, nif, phone... already exist")->withInput();
             }
-            $patients = DB::table('person as p')
-            ->join('patient as pp', 'p.pers_id', '=', 'pp.pati_person_id')
-            ->select('*')
-            ->get();
-            $request->session()->put("patients",$patients);
-            return redirect()->route('doctor')->with("success","Update OK");            
+           
         }            
         else if($btns == "yes2"){
             DB::table('patient')

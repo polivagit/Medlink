@@ -1,23 +1,26 @@
 $(document).ready(function() {
-    $("#cancel").hide(true);
-    $("#update").hide(true);
-    $("#remove").hide(true);
-    $("#yes").hide(true);
-    $("#yes1").hide(true);
-    $("#yes2").hide(true);
-    $("#no").hide(true);
-    $("#treatmentDetails").hide(true);
-    $("#lblAvis").hide(true);
+    $("#cancel").hide("true");
+    $("#update").hide("true");
+    $("#remove").hide("true");
+    $("#yes").hide("true");
+    $("#yes1").hide("true");
+    $("#yes2").hide("true");
+    $("#no").hide("true");
+    $("#treatmentDetails").hide("true");
+    $("#lblAvis").hide("true");
+    $("#medicineDetails").hide("true");
     let currentDate = new Date().toISOString().slice(0, 10);
     $('#start').val(currentDate);
-    $('#start').prop('readonly', true);
+    $('#start').prop('readonly', "true");
 
     $('#treatmentsTable1 tr').click(function() {
-        $("#cancel").show(true);
-        $("#update").show(true);
-        $("#remove").show(true);
-        $("#treatmentDetails").show(true);
-        $("#add").hide(true);
+        $("#cancel").show("true");
+        $("#update").show("true");
+        $("#remove").show("true");
+        $("#treatmentDetails").show("true");
+        $("#add").hide("true");
+        $("#medicineDetails").show("true");
+
 
         $('#treatmentsTable1 tr').each(function(){
             $(this).css("background-color", "white");
@@ -62,89 +65,56 @@ $(document).ready(function() {
 
     $("#cancel").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").show(true);
-        $("#yes").show(true);
-        $("#no").show(true);
+        $("#lblAvis").show("true");
+        $("#yes").show("true");
+        $("#no").show("true");
     })
     $("#update").click(function(ev){
         ev.preventDefault();
         let ok= validForm();
         if(ok){
-            $("#lblAvis").show(true);
-            $("#yes1").show(true);
-            $("#no").show(true);
+            $("#lblAvis").show("true");
+            $("#yes1").show("true");
+            $("#no").show("true");
         }
     })
     $("#remove").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").show(true);
-        $("#yes2").show(true);
-        $("#no").show(true);
+        $("#lblAvis").show("true");
+        $("#yes2").show("true");
+        $("#no").show("true");
     })
     $("#no").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").hide(true);
-        $("#yes").hide(true);
-        $("#yes1").hide(true);
-        $("#yes2").hide(true);
-        $("#no").hide(true);
+        $("#lblAvis").hide("true");
+        $("#yes").hide("true");
+        $("#yes1").hide("true");
+        $("#yes2").hide("true");
+        $("#no").hide("true");
     })
 
 });
 function validForm() {
     let errors = []; 
-    let first_name = $('#first_name').val();
-    if (first_name.length < 2) {
-      errors.push('First name must have 2 characters or more.');
+    let name = $('#name').val();
+    if (name.length < 2) {
+      errors.push('Name must have 2 characters or more.');
     }
-    let last_name = $('#last_name').val();
-    if (last_name.length < 2) {
-      errors.push('Last name must have 2 characters or more.');
+    let active = $('#active').val();
+    if (!(active == 0 || active == 1)) {
+      errors.push('Is Active is required.');
     } 
-    let phone = $('#phone').val();
-    let phone_regex = /^[0-9]{9}$/;
-    if (!phone_regex.test(phone)) {
-      errors.push('Error format in phone.');
+    let end = $('#end').val();
+    let now = new Date();
+    let end2=new Date(end);
+    if (end2<now) {
+      errors.push('End Date must be future.');
     }
-    let email = $('#email').val();
-    let email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!email_regex.test(email)) {
-      errors.push('Error format in email.');
+    let email = $('#desc').val();
+    if (email.length < 10) {
+      errors.push('Description must have 10 characters or more.');
     }
-    let gender = $('#gender').val();
-    let gender_regex = /^[0-3]{1}$/;
-    if (!gender_regex.test(gender)) {
-      errors.push('Gender is required.');
-    }
-    let street = $('#street').val();
-    if (street.length < 10) {
-      errors.push('Street must have 10 characters or more.');
-    }
-    let postal_code = $('#postal_code').val();
-    let postal_code_regex = /^[0-9]{5}$/;
-    if (!postal_code_regex.test(postal_code)) {
-      errors.push('Error format in postal code.');
-    }
-    let city = $('#city').val();
-    if (city.length < 3) {
-      errors.push('City must have 3 characters or more.');
-    }
-    let province = $('#province').val();
-    if (province.length < 3) {
-      errors.push('Province must have 3 characters or more.');
-    }
-    let country = $('#country').val();
-    if (country.length < 3) {
-      errors.push('Country must have 3 characters or more.');
-    }
-    let weigth = $('#weigth').val();
-    if (weigth<2 || weigth>400) {
-        errors.push('Weigth must be between 2-400.');
-    }
-    let heigth = $('#heigth').val();
-    if (heigth<30 || heigth>260) {
-        errors.push('Heigth must be between 30-260.');
-    } 
+
     if (errors.length > 0) {   
         let modal = $('#errorModal');
         let errorList = $('#errorList');

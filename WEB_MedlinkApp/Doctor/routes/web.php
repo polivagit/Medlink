@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\LoginController;
 use \App\Http\Controllers\DoctorController;
 use \App\Http\Controllers\TreatmentController;
+use \App\Http\Controllers\MedicineController;
 
 
 /*
@@ -37,6 +38,16 @@ Route::match(['get', 'post'], 'treatment/index', [TreatmentController::class, "i
 Route::post('treatment/filter', [TreatmentController::class, "filter"]) -> name ('treatment/filter');
 Route::get('treatment/putInfo', [TreatmentController::class, "putInfo"]) -> name ('treatment/putInfo');
 Route::get('treatment/putMedicines', [TreatmentController::class, "putMedicines"]) -> name ('treatment/putMedicines');
+Route::post('treatment/manageButtons', [TreatmentController::class, "manageButtons"]) -> name ('treatment/manageButtons');
+
+Route::match(['get', 'post'], 'medicine/index', [MedicineController::class, "index"]) -> name ('medicine/index');
+Route::post('medicine/filter', [MedicineController::class, "filter"]) -> name ('medicine/filter');
+Route::post('medicine/manageButtons', [MedicineController::class, "manageButtons"]) -> name ('medicine/manageButtons');
+Route::get('medicine/getTreatment', [MedicineController::class, "getTreatment"]) -> name ('medicine/getTreatment');
+Route::get('medicine/getMedicineTreat', [MedicineController::class, "getMedicineTreat"]) -> name ('medicine/getMedicineTreat');
+
+
+
 
 
 

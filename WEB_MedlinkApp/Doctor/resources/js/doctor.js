@@ -1,26 +1,26 @@
 $(document).ready(function() {
-    $("#cancel").hide(true);
-    $("#update").hide(true);
-    $("#remove").hide(true);
-    $("#yes").hide(true);
-    $("#yes1").hide(true);
-    $("#yes2").hide(true);
-    $("#no").hide(true);
-    $("#treatmentDetails").hide(true);
-    $("#lblAvis").hide(true);
-    $('#nif').prop('readonly', false);
-    $('#username').prop('readonly', false);
-    $('#birthdate').prop('readonly', false);
+    $("#cancel").hide("true");
+    $("#update").hide("true");
+    $("#remove").hide("true");
+    $("#yes").hide("true");
+    $("#yes1").hide("true");
+    $("#yes2").hide("true");
+    $("#no").hide("true");
+    $("#treatmentDetails").hide("true");
+    $("#lblAvis").hide("true");
+    $('#nif').prop('readonly', "false");
+    $('#username').prop('readonly', "false");
+    $('#birthdate').prop('readonly', "false");
 
     $('#patientsTable tr').click(function() {
-        $("#cancel").show(true);
-        $("#update").show(true);
-        $("#remove").show(true);
-        $("#treatmentDetails").show(true);
-        $("#add").hide(true);
-        $('#nif').prop('readonly', true);
-        $('#username').prop('readonly', true);
-        $('#birthdate').prop('readonly', true);
+        $("#cancel").show("true");
+        $("#update").show("true");
+        $("#remove").show("true");
+        $("#treatmentDetails").show("true");
+        $("#add").hide("true");
+        $('#nif').prop('readonly', "true");
+        $('#username').prop('readonly', "true");
+        $('#birthdate').prop('readonly', "true");
 
         $('#patientsTable tr').each(function(){
             $(this).css("background-color", "white");
@@ -73,32 +73,32 @@ $(document).ready(function() {
 
     $("#cancel").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").show(true);
-        $("#yes").show(true);
-        $("#no").show(true);
+        $("#lblAvis").show("true");
+        $("#yes").show("true");
+        $("#no").show("true");
     })
     $("#update").click(function(ev){
         ev.preventDefault();
         let ok= validForm();
         if(ok){
-            $("#lblAvis").show(true);
-            $("#yes1").show(true);
-            $("#no").show(true);
+            $("#lblAvis").show("true");
+            $("#yes1").show("true");
+            $("#no").show("true");
         }
     })
     $("#remove").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").show(true);
-        $("#yes2").show(true);
-        $("#no").show(true);
+        $("#lblAvis").show("true");
+        $("#yes2").show("true");
+        $("#no").show("true");
     })
     $("#no").click(function(ev){
         ev.preventDefault();
-        $("#lblAvis").hide(true);
-        $("#yes").hide(true);
-        $("#yes1").hide(true);
-        $("#yes2").hide(true);
-        $("#no").hide(true);
+        $("#lblAvis").hide("true");
+        $("#yes").hide("true");
+        $("#yes1").hide("true");
+        $("#yes2").hide("true");
+        $("#no").hide("true");
     })
 
 });

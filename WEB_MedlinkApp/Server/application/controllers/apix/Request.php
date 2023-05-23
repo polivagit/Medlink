@@ -83,6 +83,48 @@ class Request extends REST_Controller{
       REST_Controller::HTTP_OK
     );
   }
+  public function changePasswordUser_post(){
+    $user=$this->post("user");
+    $pass=$this->post("pass");
+    $newPass=$this->post("new");
+
+    $patient=$this->Login->getPatient($user,$pass);
+
+    $found="Not Found";
+    if($patient!=null){
+      $found="Found";
+      $this->Login->updatePassword($patient[0]['pers_email'],$newPass);
+    }
+
+    $this->response(
+        array(
+          "status" => $found,
+          "message" => "Change Password"
+        ), 
+      REST_Controller::HTTP_OK
+    );
+  }
+
+  public function medicines_post(){
+    $treat=$this->post("treatment");
+
+    $medicines=$this->Treatment->getMedicines($treat);
+
+    $found="Not Found";
+    if($medicines!=null){
+      $found="Found";
+    }
+
+    $this->response(
+        array(
+          "status" => $found,
+          "message" => "Medicines",
+          "data" => $medicines
+        ),  
+      REST_Controller::HTTP_OK
+    );
+  }
+
   function seendMaail($body,$email){    
     $mail = new PHPMailer();
     $mail->IsSMTP();
