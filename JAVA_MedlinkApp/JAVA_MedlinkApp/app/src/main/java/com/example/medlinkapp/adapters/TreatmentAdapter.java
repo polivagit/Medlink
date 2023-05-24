@@ -55,11 +55,9 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
         if (t.isTrea_is_active() == false){
             backgroundColor = R.color.colorActive;
             holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
-            Log.e("patata", "color de fons" + t.isTrea_is_active());
         }else if (t.isTrea_is_active()){
             backgroundColor = R.color.colorInactive;
             holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
-            Log.e("patata", "color de fons inactiu" + t.isTrea_is_active());
         }
 
 

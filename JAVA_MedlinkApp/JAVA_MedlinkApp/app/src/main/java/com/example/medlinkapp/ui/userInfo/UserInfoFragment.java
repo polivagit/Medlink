@@ -1,5 +1,7 @@
 package com.example.medlinkapp.ui.userInfo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -49,8 +51,6 @@ public class UserInfoFragment extends Fragment {
         Bundle b2 = getArguments();
         user = b2.getString("userName",null);
         pass = b2.getString("pass",null);
-        Log.d("user","user name " + user);
-        Log.d("user","user pass " + pass);
         binding = FragmentUserInfoBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
         getPersonInfo(user,pass);
@@ -71,7 +71,6 @@ public class UserInfoFragment extends Fragment {
         call.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
-                Log.d("user","response" + response);
                 if (response.isSuccessful()) {
                     UserInfoResponse userInfoResponse = response.body();
                     List<UserInfoData> userInfoDataList = userInfoResponse.getData();
@@ -102,11 +101,8 @@ public class UserInfoFragment extends Fragment {
                         binding.txvAdressCityCountryPers.setText(adressCity+","+country);
 
                     }
-
-                    Log.e("patata","user info" + response);
                 } else {
-                    // Login failed, handle error
-                    Log.e("patata","user info" + response);
+                    showDialog("Impossible to connect with the webservice. Please try again.");
                 }
             }
 
@@ -115,5 +111,16 @@ public class UserInfoFragment extends Fragment {
                 // Handle failure
             }
         });
+    }
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
 }

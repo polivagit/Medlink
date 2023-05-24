@@ -117,9 +117,8 @@ public class ChangePasswordFragment extends Fragment {
                             showDialog2("Could not change the password. Please check if you have entered your username and old password correctly.");
                         }
                     }
-                    Log.e("patata","Result" + response);
                 } else {
-
+                    showDialog2("Impossible to connect to the web service. Please try again.");
                     Log.e("patata","Result" + response);
                 }
             }

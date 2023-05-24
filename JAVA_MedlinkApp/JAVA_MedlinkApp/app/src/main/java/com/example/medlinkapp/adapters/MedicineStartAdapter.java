@@ -33,8 +33,7 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MedicineTreatmentData tm = mTreatmentMedicines.get(position);
         holder.txvMedicineName.setText(tm.getMedi_name()+"");
-        holder.txvMedicineQuantity.setText(tm.getTrme_quantity_per_day()+"");
-        holder.txvMedicineUnitOfMeasure.setText(tm.getUnme_abbreviation());
+        holder.txvMedicineQuantity.setText(tm.getTrme_quantity_per_day()+"" + tm.getUnme_abbreviation());
     }
 
 
@@ -47,12 +46,11 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
 
         TextView txvMedicineName;
         TextView txvMedicineQuantity;
-        TextView txvMedicineUnitOfMeasure;
+
         public ViewHolder(@NonNull View filaview) {
             super(filaview);
             txvMedicineName = filaview.findViewById(R.id.txvMedicineName);
             txvMedicineQuantity = filaview.findViewById(R.id.txvMedicineQuantity);
-            txvMedicineUnitOfMeasure = filaview.findViewById(R.id.txvMedicineUnitOfMeasure);
         }
     }
 }

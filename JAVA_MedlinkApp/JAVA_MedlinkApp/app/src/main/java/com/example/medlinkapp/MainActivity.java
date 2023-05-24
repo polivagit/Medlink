@@ -1,5 +1,6 @@
 package com.example.medlinkapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -39,15 +40,10 @@ public class MainActivity extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private int patientId;
-    String aux,treaId,personName,user,pass;
+    String aux,personName,user,pass;
 
     DrawerLayout drawer;
     Toolbar toolbar;
-
-    private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
-
-    String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +58,6 @@ public class MainActivity extends AppCompatActivity{
             pass = extras.getString("pass");
         }
         patientId = Integer.parseInt(aux);
-        Log.e("patata","Patient id: " + patientId);
-        Log.e("patata","user name " + user);
-        Log.e("patata","pass " + pass);
-
-
-        setSupportActionBar(binding.toolbar);
 
         drawer = binding.drawerLayout;
         toolbar = findViewById(R.id.toolbar);
@@ -78,10 +68,9 @@ public class MainActivity extends AppCompatActivity{
         toggle.syncState();
         NavigationView navigationView = binding.navView;
         navigationView.bringToFront();
-        Log.e("patata","Treatment id: " + aux);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_medicines, R.id.nav_history,R.id.nav_user_info)
+                R.id.nav_home, R.id.nav_medicines, R.id.nav_history,R.id.nav_user_info,R.id.nav_log_out)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -106,9 +95,11 @@ public class MainActivity extends AppCompatActivity{
                         Bundle args2 = new Bundle();
                         args2.putString("userName",user);
                         args2.putString("pass",pass);
-                        Log.e("algo","user name " + user);
-                        Log.e("algo","pass " + pass);
                         Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment_content_main).navigate(R.id.action_global_nav_user_info,args2);
+                        break;
+                    case R.id.nav_log_out:
+                        Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(i);
                         break;
                 }
                 drawer.closeDrawer(GravityCompat.START);

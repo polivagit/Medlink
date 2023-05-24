@@ -1,6 +1,8 @@
 package com.example.medlinkapp.ui.history;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -48,22 +50,11 @@ public class HistoryFragment extends Fragment {
     List<Treatment> mTreatments;
     TreatmentAdapter adapter;
 
-    Context context = getActivity();
-
     private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
 
     String authHeader = "Basic " + Base64.encodeToString("pau:admin".getBytes(), Base64.NO_WRAP);
 
-    private String treaId;
-    private String treaName;
-    private String treaDescription;
-    private String treaDateStart;
-    private String treaDateEnd;
-    private String treaObservations;
-    private String treaIsActive;
-    private String treaDoctorId;
-    private String treaPatientId,patientIdString;
-
+    private String treaId,treaName,treaDescription,treaDateStart,treaDateEnd,treaObservations,treaIsActive,treaDoctorId,treaPatientId,patientIdString;
     private int treaIdInt,patientIdInt,doctorId,patientId;
     private GregorianCalendar dateStart, dateEnd;
     private boolean isActive;
@@ -78,9 +69,6 @@ public class HistoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_history,container,false);
         mTreatments = new ArrayList<>();
         patientId = TreatmentData.get_patientId();
-        Log.e("patata","id " + patientId);
-
-
         patientIdString = String.valueOf(patientId);
 
         rcyHistory = v.findViewById(R.id.rcyHistory);
@@ -143,11 +131,8 @@ public class HistoryFragment extends Fragment {
             public void onResponse(Call<TreatmentResponse> call, Response<TreatmentResponse> response) {
                 if (response.isSuccessful()) {
                     TreatmentResponse treatmentResponse = response.body();
-                    Log.e("treatments:","Response: " + response);
-                    Log.e("treatments:","treatment response" + treatmentResponse.getData());
                     List<TreatmentData> treatmentDataList = treatmentResponse.getData();
                     if (!treatmentDataList.isEmpty()) {
-                        Log.e("treatments:","ENTRO");
                         for (TreatmentData treatmentData: treatmentDataList) {
                             treaId = treatmentData.getTreaId();
                             treaName = treatmentData.getTrea_name();
@@ -177,11 +162,13 @@ public class HistoryFragment extends Fragment {
                         adapter = new TreatmentAdapter(mTreatments);
                         rcyHistory.setAdapter(adapter);
                     }else {
+                        showDialog("There are no treatments to show.");
                         Log.e("treatments:", "La lista esta vacia");
                     }
 
 
                 } else {
+                    showDialog("Impossible to connect with the webservice. Please try again.");
                     Log.e("patata","Result" + response);
                 }
             }
@@ -207,17 +194,14 @@ public class HistoryFragment extends Fragment {
 
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_logOut) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
 }

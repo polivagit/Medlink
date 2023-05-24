@@ -100,13 +100,9 @@ public class RestorePasswordFragment extends Fragment {
                         }else{
                             showDialog("Could not restore the password. Please check if you have entered your email correctly.");
                         }
-                    }else{
-                        Log.e("patata","La resposta del webservice esta buida" );
                     }
-
-                    Log.e("patata","Result" + response);
                 } else {
-
+                    showDialog("Impossible to connecte to the webservice. Please try again.");
                     Log.e("patata","Result" + response);
                 }
             }
@@ -126,6 +122,17 @@ public class RestorePasswordFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void showDialog2(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
                     }
                 });
         builder.create().show();

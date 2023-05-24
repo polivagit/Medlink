@@ -100,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                             patiPersonId = loginData.getPatiPersonId();
                             persName = loginData.getPers_first_name();
                         }
-                        Log.e("patata","Patient id: " + patiPersonId);
                         Intent i = new Intent(LoginActivity.this,MainActivity.class);
                         i.putExtra("pati_person_id",patiPersonId);
                         i.putExtra("personaName",persName);
@@ -108,8 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                         i.putExtra("pass",password);
                         startActivity(i);
                     }
-
-                    Log.e("patata","Result" + response);
                 } else {
                     // Login failed, handle error
                     Toast.makeText(LoginActivity.this, "User or password wrong. Please try again",

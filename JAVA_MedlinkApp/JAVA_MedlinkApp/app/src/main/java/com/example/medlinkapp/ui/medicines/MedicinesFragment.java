@@ -1,5 +1,7 @@
 package com.example.medlinkapp.ui.medicines;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,9 +53,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MedicinesFragment extends Fragment {
 
     private FragmentMedicinesBinding binding;
-    TextToSpeech t1;
-    TextView txvObservations;
-    ImageButton btnSpeak;
     private String treatmentId;
     MedicineStartAdapter adapter;
 
@@ -75,8 +74,6 @@ public class MedicinesFragment extends Fragment {
 
         Bundle b = getArguments();
         patientId = b.getString("patientId","");
-        Log.d("algo","patient id a medicines frag " + patientId);
-
         mMedicineTreatment = new ArrayList<>();
         mTreatmentsIds = new ArrayList<>();
         View v = inflater.inflate(R.layout.fragment_medicines,container,false);
@@ -87,27 +84,6 @@ public class MedicinesFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyMedicines.getContext(),
                 DividerItemDecoration.VERTICAL);
         rcyMedicines.addItemDecoration(dividerItemDecoration);
-
-        txvObservations = v.findViewById(R.id.txvObservations);
-        btnSpeak = v.findViewById(R.id.btnSpeak);
-
-        t1 = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR){
-                    t1.setLanguage(Locale.ENGLISH);
-                }
-            }
-        });
-
-        btnSpeak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String toSpeak = txvObservations.getText().toString();
-                Toast.makeText(getActivity(),toSpeak,Toast.LENGTH_SHORT).show();
-                t1.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null);
-            }
-        });
         return v;
     }
 
@@ -115,27 +91,6 @@ public class MedicinesFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void onPause(){
-        if(t1 !=null){
-            t1.stop();
-            t1.shutdown();
-        }
-        super.onPause();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_logOut) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -147,7 +102,6 @@ public class MedicinesFragment extends Fragment {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Log.e("treatments:","entro al metode");
 
         Call<TreatmentResponse> call = apiService.treatmentsId(authHeader,patientId);
         CompletableFuture<List<String>> future = new CompletableFuture<>();
@@ -189,51 +143,6 @@ public class MedicinesFragment extends Fragment {
 
     }
 
-    /*public void getMedicinesFromTreatmentId(String treatmentId) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WEBSERVICE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<MedicineTreatmentResponse> call2 = apiService.medicines(authHeader, treatmentId);
-
-        try {
-            Response<MedicineTreatmentResponse> response = call2.execute(); // Llamada bloqueante
-            if (response.isSuccessful()) {
-                MedicineTreatmentResponse medicineTreatmentResponse = response.body();
-                List<MedicineTreatmentData> medicineTreatmentDataList = medicineTreatmentResponse.getData();
-                if (!medicineTreatmentDataList.isEmpty()) {
-                    Log.e("treatments:","ENTRO");
-                    Calendar currentDate = Calendar.getInstance();
-                    for (MedicineTreatmentData medicineTreatmentData : medicineTreatmentDataList) {
-                        medicineName = medicineTreatmentData.getMedi_name();
-                        dateStart = medicineTreatmentData.getTrme_date_start();
-                        dateEnd = medicineTreatmentData.getTrme_date_end();
-                        quantityPerDay = medicineTreatmentData.getTrme_quantity_per_day();
-                        unitOfMeasure = medicineTreatmentData.getUnme_abbreviation();
-                        Calendar startCalendar = convertToDate(dateStart);
-                        Calendar endCalendar = convertToDate(dateEnd);
-
-                        if ((endCalendar != null && endCalendar.after(currentDate)&&(startCalendar!=null && endCalendar.before(currentDate)))) {
-                            mMedicineTreatment.add(new MedicineTreatmentData(dateStart, dateEnd, quantityPerDay, medicineName, unitOfMeasure));
-                        }
-                    }
-                    adapter = new MedicineStartAdapter(mMedicineTreatment);
-                    rcyMedicines.setAdapter(adapter);
-                } else {
-                    Log.e("treatments:", "La lista está vacía");
-                }
-            } else {
-                Log.e("patata", "Result" + response);
-            }
-        } catch (IOException e) {
-            // Manejar la excepción de IO
-            e.printStackTrace();
-        }
-    }*/
-
-
     public void getMedicinesFromTreatmentId(String treatmentId){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WEBSERVICE_URL)
@@ -247,33 +156,36 @@ public class MedicinesFragment extends Fragment {
             public void onResponse(Call<MedicineTreatmentResponse> call, Response<MedicineTreatmentResponse> response) {
                 if (response.isSuccessful()) {
                     MedicineTreatmentResponse medicineTreatmentResponse = response.body();
-                    Log.e("treatments:","Response del las medicinas: " + response);
                     List<MedicineTreatmentData> medicineTreatmentDataList = medicineTreatmentResponse.getData();
                     if (!medicineTreatmentDataList.isEmpty()) {
-                        Log.e("treatments:","ENTRO");
-                        Calendar currentDate = Calendar.getInstance();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        Date currentDate = new Date();
                         for (MedicineTreatmentData medicineTreatmentData: medicineTreatmentDataList) {
                             medicineName = medicineTreatmentData.getMedi_name();
                             dateStart = medicineTreatmentData.getTrme_date_start();
                             dateEnd = medicineTreatmentData.getTrme_date_end();
                             quantityPerDay = medicineTreatmentData.getTrme_quantity_per_day();
                             unitOfMeasure = medicineTreatmentData.getUnme_abbreviation();
-                            Calendar startCalendar = convertToDate(dateStart);
-                            Calendar endCalendar = convertToDate(dateEnd);
 
-                            if ((endCalendar != null && endCalendar.after(currentDate)&&(startCalendar!=null && endCalendar.before(currentDate)))) {
-                                mMedicineTreatment.add(new MedicineTreatmentData(dateStart, dateEnd, quantityPerDay, medicineName, unitOfMeasure));
+                            try {
+                                Date endDate = dateFormat.parse(dateEnd);
+                                if (endDate != null && endDate.after(currentDate)) {
+                                    mMedicineTreatment.add(new MedicineTreatmentData(dateStart, dateEnd, quantityPerDay, medicineName, unitOfMeasure));
+                                    Log.e("treatments:", "Llista medicine treatment: " + mMedicineTreatment);
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
                         }
                         adapter = new MedicineStartAdapter(mMedicineTreatment);
                         rcyMedicines.setAdapter(adapter);
                     }else {
-                        Log.e("treatments:", "La lista esta vacia");
+                        showDialog("The are no medicines to show today.");
                     }
 
 
                 } else {
-                    Log.e("patata","Result" + response);
+                    showDialog("Impossible to connect to the webservice. Please try again.");
                 }
             }
 
@@ -283,16 +195,15 @@ public class MedicinesFragment extends Fragment {
             }
         });
     }
-    private Calendar convertToDate(String dateString) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Date date = format.parse(dateString);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            return calendar;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
 }
