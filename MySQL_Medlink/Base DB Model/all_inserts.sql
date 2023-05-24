@@ -34,17 +34,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medlink`;
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('rheumatologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('cardiovascular');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('dermatologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('endocrinology');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('gastrointestinal');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('infectious');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('neurologic');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('ophtalmotolarying');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('psychiatric');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('renal');
-INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('urologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Rheumatologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Cardiovascular');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Dermatologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Endocrinology');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Gastrointestinal');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Infectious');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Neurologic');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Ophtalmotolarying');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Psychiatric');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Renal');
+INSERT INTO `medlink`.`medicine_category` (`meca_name`) VALUES ('Urologic');
 
 COMMIT;
 
@@ -300,15 +300,15 @@ COMMIT;
 START TRANSACTION;
 USE `medlink`;
 
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('kilogram', 'Kg');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('gram', 'g');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('milligram', 'mg');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('microgram', 'mcg');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('litre', 'L');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('millilitre', 'ml');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('cubic centimetre', 'cc');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('mole', 'mol');
-INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('millimole', 'mmol');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Kilogram', 'Kg');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Gram', 'g');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Milligram', 'mg');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Microgram', 'mcg');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Litre', 'L');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Millilitre', 'ml');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Cubic centimetre', 'cc');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Mole', 'mol');
+INSERT INTO `medlink`.`units_of_measure` (`unme_name`, `unme_abbreviation`) VALUES ('Millimole', 'mmol');
 
 COMMIT;
 
@@ -441,7 +441,7 @@ INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_
                                                                                                                                                                                                                                                                                                                                         
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (3, 49, '2022-01-20', '2023-09-01', 24, 14136, 6);
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (4, 33, '2022-07-08', '2023-08-14', 50, 16400, 3);
-INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, '2023-01-03', '2023-10-03', 32, 8768, 5);
+INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (5, 11, '2023-01-03', '2023-10-03', 32, 8768, 6);
                                                                                                                                                                                                                   
 INSERT INTO `medlink`.`treatment_medicine` (`trme_treatment_id`, `trme_medicine_id`, `trme_date_start`, `trme_date_end`, `trme_quantity_per_day`, `trme_total_quantity`, `trme_unit_of_measure_id`) VALUES (6, 80, '2022-09-01', '2023-11-20', 80, 35680, 3);
 
