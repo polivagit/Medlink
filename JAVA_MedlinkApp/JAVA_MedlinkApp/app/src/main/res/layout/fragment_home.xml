@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here you can find your dayly"
+        android:text="Here you can find your daily"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:layout_marginTop="1dp"></TextView>
