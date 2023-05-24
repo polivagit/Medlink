@@ -20,7 +20,12 @@ Main repoistory for Medlink project (2023).
 | Setmana | TODO |
 | --- | --- |
 | **Setmana 1 (dies 10-14)** |1. ✔ Funcionalitats identificades.<br/>2. ✔ Repartiment de responsabilitats.|
+<<<<<<< HEAD
 | **Setmana 2 (dies 17-21)** |1. ✔ Creació del repositori Github/Projecte.<br/>2. ✔ Disseny E/R.<br/>3. ✔ Maquetes de la UI de cada part.|
 | **Setmana 3 (dies 24-28)** |1. ✔ Scripts de Base de dades.<br/>2. ✔ Serveis comuns (Web Services).<br/>3. ✔ Wrappers dels APIs de tercers.|
+=======
+| **Setmana 2 (dies 17-21)** |1. ✔ Creació del repositori Github/Projecte.<br/>2. ✔ Disseny E/R.<br/>3. ⚠ Maquetes de la UI de cada part.|
+| **Setmana 3 (dies 24-28)** |1. ✔ Scripts de Base de dades.<br/>2. ⚠ Serveis comuns (Web Services).<br/>3. ❌ Wrappers dels APIs de tercers.|
+>>>>>>> origin/Nerea
 | **🚧 Setmanes 4-7 (dies 01-23) 🚧** |⚠ Desenvolupament.|
 | **🚀 Setmana 7 (dies 24-26) 🚀** |❌ Lliurament.|

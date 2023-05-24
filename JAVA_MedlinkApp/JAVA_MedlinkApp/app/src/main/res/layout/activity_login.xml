@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/llLogin"
+    tools:context=".LoginActivity">
+
+    <GridLayout
+        android:id="@+id/glChangeLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"></GridLayout>
+    <GridLayout
+        android:id="@+id/glRestoreLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"></GridLayout>
+    <GridLayout
+        android:id="@+id/glLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/medlink_with_name_big"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+        </ImageView>
+        <TextView
+            android:text="Sign in"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+        ></TextView>
+
+        <EditText
+            android:id="@+id/etUser"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:hint="User"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edit_text_border"
+            android:layout_marginLeft="20dp">
+        </EditText>
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:hint="Password"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edit_text_border"
+            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
+            android:layout_marginLeft="20dp">
+        </EditText>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnRestorePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="right"
+                android:background="#0000"
+                android:textColor="#72FFFE"
+                android:textSize="10sp"
+                android:text="Restore Password" />
+            <Button
+                android:id="@+id/btnForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="60dp"
+                android:background="#0000"
+                android:textColor="#72FFFE"
+                android:textSize="10sp"
+                android:text="Forgot Password?"
+                />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            ></Button>
+
+    </GridLayout>
+
+</LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_medicines"
+        android:name="com.example.medlinkapp.ui.medicines.MedicinesFragment"
+        android:label="@string/menu_start"
+        tools:layout="@layout/fragment_medicines" >
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.medlinkapp.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" /><action android:id="@+id/action_global_nav_start" app:destination="@id/nav_medicines"/><action android:id="@+id/action_global_nav_history" app:destination="@id/nav_history"/>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.medlinkapp.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <action android:id="@+id/action_global_nav_home" app:destination="@id/nav_home" />
+    <fragment
+        android:id="@+id/nav_user_info"
+        android:name="com.example.medlinkapp.ui.userInfo.UserInfoFragment"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" >
+        <argument
+            android:name="userName"
+            app:argType="string" />
+        <argument
+            android:name="pass"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_nav_user_info" app:destination="@id/nav_user_info" />
+
+</navigation>
