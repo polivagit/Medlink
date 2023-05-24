@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33214.272
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWPMedlinkApp", "UWPMedlinkApp\UWPMedlinkApp.csproj", "{C7124F0D-6F3D-4EC9-89CB-3C4BA8A306A0}"
 EndProject
@@ -47,8 +47,8 @@ Global
 		{C7124F0D-6F3D-4EC9-89CB-3C4BA8A306A0}.Release|x86.ActiveCfg = Release|x86
 		{C7124F0D-6F3D-4EC9-89CB-3C4BA8A306A0}.Release|x86.Build.0 = Release|x86
 		{C7124F0D-6F3D-4EC9-89CB-3C4BA8A306A0}.Release|x86.Deploy.0 = Release|x86
-		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|Any CPU.Build.0 = Debug|x86
 		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|ARM.ActiveCfg = Debug|ARM
 		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|ARM.Build.0 = Debug|ARM
 		{EF98F933-3E16-4BB6-9ABB-2910F84CFAEA}.Debug|ARM64.ActiveCfg = Debug|ARM64
