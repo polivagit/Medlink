@@ -1,0 +1,247 @@
+﻿<ContentDialog
+    x:Class="UWPMedlinkApp.View.Dialogs.DoctorFormDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPMedlinkApp.View.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    RequestedTheme="Light"
+    PrimaryButtonText="SAVE CHANGES"
+    SecondaryButtonText="CANCEL"
+    PrimaryButtonClick="SaveChangesClick"
+    SecondaryButtonClick="CancelClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <TextBlock Text="DOCTOR DETAILS" FontSize="40" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="First Name:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+            <TextBox x:Name="txbDoctorFirstName" TextChanged="txbDoctorFirstName_TextChanged"
+                     VerticalAlignment="Center"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Last Name 1:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1" Margin="5">
+            <TextBox x:Name="txbDoctorLastName1" TextChanged="txbDoctorLastName1_TextChanged"
+                     VerticalAlignment="Center"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="0" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Last Name 2:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1" Margin="5">
+            <TextBox x:Name="txbDoctorLastName2" TextChanged="txbDoctorLastName2_TextChanged"
+                     VerticalAlignment="Center"></TextBox>
+        </Grid>
+
+        <!-- ADDRESS -->
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5"
+              BorderBrush="Black" BorderThickness="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Street:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Margin="5">
+                <TextBox x:Name="txbDoctorStreet" TextChanged="txbDoctorStreet_TextChanged"
+                         VerticalAlignment="Center"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Postal Code:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+                <TextBox x:Name="txbPostalCode" TextChanged="txbPostalCode_TextChanged"
+                         VerticalAlignment="Center"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="City:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="1" Margin="5">
+                <TextBox x:Name="txbCity" TextChanged="txbCity_TextChanged"
+                         VerticalAlignment="Center"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="0" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Province:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1" Margin="5">
+                <TextBox x:Name="txbProvince" TextChanged="txbProvince_TextChanged"
+                         VerticalAlignment="Center"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="4" Grid.Column="0" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Country:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="4" Grid.Column="1" Margin="5">
+                <TextBox x:Name="txbCountry" TextChanged="txbCountry_TextChanged"
+                         VerticalAlignment="Center"></TextBox>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="NIF:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorNif" VerticalAlignment="Center" IsReadOnly="True"  Background="LightGray"
+                     IsHitTestVisible="False"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Phone Number:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorPhoneNumber" TextChanged="txbDoctorPhoneNumber_TextChanged"
+                     VerticalAlignment="Center"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Email:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorEmail" TextChanged="txbDoctorEmail_TextChanged"
+                     VerticalAlignment="Center"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Birthdate:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="4" Margin="5">
+            <CalendarDatePicker x:Name="dtpDoctorBirthdate" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                IsEnabled="False" IsHitTestVisible="False"></CalendarDatePicker>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Gender:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="4" Margin="5">
+            <ComboBox x:Name="cboDoctorGender" SelectionChanged="cboDoctorGender_SelectionChanged"
+                      VerticalAlignment="Center" HorizontalAlignment="Stretch"></ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="6" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Collegiate UID:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="6" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorCollegiateUID" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     IsReadOnly="True" Background="LightGray" IsHitTestVisible="False"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="7" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Specialty:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="7" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorSpecialty" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     IsReadOnly="True" Background="LightGray" IsHitTestVisible="False"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="8" Grid.Column="3" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Username:" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="8" Grid.Column="4" Margin="5">
+            <TextBox x:Name="txbDoctorUsername" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     IsReadOnly="True" Background="LightGray" IsHitTestVisible="False"></TextBox>
+        </Grid>
+    </Grid>
+</ContentDialog>

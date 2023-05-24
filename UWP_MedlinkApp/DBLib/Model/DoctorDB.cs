@@ -15,11 +15,11 @@ namespace DBLib.Model
         {
         }
 
-        public DoctorDB(int pers_id, string pers_nif, string pers_first_name, string pers_last_name_1, string pers_last_name_2, 
-            DateTime pers_birthdate, string pers_phone_number, string pers_email, GenderDB pers_gender, string pers_address, 
-            string pers_login_username, string pers_login_password, bool pers_is_caregiver, PersonTypeDB pers_type,
-            String pers_doct_collegiate_uid, int pers_doct_specialty_id) 
-            : base(pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2, pers_birthdate, pers_phone_number, pers_email, pers_gender, pers_address, pers_login_username, pers_login_password, pers_is_caregiver, pers_type)
+        public DoctorDB(int pers_id, string pers_nif, string pers_first_name, string pers_last_name_1, string pers_last_name_2, DateTime pers_birthdate,
+            string pers_phone_number, string pers_email, GenderTypeDB pers_gender, string pers_addrs_street, string pers_addrs_zip_code, string pers_addrs_city, 
+            string pers_addrs_province, string pers_addrs_country, string pers_login_username, string pers_login_password, string pers_doct_collegiate_uid, int pers_doct_specialty_id) 
+            : base(pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2, pers_birthdate, pers_phone_number, pers_email, pers_gender, 
+                  pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province, pers_addrs_country, pers_login_username, pers_login_password)
         {
             this.Pers_doct_collegiate_uid = pers_doct_collegiate_uid;
             this.Pers_doct_specialty_id = pers_doct_specialty_id;

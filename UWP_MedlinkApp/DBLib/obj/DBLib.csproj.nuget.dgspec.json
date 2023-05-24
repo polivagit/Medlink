@@ -1,17 +1,86 @@
 {
   "format": 1,
   "restore": {
-    "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {}
+    "D:\\Programes_DI\\UWPMedlinkApp\\DBLib\\DBLib.csproj": {}
   },
   "projects": {
-    "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj": {
+    "D:\\Programes_DI\\UWPMedlinkApp\\DBLib\\DBLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
+        "projectUniqueName": "D:\\Programes_DI\\UWPMedlinkApp\\DBLib\\DBLib.csproj",
         "projectName": "DBLib",
-        "projectPath": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\DBLib.csproj",
-        "packagesPath": "C:\\Users\\isard\\.nuget\\packages\\",
-        "outputPath": "C:\\GIT\\Medlink\\UWP_MedlinkApp\\DBLib\\obj\\",
+        "projectPath": "D:\\Programes_DI\\UWPMedlinkApp\\DBLib\\DBLib.csproj",
+        "packagesPath": "C:\\Users\\xamfr\\.nuget\\packages\\",
+        "outputPath": "D:\\Programes_DI\\UWPMedlinkApp\\DBLib\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\xamfr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\UWPMedlinkApp.csproj": {
+                "projectPath": "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\UWPMedlinkApp.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\UWPMedlinkApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\UWPMedlinkApp.csproj",
+        "projectName": "UWPMedlinkApp",
+        "projectPath": "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\UWPMedlinkApp.csproj",
+        "packagesPath": "C:\\Users\\xamfr\\.nuget\\packages\\",
+        "outputPath": "D:\\Programes_DI\\UWPMedlinkApp\\UWPMedlinkApp\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,37 +88,33 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\isard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\xamfr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "uap10.0.16299"
+          "uap10.0.17763"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "uap10.0.16299": {
+          "uap10.0.17763": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "uap10.0.16299": {
+        "uap10.0.17763": {
           "dependencies": {
             "Microsoft.NETCore.UniversalWindowsPlatform": {
               "target": "Package",
               "version": "[6.2.12, )"
             },
-            "MySql.EntityFrameworkCore": {
+            "Microsoft.Toolkit.Uwp.UI.Controls.DataGrid": {
               "target": "Package",
-              "version": "[3.1.30, )"
-            },
-            "System.Data.Common": {
-              "target": "Package",
-              "version": "[4.3.0, )"
+              "version": "[4.0.0, )"
             }
           },
           "imports": [

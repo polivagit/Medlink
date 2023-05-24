@@ -22,7 +22,9 @@ namespace DBLib.Model
         {
         }
 
-        public TreatmentDB(int trea_id, string trea_name, string trea_description, DateTime trea_date_start, DateTime trea_date_end, string trea_observations, bool trea_is_active, int trea_doctor_id, int trea_patient_id)
+        public TreatmentDB(int trea_id, string trea_name, string trea_description, 
+            DateTime trea_date_start, DateTime trea_date_end, string trea_observations,
+            bool trea_is_active, int trea_doctor_id, int trea_patient_id)
         {
             this.Trea_id = trea_id;
             this.Trea_name = trea_name;
@@ -30,6 +32,20 @@ namespace DBLib.Model
             this.Trea_date_start = trea_date_start;
             this.Trea_date_end = trea_date_end;
             this.Trea_observations = trea_observations;
+            this.Trea_is_active = trea_is_active;
+            this.Trea_doctor_id = trea_doctor_id;
+            this.Trea_patient_id = trea_patient_id;
+        }
+
+        public TreatmentDB(int trea_id, string trea_name, string trea_description,
+            DateTime trea_date_start, DateTime trea_date_end,
+            bool trea_is_active, int trea_doctor_id, int trea_patient_id)
+        {
+            this.Trea_id = trea_id;
+            this.Trea_name = trea_name;
+            this.Trea_description = trea_description;
+            this.Trea_date_start = trea_date_start;
+            this.Trea_date_end = trea_date_end;
             this.Trea_is_active = trea_is_active;
             this.Trea_doctor_id = trea_doctor_id;
             this.Trea_patient_id = trea_patient_id;

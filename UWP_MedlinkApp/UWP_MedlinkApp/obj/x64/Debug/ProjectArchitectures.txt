@@ -1,1 +1,0 @@
-C:\GIT\Medlink\UWP_MedlinkApp\UWP_MedlinkApp\UWP_MedlinkApp.csproj;x64

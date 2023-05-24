@@ -11,7 +11,8 @@ namespace DBLib.DB
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-            optionBuilder.UseMySQL("Server=169.254.30.133;Database=Medlink;UID=root;Password=");
+            //optionBuilder.UseMySQL("Server=localhost;Database=medlink;UID=root;Password=");
+            optionBuilder.UseMySQL("Server=localhost;Database=medlink;UID=root;Password=");
         }
     }
 }
