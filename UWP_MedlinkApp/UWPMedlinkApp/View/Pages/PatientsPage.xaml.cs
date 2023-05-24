@@ -276,8 +276,6 @@ namespace UWPMedlinkApp.View.Pages
         }
         #endregion
 
-
-
         #region TEXT LISTENERS
         private void txbPatientFilterByFullName_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -392,5 +392,31 @@ namespace DbLibrary.Model
             }
         }
         #endregion
+
+        #region VERIFICATION METHODS
+        public static bool verificarHeight(int height)
+        {
+            if (!(height >= 30 && height <= 260))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool verificarWeight(float weight)
+        {
+            if (!(weight >= 2 && weight <= 400))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
     }
 }

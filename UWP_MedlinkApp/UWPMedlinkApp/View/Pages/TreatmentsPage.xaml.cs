@@ -43,6 +43,7 @@ namespace UWPMedlinkApp.View.Pages
             LoadActiveDoctorInfo();
 
             _selectedPatient = PatientsPage._selectedPatient;
+            _selectedTreatment = new TreatmentDB();
 
             if (_selectedPatient != null)
             {
@@ -55,6 +56,7 @@ namespace UWPMedlinkApp.View.Pages
         {
             ReloadUIElements();
 
+            _selectedTreatment = new TreatmentDB();
             _selectedTreatment = (TreatmentDB)dtgTreatments.SelectedItem;
 
             if (_selectedTreatment != null)
@@ -186,14 +188,6 @@ namespace UWPMedlinkApp.View.Pages
         {
             DoctorFormDialog seeDoctorDetailsDialog = new DoctorFormDialog(doctorAux);
             await seeDoctorDetailsDialog.ShowAsync();            
-        }
-
-        private void LoadGenderComboBox()
-        {
-            /*
-            var _enumval = Enum.GetValues(typeof(GenderTypeDB)).Cast<GenderTypeDB>();
-            cboPati_Gender.ItemsSource = _enumval.ToList();
-            */
         }
 
         public async Task DisplayTreatmentConfirmationDialog(string action)

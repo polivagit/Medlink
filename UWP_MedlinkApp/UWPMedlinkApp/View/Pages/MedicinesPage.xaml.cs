@@ -27,7 +27,7 @@ namespace UWPMedlinkApp.View.Pages
     {
         public static DoctorDB _activeDoctor = PatientsPage._activeDoctor;
         public static PatientDB _selectedPatient = PatientsPage._selectedPatient;
-        public static TreatmentDB _selectedTreatment = TreatmentsPage._selectedTreatment;
+        public static TreatmentDB _selectedTreatment = new TreatmentDB();
         private static TreatmentMedicineDB _selectedTreatmentMedicine = new TreatmentMedicineDB();
         private static TreatmentMedicineDB _newTreatmentMedicine = new TreatmentMedicineDB();
 
@@ -40,6 +40,8 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Medicines_Loaded(object sender, RoutedEventArgs e)
         {
+            _selectedTreatment = TreatmentsPage._selectedTreatment;
+
             LoadActiveDoctorInfo();
             LoadCategoriesCombobox();
             LoadUOMsCombobox();
@@ -52,11 +54,17 @@ namespace UWPMedlinkApp.View.Pages
         private void dtgAllMedicines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dtgMedicinesOfTreatment.SelectedItem = null;
+            ClearTreatmentMedicineInfo();
+
+            isNewTreatmentMedicine = false;
+            btnAddMedicine.Visibility = Visibility.Visible;
+            btnUpdateMedicine.Visibility = Visibility.Collapsed;
         }
 
         private void dtgMedicinesOfTreatment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dtgAllMedicines.SelectedItem = null;
+            ClearTreatmentMedicineInfo();
 
             _selectedTreatmentMedicine = (TreatmentMedicineDB)dtgMedicinesOfTreatment.SelectedItem;
 
@@ -64,6 +72,10 @@ namespace UWPMedlinkApp.View.Pages
             {
                 LoadSelectedMedicineInfo(_selectedTreatmentMedicine);
             }
+
+            isNewTreatmentMedicine = false;
+            btnAddMedicine.Visibility = Visibility.Collapsed;
+            btnUpdateMedicine.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -224,19 +236,6 @@ namespace UWPMedlinkApp.View.Pages
             dtpMedi_DateEnd.Date = new DateTimeOffset(DateTime.Now.AddDays(1));
 
             cboMedi_UOM.SelectedItem = null;
-            /*
-            dtgTreatments.SelectedItem = null;
-            dtgMedicines.ItemsSource = null;
-
-            txbTrea_Name.Text = "";
-            txbTrea_Description.Text = "";
-            txbTrea_Observations.Text = "";
-
-            dtpTrea_DateStart.Date = new DateTimeOffset(DateTime.Now);
-            dtpTrea_DateEnd.Date = new DateTimeOffset(DateTime.Now.AddDays(1));
-
-            chkTrea_IsActive.IsChecked = true;
-            */
         }
         #endregion
 

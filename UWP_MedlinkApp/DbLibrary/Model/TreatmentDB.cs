@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DbLibrary.Model
@@ -262,7 +263,7 @@ namespace DbLibrary.Model
                             insertedId = Convert.ToInt32(query.ExecuteScalar());
                         }
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex)
                     {
                         Console.WriteLine("ERROR" + ex);
                     }
@@ -393,7 +394,45 @@ namespace DbLibrary.Model
                     }
                 }
             }
-            #endregion
         }
+        #endregion
+
+        #region VERIFICATION METHODS
+        public static bool verificarTreaName(string name)
+        {
+            if ((string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name)) && (name.Length <= 0))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool verificarTreaDescription(string desc)
+        {
+            if ((string.IsNullOrWhiteSpace(desc) || string.IsNullOrEmpty(desc)) && (desc.Length <= 0))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool verificarTreaDateStart(DateTime start_date)
+        {
+            if (!(start_date.Ticks > new DateTime(2000,01,01).Ticks) && (start_date.Ticks <= DateTime.Now.Ticks))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
     }
 }
