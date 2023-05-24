@@ -53,17 +53,23 @@ namespace UWPMedlinkApp.View.Pages
         #region DATAGRID LISTENERS
         private void dtgAllMedicines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dtgMedicinesOfTreatment.SelectedItem = null;
+            MedicineDB selectedNewMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
+            if (selectedNewMedicine != null)
+            {
+                txbMedi_Name.Text = selectedNewMedicine.Medi_name;
+            }
+
             ClearTreatmentMedicineInfo();
 
             isNewTreatmentMedicine = false;
             btnAddMedicine.Visibility = Visibility.Visible;
             btnUpdateMedicine.Visibility = Visibility.Collapsed;
+
+            dtgMedicinesOfTreatment.SelectedItem = null;
         }
 
         private void dtgMedicinesOfTreatment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dtgAllMedicines.SelectedItem = null;
             ClearTreatmentMedicineInfo();
 
             _selectedTreatmentMedicine = (TreatmentMedicineDB)dtgMedicinesOfTreatment.SelectedItem;
