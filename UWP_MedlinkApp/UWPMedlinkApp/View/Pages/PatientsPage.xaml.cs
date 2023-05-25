@@ -25,7 +25,7 @@ namespace UWPMedlinkApp.View.Pages
     /// </summary>
     public sealed partial class PatientsPage : Page
     {
-        public static DoctorDB _activeDoctor = DoctorDB.GetDoctorById(5);
+        public static DoctorDB _activeDoctor = DoctorDB._currentDoctor;
         public static PatientDB _selectedPatient = new PatientDB();
         private static PatientDB _selectedPatientCopy = new PatientDB();
 
@@ -36,8 +36,9 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Patients_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadActiveDoctorInfo();
+            _activeDoctor = DoctorDB._currentDoctor;
 
+            LoadActiveDoctorInfo();
             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
 
             ReloadGenderCombobox();

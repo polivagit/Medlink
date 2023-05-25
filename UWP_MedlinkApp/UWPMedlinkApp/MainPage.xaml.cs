@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DbLibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,8 +31,8 @@ namespace UWPMedlinkApp
 
         private void Main_Loaded(object sender, RoutedEventArgs e)
         {
-            //frmPrincipal.Navigate(typeof(LoginPage));
-            frmPrincipal.Navigate(typeof(PatientsPage));
+            frmPrincipal.Navigate(typeof(LoginPage));
+            //frmPrincipal.Navigate(typeof(PatientsPage));
             //frmPrincipal.Navigate(typeof(TreatmentsPage));
             //frmPrincipal.Navigate(typeof(MedicinesPage));
         }
@@ -45,24 +46,27 @@ namespace UWPMedlinkApp
             }
             else if (args.InvokedItem.Equals(nviPatientsPage.Content) && !frmPrincipal.SourcePageType.Equals(typeof(PatientsPage)))
             {
-                // If LoginPage tab is selected
-                frmPrincipal.Navigate(typeof(PatientsPage));
-
-                /*
-                if (EditorPage._levels != null)
+                if (DoctorDB._currentDoctor != null)
                 {
-                    frmPrincipal.Navigate(typeof(GamePage), EditorPage._levels); //Passem els levels per parametre
+                    // If LoginPage tab is selected
+                    frmPrincipal.Navigate(typeof(PatientsPage));
                 }
-                */
+
             }else if (args.InvokedItem.Equals(nviTreatmentsPage.Content) && !frmPrincipal.SourcePageType.Equals(typeof(TreatmentsPage)))
             {
-                // If TreatmentsPage tab is selected
-                frmPrincipal.Navigate(typeof(TreatmentsPage));
+                if (DoctorDB._currentDoctor != null)
+                {
+                    // If TreatmentsPage tab is selected
+                    frmPrincipal.Navigate(typeof(TreatmentsPage));
+                }
             }
             else if (args.InvokedItem.Equals(nviMedicinesPage.Content) && !frmPrincipal.SourcePageType.Equals(typeof(MedicinesPage)))
             {
-                // If MedicinesPage tab is selected
-                frmPrincipal.Navigate(typeof(MedicinesPage));
+                if (DoctorDB._currentDoctor != null)
+                {
+                    // If MedicinesPage tab is selected
+                    frmPrincipal.Navigate(typeof(MedicinesPage));
+                }
             }
 }
     }

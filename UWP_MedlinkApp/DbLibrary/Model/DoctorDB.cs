@@ -15,6 +15,8 @@ namespace DbLibrary.Model
         private String pers_doct_collegiate_uid;
         private int pers_doct_specialty_id;
 
+        public static DoctorDB _currentDoctor = null;
+
         public DoctorDB()
         {
         }
@@ -122,6 +124,128 @@ namespace DbLibrary.Model
             return doctorAux;
         }
 
+        public static DoctorDB GetDoctorByCredentials(string username, string password)
+        {
+            DoctorDB doctorAux = new DoctorDB();
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (var connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    using (var query = connection.CreateCommand())
+                    {
+                        DBUtils.crearParametre(query, "@d_username", username, DbType.String);
+                        DBUtils.crearParametre(query, "@d_password", password, DbType.String);
+
+                        query.CommandText = @"SELECT pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+		                                            pers_birthdate, pers_phone_number, pers_email, pers_gender,
+		                                            pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province, 
+		                                            pers_addrs_country, pers_login_username, pers_login_password, doct_collegiate_uid, doct_specialty_id
+                                            FROM person RIGHT JOIN doctor ON pers_id = doct_person_id
+                                            WHERE pers_login_username = @d_username AND pers_login_password = @d_password;";
+
+                        DbDataReader reader = query.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            int pers_id = reader.GetInt32(reader.GetOrdinal("pers_id"));
+                            String pers_nif = DBUtils.readDBC<String>(reader, "pers_nif");
+                            String pers_first_name = DBUtils.readDBC<String>(reader, "pers_first_name");
+                            String pers_last_name_1 = DBUtils.readDBC<String>(reader, "pers_last_name_1");
+
+                            String pers_last_name_2 = null;
+                            if (reader["pers_last_name_2"] != DBNull.Value)
+                            {
+                                pers_last_name_2 = DBUtils.readDBC<String>(reader, "pers_last_name_2");
+                            }
+
+                            DateTime pers_birthdate = reader.GetDateTime(reader.GetOrdinal("pers_birthdate"));
+                            String pers_phone_number = DBUtils.readDBC<String>(reader, "pers_phone_number");
+                            String pers_email = DBUtils.readDBC<String>(reader, "pers_email");
+                            //int pers_gender = reader.GetInt32(reader.GetOrdinal("pers_gender"));
+                            GenderTypeDB pers_gender = (GenderTypeDB)reader.GetValue(reader.GetOrdinal("pers_gender"));
+                            String pers_addrs_street = DBUtils.readDBC<String>(reader, "pers_addrs_street");
+                            String pers_addrs_zip_code = DBUtils.readDBC<String>(reader, "pers_addrs_zip_code");
+                            String pers_addrs_city = DBUtils.readDBC<String>(reader, "pers_addrs_city");
+                            String pers_addrs_province = DBUtils.readDBC<String>(reader, "pers_addrs_province");
+                            String pers_addrs_country = DBUtils.readDBC<String>(reader, "pers_addrs_country");
+                            String pers_login_username = DBUtils.readDBC<String>(reader, "pers_login_username");
+                            String pers_login_password = DBUtils.readDBC<String>(reader, "pers_login_password");
+                            String doct_collegiate_uid = DBUtils.readDBC<String>(reader, "doct_collegiate_uid");
+                            int doct_specialty_id = reader.GetInt32(reader.GetOrdinal("doct_specialty_id"));
+
+                            doctorAux = new DoctorDB(pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+                                                pers_birthdate, pers_phone_number, pers_email, pers_gender,
+                                                pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province,
+                                                pers_addrs_country, pers_login_username, pers_login_password, doct_collegiate_uid, doct_specialty_id);
+                        }
+                    }
+                }
+            }
+            return doctorAux;
+        }
+
+        public static DoctorDB GetDoctorByEmail(string email)
+        {
+            DoctorDB doctorAux = new DoctorDB();
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (var connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    using (var query = connection.CreateCommand())
+                    {
+                        DBUtils.crearParametre(query, "@d_email", email, DbType.String);
+
+                        query.CommandText = @"SELECT pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+		                                            pers_birthdate, pers_phone_number, pers_email, pers_gender,
+		                                            pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province, 
+		                                            pers_addrs_country, pers_login_username, pers_login_password, doct_collegiate_uid, doct_specialty_id
+                                            FROM person RIGHT JOIN doctor ON pers_id = doct_person_id
+                                            WHERE pers_email = @d_email;";
+
+                        DbDataReader reader = query.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            int pers_id = reader.GetInt32(reader.GetOrdinal("pers_id"));
+                            String pers_nif = DBUtils.readDBC<String>(reader, "pers_nif");
+                            String pers_first_name = DBUtils.readDBC<String>(reader, "pers_first_name");
+                            String pers_last_name_1 = DBUtils.readDBC<String>(reader, "pers_last_name_1");
+
+                            String pers_last_name_2 = null;
+                            if (reader["pers_last_name_2"] != DBNull.Value)
+                            {
+                                pers_last_name_2 = DBUtils.readDBC<String>(reader, "pers_last_name_2");
+                            }
+
+                            DateTime pers_birthdate = reader.GetDateTime(reader.GetOrdinal("pers_birthdate"));
+                            String pers_phone_number = DBUtils.readDBC<String>(reader, "pers_phone_number");
+                            String pers_email = DBUtils.readDBC<String>(reader, "pers_email");
+                            //int pers_gender = reader.GetInt32(reader.GetOrdinal("pers_gender"));
+                            GenderTypeDB pers_gender = (GenderTypeDB)reader.GetValue(reader.GetOrdinal("pers_gender"));
+                            String pers_addrs_street = DBUtils.readDBC<String>(reader, "pers_addrs_street");
+                            String pers_addrs_zip_code = DBUtils.readDBC<String>(reader, "pers_addrs_zip_code");
+                            String pers_addrs_city = DBUtils.readDBC<String>(reader, "pers_addrs_city");
+                            String pers_addrs_province = DBUtils.readDBC<String>(reader, "pers_addrs_province");
+                            String pers_addrs_country = DBUtils.readDBC<String>(reader, "pers_addrs_country");
+                            String pers_login_username = DBUtils.readDBC<String>(reader, "pers_login_username");
+                            String pers_login_password = DBUtils.readDBC<String>(reader, "pers_login_password");
+                            String doct_collegiate_uid = DBUtils.readDBC<String>(reader, "doct_collegiate_uid");
+                            int doct_specialty_id = reader.GetInt32(reader.GetOrdinal("doct_specialty_id"));
+
+                            doctorAux = new DoctorDB(pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+                                                pers_birthdate, pers_phone_number, pers_email, pers_gender,
+                                                pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province,
+                                                pers_addrs_country, pers_login_username, pers_login_password, doct_collegiate_uid, doct_specialty_id);
+                        }
+                    }
+                }
+            }
+            return doctorAux;
+        }
 
         public static bool UpdateDoctor(DoctorDB doctorAux)
         {
@@ -193,6 +317,119 @@ namespace DbLibrary.Model
 
                     transaction.Commit();
                     return success;
+                }
+            }
+        }
+
+        public static bool UpdateDoctorPassword(int doctorId, string newPsswd)
+        {
+            bool success = true;
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (DbConnection connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (DbCommand consulta = connection.CreateCommand())
+                        {
+                            consulta.Transaction = transaction;
+
+                            /*
+                             `pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,
+                            `pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,
+                            `pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`,
+                            `doct_person_id`, `doct_collegiate_uid`, `doct_specialty_id`
+                            */
+
+                            // PERSON TABLE FIELDS
+                            DBUtils.crearParametre(consulta, "@d_id", doctorId, DbType.Int32);
+                            DBUtils.crearParametre(consulta, "@d_new_psswd", newPsswd, DbType.String);
+
+                            consulta.CommandText = @"UPDATE person SET pers_login_password = @d_new_psswd
+                                                    WHERE pers_id = @d_id";
+
+                            int numUpdatedPersRows = consulta.ExecuteNonQuery();
+                            if (numUpdatedPersRows != 1)
+                            {
+                                transaction.Rollback();
+                                success = false;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("ERROR" + ex);
+                    }
+
+                    transaction.Commit();
+                    return success;
+                }
+            }
+        }
+
+        public static bool CheckIfDoctorExistsByCredentials(string username, string password)
+        {
+            using (MySQLConnDbContext context = new MySQLConnDbContext()) // CREATE DB CONTEXT
+            {
+                using (DbConnection connection = context.Database.GetDbConnection()) // GET DB CONNECTION
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction(); // CREATE TRANSACTION
+
+                    using (DbCommand query = connection.CreateCommand())
+                    {
+                        query.Transaction = transaction; // SET QUERY IN TRANSACTION
+
+                        DBUtils.crearParametre(query, "@d_username", username, DbType.String);
+                        DBUtils.crearParametre(query, "@d_password", password, DbType.String);
+
+                        query.CommandText = @"SELECT COUNT(1) 
+                                                FROM person RIGHT JOIN doctor ON pers_id = doct_person_id
+                                                WHERE pers_login_username = @d_username AND pers_login_password = @d_password";
+
+                        long numTreatmentsMedicine = (long)query.ExecuteScalar();
+                        if (numTreatmentsMedicine > 0)
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public static bool CheckIfDoctorExistsByEmail(string email)
+        {
+            using (MySQLConnDbContext context = new MySQLConnDbContext()) // CREATE DB CONTEXT
+            {
+                using (DbConnection connection = context.Database.GetDbConnection()) // GET DB CONNECTION
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction(); // CREATE TRANSACTION
+
+                    using (DbCommand query = connection.CreateCommand())
+                    {
+                        query.Transaction = transaction; // SET QUERY IN TRANSACTION
+
+                        DBUtils.crearParametre(query, "@d_email", email, DbType.String);
+
+                        query.CommandText = @"SELECT COUNT(1) 
+                                                FROM person RIGHT JOIN doctor ON pers_id = doct_person_id
+                                                WHERE pers_email = @d_email";
+
+                        long numTreatmentsMedicine = (long)query.ExecuteScalar();
+                        if (numTreatmentsMedicine > 0)
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    }
                 }
             }
         }

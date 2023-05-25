@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DbLibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Login_Loaded(object sender, RoutedEventArgs e)
         {
-
+            DoctorDB._currentDoctor = null;
         }
 
         private void lnkChangePassword_Click(object sender, RoutedEventArgs e)
@@ -54,6 +55,48 @@ namespace UWPMedlinkApp.View.Pages
         {
             LoginPage_PasswordRecoveryDialog recoverPasswordDialog = new LoginPage_PasswordRecoveryDialog();
             await recoverPasswordDialog.ShowAsync();
+        }
+
+        private void txbLogUsnm_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            txbErrorMessage.Visibility = Visibility.Collapsed;
+        }
+
+        private void txbLogPswd_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            txbErrorMessage.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            DoctorDB._currentDoctor = null;
+
+            string username = txbLogUsnm.Text+"";
+            string password = txbLogPswd.Text+"";
+
+            if (username.Length > 0 && password.Length > 0)
+            {
+                if (DoctorDB.CheckIfDoctorExistsByCredentials(username, password))
+                {
+                    txbErrorMessage.Visibility = Visibility.Collapsed;
+
+                    DoctorDB._currentDoctor = DoctorDB.GetDoctorByCredentials(username, password);
+
+                    if (DoctorDB._currentDoctor != null)
+                    {
+                        //GOTO PATIENS PAGE
+                        Frame.Navigate(typeof(PatientsPage));
+                    }
+                }
+                else
+                {
+                    txbErrorMessage.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                txbErrorMessage.Visibility = Visibility.Visible;
+            }
         }
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -87,6 +89,52 @@ namespace DbLibrary.DB
                 return valor;
             }
             else return null;
+        }
+
+        private const string StringChars = "0123456789abcdef";
+        public static string GenerateUniqueHexString(int length)
+        {
+            Random rand = new Random();
+            var charList = StringChars.ToArray();
+            string hexString = "";
+
+            for (int i = 0; i < length; i++)
+            {
+                int randIndex = rand.Next(0, charList.Length);
+                hexString += charList[randIndex];
+            }
+
+            return hexString;
+        }
+
+        public static bool SendEmail(string senderEmail, string senderPassword, string recieverEmail, string subject, string body)
+        {
+            try
+            {
+                // Configure the SMTP client with your email provider's settings
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+                // Create a new email message
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(senderEmail);
+                message.To.Add(recieverEmail);
+                message.Subject = subject;
+                message.Body = body;
+
+                // Send the email
+                client.Send(message);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occurred while trying to send the email
+                // Display an error message or take appropriate action
+                return false;
+            }
         }
     }
 }

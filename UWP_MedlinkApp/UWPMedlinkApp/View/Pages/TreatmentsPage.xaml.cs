@@ -42,6 +42,7 @@ namespace UWPMedlinkApp.View.Pages
         {
             LoadActiveDoctorInfo();
 
+            _activeDoctor = PatientsPage._activeDoctor;
             _selectedPatient = PatientsPage._selectedPatient;
             _selectedTreatment = new TreatmentDB();
 
