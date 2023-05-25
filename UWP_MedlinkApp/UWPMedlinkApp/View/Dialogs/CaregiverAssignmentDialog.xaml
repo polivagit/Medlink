@@ -10,7 +10,8 @@
     PrimaryButtonText="ASSIGN CAREGIVER"
     SecondaryButtonText="CANCEL"
     PrimaryButtonClick="SaveChangesClick"
-    SecondaryButtonClick="CancelClick">
+    SecondaryButtonClick="CancelClick"
+    IsPrimaryButtonEnabled="False">
 
     <Grid>
         <Grid.RowDefinitions>

@@ -45,7 +45,7 @@
             <!-- USERNAME INPUT -->
             <Grid Grid.Row="1">
                 <TextBox x:Name="txbLogUsnm" TextChanged="txbLogUsnm_TextChanged"
-                             FontSize="30" PlaceholderText="Doctor's username..."></TextBox>
+                             FontSize="30" PlaceholderText="Doctor's username..." Text="rpla1"></TextBox>
             </Grid>
 
             <Grid Grid.Row="2" Padding="10">
@@ -54,8 +54,8 @@
 
             <!-- PASSWORD INPUT -->
             <Grid Grid.Row="3">
-                <TextBox x:Name="txbLogPswd" TextChanged="txbLogPswd_TextChanged"
-                             FontSize="30" PlaceholderText="Doctor's password..." InputScope="Password"></TextBox>
+                <TextBox x:Name="txbLogPswd" TextChanged="txbLogPswd_TextChanged" FontSize="30"
+                             PlaceholderText="Doctor's password..." InputScope="Password" Text="1829H"></TextBox>
             </Grid>
         </Grid>
 

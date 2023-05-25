@@ -20,6 +20,9 @@ namespace UWPMedlinkApp.View.Dialogs
 {
     public sealed partial class CaregiverAssignmentDialog : ContentDialog
     {
+        public PersonDB _selectedCaregiver = null;
+        private static bool caregiverSelected = false;
+
         public CaregiverAssignmentDialog()
         {
             this.InitializeComponent();
@@ -30,14 +33,29 @@ namespace UWPMedlinkApp.View.Dialogs
         #region DATAGRID LISTENERS
         private void dtgCaregiver_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            _selectedCaregiver = (PersonDB)dtgCaregivers.SelectedItem;
 
+            if (dtgCaregivers.SelectedItem != null)
+            {
+                caregiverSelected = true;
+            }
+            else
+            {
+                caregiverSelected = false;
+            }
+            
+
+            CheckIfSelectedCaregiver();
         }
         #endregion
 
         #region BUTTON LISTENERS
         private void btnClearCaregiverFilter_Click(object sender, RoutedEventArgs e)
         {
-
+            txbCaregiverFilterByNIF.Text = "";
+            txbCaregiverFilterByFullName.Text = "";
+            txbCaregiverFilterByPhoneNumber.Text = "";
+            txbCaregiverFilterByEmail.Text = "";
         }
 
         private void SaveChangesClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -47,7 +65,7 @@ namespace UWPMedlinkApp.View.Dialogs
 
         private void CancelClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-
+            this.Hide();
         }
         #endregion
 
@@ -106,6 +124,18 @@ namespace UWPMedlinkApp.View.Dialogs
             else
             {
                 btnClearCaregiverFilter.IsEnabled = false;
+            }
+        }
+
+        private void CheckIfSelectedCaregiver()
+        {
+            if (caregiverSelected)
+            {
+                IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                IsPrimaryButtonEnabled = false;
             }
         }
         #endregion

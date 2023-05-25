@@ -335,6 +335,7 @@ namespace DbLibrary.Model
                 }
             }
         }
+
         public static bool DeleteTreatmentById(int treatmentId)
         {
             /*

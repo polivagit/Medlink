@@ -421,7 +421,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="0">
-                                <TextBox x:Name="txbPati_Caregiver" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                <TextBox x:Name="txbPati_CaregiverName" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                   PlaceholderText="Caregiver..." IsHitTestVisible="False" IsReadOnly="True"></TextBox>
                             </Grid>
 

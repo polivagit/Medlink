@@ -44,13 +44,13 @@ namespace DbLibrary.Model
         public int Pati_caregiver_id { get => pati_caregiver_id; set => pati_caregiver_id = value; }
 
         #region EXTRA_PROPERTIES
-        public String Pers_Caregiver
+        public String Pers_CaregiverName
         {
             get
             {
                 if (Pati_caregiver_id != -1)
                 {
-                    return PatientDB.GetPatientById(Pati_caregiver_id).Pers_FullName;
+                    return PersonDB.GetCaregiverById(Pati_caregiver_id).Pers_FullName;
                 }
                 else
                 {
@@ -230,6 +230,132 @@ namespace DbLibrary.Model
             return patientAux;
         }
 
+        public static int InsertPatient(PatientDB patientAux)
+        {
+
+            int insertedId = -1;
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (DbConnection connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (DbCommand query = connection.CreateCommand())
+                        {
+                            query.Transaction = transaction;
+                            /*
+                             `pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,
+                            `pers_phone_number`,`pers_email`,`pers_gender`,`pers_addrs_street`,`pers_addrs_zip_code`,
+                            `pers_addrs_city`,`pers_addrs_province`,`pers_addrs_country`,`pers_login_username`,`pers_login_password`,
+                            `pati_person_id`, `pati_height`, `pati_weight`, `pati_remarks`, `pati_caregiver_id`
+                            */
+
+                            // PERSON TABLE FIELDS
+                            DBUtils.crearParametre(query, "@p_nif", patientAux.Pers_nif, DbType.String);
+                            DBUtils.crearParametre(query, "@p_first_name", patientAux.Pers_first_name, DbType.String);
+                            DBUtils.crearParametre(query, "@p_last_name_1", patientAux.Pers_last_name_1, DbType.String);
+                            DBUtils.crearParametre(query, "@p_last_name_2", patientAux.Pers_last_name_2, DbType.String);
+                            DBUtils.crearParametre(query, "@p_birthdate", patientAux.Pers_birthdate, DbType.DateTime);
+                            DBUtils.crearParametre(query, "@p_phone_number", patientAux.Pers_phone_number, DbType.String);
+                            DBUtils.crearParametre(query, "@p_email", patientAux.Pers_email, DbType.String);
+                            DBUtils.crearParametre(query, "@p_gender", patientAux.Pers_gender, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_street", patientAux.Pers_addrs_street, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_zip_code", patientAux.Pers_addrs_zip_code, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_city", patientAux.Pers_addrs_city, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_province", patientAux.Pers_addrs_province, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_country", patientAux.Pers_addrs_country, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_login_username", patientAux.Pers_login_username, DbType.String);
+
+                            // PATIENT TABLE FIELDS
+                            DBUtils.crearParametre(query, "@p_pers_pati_height", patientAux.Pati_height, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_pers_pati_weight", patientAux.Pati_weight, DbType.Double);
+                            DBUtils.crearParametre(query, "@p_pers_pati_remarks", patientAux.Pati_remarks, DbType.String);
+
+                            if (patientAux.Pati_caregiver_id == 0)
+                            {
+                                DBUtils.crearParametre(query, "@p_pers_pati_caregiver_id", DBNull.Value, DbType.Int32);
+                            }
+                            else
+                            {
+                                DBUtils.crearParametre(query, "@p_pers_pati_caregiver_id", patientAux.Pati_caregiver_id, DbType.Int32);
+                            }
+                            
+
+                            query.CommandText = @"INSERT INTO person (pers_nif, 
+                                                                        pers_first_name, 
+                                                                        pers_last_name_1,
+                                                                        pers_last_name_2,
+                                                                        pers_birthdate, 
+                                                                        pers_phone_number,
+                                                                        pers_email,
+                                                                        pers_gender,
+                                                                        pers_addrs_street,
+                                                                        pers_addrs_zip_code,
+                                                                        pers_addrs_city,
+                                                                        pers_addrs_province,
+                                                                        pers_addrs_country,
+                                                                        pers_login_username) 
+                                                    values ( @p_nif,
+                                                                @p_first_name,
+                                                                @p_last_name_1,
+                                                                @p_last_name_2,
+                                                                @p_birthdate,
+                                                                @p_phone_number,
+                                                                @p_email,
+                                                                @p_gender,
+                                                                @p_pers_addrs_street,
+                                                                @p_pers_addrs_zip_code,
+                                                                @p_pers_addrs_city,
+                                                                @p_pers_addrs_province,
+                                                                @p_pers_addrs_country,
+                                                                @p_pers_login_username)";
+
+                            int numRowsPersInserted = query.ExecuteNonQuery();
+                            if (numRowsPersInserted != 1)
+                            {
+                                transaction.Rollback();
+                                return -1;
+                            }
+
+                            query.CommandText = @"SELECT LAST_INSERT_ID()";
+
+                            insertedId = Convert.ToInt32(query.ExecuteScalar());
+                            DBUtils.crearParametre(query, "@p_id", insertedId, DbType.Int32);
+
+                            query.CommandText = @"INSERT INTO patient (pati_person_id,
+                                                                        pati_height, 
+                                                                        pati_weight, 
+                                                                        pati_remarks,
+                                                                        pati_caregiver_id) 
+                                                    values (@p_id,
+                                                                @p_pers_pati_height,
+                                                                @p_pers_pati_weight,
+                                                                @p_pers_pati_remarks,
+                                                                @p_pers_pati_caregiver_id)";
+
+                            int numRowsPatiInserted = query.ExecuteNonQuery();
+                            if (numRowsPatiInserted != 1)
+                            {
+                                transaction.Rollback();
+                                return -1;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("ERROR" + ex);
+                    }
+
+                    transaction.Commit();
+                    return insertedId;
+                }
+            }
+        }
+
         public static bool UpdatePatient(PatientDB patientAux)
         {
             /*
@@ -249,9 +375,9 @@ namespace DbLibrary.Model
 
                     try
                     {
-                        using (DbCommand consulta = connection.CreateCommand())
+                        using (DbCommand query = connection.CreateCommand())
                         {
-                            consulta.Transaction = transaction;
+                            query.Transaction = transaction;
 
                             /*
                              `pers_nif`,`pers_first_name`,`pers_last_name_1`,`pers_last_name_2`,`pers_birthdate`,
@@ -261,30 +387,37 @@ namespace DbLibrary.Model
                             */
 
                             // PERSON TABLE FIELDS
-                            DBUtils.crearParametre(consulta, "@p_id", patientAux.Pers_id, DbType.Int32);
-                            DBUtils.crearParametre(consulta, "@p_nif", patientAux.Pers_nif, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_first_name", patientAux.Pers_first_name, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_last_name_1", patientAux.Pers_last_name_1, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_last_name_2", patientAux.Pers_last_name_2, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_birthdate", patientAux.Pers_birthdate, DbType.DateTime);
-                            DBUtils.crearParametre(consulta, "@p_phone_number", patientAux.Pers_phone_number, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_email", patientAux.Pers_email, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_gender", patientAux.Pers_gender, DbType.Int32);
-                            DBUtils.crearParametre(consulta, "@p_pers_addrs_street", patientAux.Pers_addrs_street, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_pers_addrs_zip_code", patientAux.Pers_addrs_zip_code, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_pers_addrs_city", patientAux.Pers_addrs_city, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_pers_addrs_province", patientAux.Pers_addrs_province, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_pers_addrs_country", patientAux.Pers_addrs_country, DbType.String);
-                            DBUtils.crearParametre(consulta, "@p_pers_login_username", patientAux.Pers_login_username, DbType.String);
-                            //DBUtils.crearParametre(consulta, "@p_pers_addrs_country", patientAux.Pers_login_password, DbType.String);
-
+                            DBUtils.crearParametre(query, "@p_id", patientAux.Pers_id, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_nif", patientAux.Pers_nif, DbType.String);
+                            DBUtils.crearParametre(query, "@p_first_name", patientAux.Pers_first_name, DbType.String);
+                            DBUtils.crearParametre(query, "@p_last_name_1", patientAux.Pers_last_name_1, DbType.String);
+                            DBUtils.crearParametre(query, "@p_last_name_2", patientAux.Pers_last_name_2, DbType.String);
+                            DBUtils.crearParametre(query, "@p_birthdate", patientAux.Pers_birthdate, DbType.DateTime);
+                            DBUtils.crearParametre(query, "@p_phone_number", patientAux.Pers_phone_number, DbType.String);
+                            DBUtils.crearParametre(query, "@p_email", patientAux.Pers_email, DbType.String);
+                            DBUtils.crearParametre(query, "@p_gender", patientAux.Pers_gender, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_street", patientAux.Pers_addrs_street, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_zip_code", patientAux.Pers_addrs_zip_code, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_city", patientAux.Pers_addrs_city, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_province", patientAux.Pers_addrs_province, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_addrs_country", patientAux.Pers_addrs_country, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_login_username", patientAux.Pers_login_username, DbType.String);
+                                                   
                             // PATIENT TABLE FIELDS
-                            DBUtils.crearParametre(consulta, "@p_pers_pati_height", patientAux.Pati_height, DbType.Int32);
-                            DBUtils.crearParametre(consulta, "@p_pers_pati_weight", patientAux.Pati_weight, DbType.Double);
-                            DBUtils.crearParametre(consulta, "@p_pers_pati_remarks", patientAux.Pati_remarks, DbType.String);
-                            //DBUtils.crearParametre(consulta, "@p_pers_pati_caregiver_id", patientAux.Pati_caregiver_id, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_pers_pati_height", patientAux.Pati_height, DbType.Int32);
+                            DBUtils.crearParametre(query, "@p_pers_pati_weight", patientAux.Pati_weight, DbType.Double);
+                            DBUtils.crearParametre(query, "@p_pers_pati_remarks", patientAux.Pati_remarks, DbType.String);
 
-                            consulta.CommandText = @"UPDATE person SET pers_nif = @p_nif,
+                            if (patientAux.Pati_caregiver_id == 0)
+                            {
+                                DBUtils.crearParametre(query, "@p_pers_pati_caregiver_id", DBNull.Value, DbType.Int32);
+                            }
+                            else
+                            {
+                                DBUtils.crearParametre(query, "@p_pers_pati_caregiver_id", patientAux.Pati_caregiver_id, DbType.Int32);
+                            }
+
+                            query.CommandText = @"UPDATE person SET pers_nif = @p_nif,
                                                                     pers_first_name = @p_first_name,
                                                                     pers_last_name_1 = @p_last_name_1,
                                                                     pers_last_name_2 = @p_last_name_2,
@@ -300,19 +433,20 @@ namespace DbLibrary.Model
                                                                     pers_login_username = @p_pers_login_username
                                                     WHERE pers_id = @p_id";
 
-                            int numUpdatedPersRows = consulta.ExecuteNonQuery();
+                            int numUpdatedPersRows = query.ExecuteNonQuery();
                             if (numUpdatedPersRows != 1)
                             {
                                 transaction.Rollback();
                                 success = false;
                             }
 
-                            consulta.CommandText = @"UPDATE patient SET pati_height = @p_pers_pati_height,
+                            query.CommandText = @"UPDATE patient SET pati_height = @p_pers_pati_height,
                                                                     pati_weight = @p_pers_pati_weight,
-                                                                    pati_remarks = @p_pers_pati_remarks
+                                                                    pati_remarks = @p_pers_pati_remarks,
+                                                                    pati_caregiver_id = @p_pers_pati_caregiver_id
                                                     WHERE pati_person_id = @p_id";
 
-                            int numUpdatedPatiRows = consulta.ExecuteNonQuery();
+                            int numUpdatedPatiRows = query.ExecuteNonQuery();
                             if (numUpdatedPatiRows != 1)
                             {
                                 transaction.Rollback();

@@ -29,6 +29,7 @@ namespace UWPMedlinkApp.View.Pages
         public static PatientDB _selectedPatient = PatientsPage._selectedPatient;
         public static TreatmentDB _selectedTreatment = new TreatmentDB();
         private static TreatmentMedicineDB _selectedTreatmentMedicine = new TreatmentMedicineDB();
+        private static TreatmentMedicineDB _selectedTreatmentMedicineCopy = new TreatmentMedicineDB();
         private static TreatmentMedicineDB _newTreatmentMedicine = new TreatmentMedicineDB();
 
         private static bool isNewTreatmentMedicine = true;
@@ -53,15 +54,15 @@ namespace UWPMedlinkApp.View.Pages
         #region DATAGRID LISTENERS
         private void dtgAllMedicines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ClearTreatmentMedicineInfo();
+
             MedicineDB selectedNewMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
             if (selectedNewMedicine != null)
             {
                 txbMedi_Name.Text = selectedNewMedicine.Medi_name;
             }
 
-            ClearTreatmentMedicineInfo();
-
-            isNewTreatmentMedicine = false;
+            isNewTreatmentMedicine = true;
             btnAddMedicine.Visibility = Visibility.Visible;
             btnUpdateMedicine.Visibility = Visibility.Collapsed;
 
@@ -77,11 +78,13 @@ namespace UWPMedlinkApp.View.Pages
             if (_selectedTreatmentMedicine != null)
             {
                 LoadSelectedMedicineInfo(_selectedTreatmentMedicine);
-            }
 
-            isNewTreatmentMedicine = false;
-            btnAddMedicine.Visibility = Visibility.Collapsed;
-            btnUpdateMedicine.Visibility = Visibility.Visible;
+                _selectedTreatmentMedicineCopy = _selectedTreatmentMedicine;
+
+                isNewTreatmentMedicine = false;
+                btnAddMedicine.Visibility = Visibility.Collapsed;
+                btnUpdateMedicine.Visibility = Visibility.Visible;
+            }
         }
         #endregion
 
@@ -104,22 +107,24 @@ namespace UWPMedlinkApp.View.Pages
             btnAddMedicine.Visibility = Visibility.Visible;
             btnUpdateMedicine.Visibility = Visibility.Collapsed;
 
+            dtgAllMedicines.SelectedItem = null;
+
             ClearTreatmentMedicineInfo();
         }
 
         private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
         {
-
+            DisplayTreatmentMedicineConfirmationDialog("ADD");
         }
 
         private void btnUpdateMedicine_Click(object sender, RoutedEventArgs e)
         {
-
+            DisplayTreatmentMedicineConfirmationDialog("UPDATE");
         }
 
         private void btnRemoveMedicine_Click(object sender, RoutedEventArgs e)
         {
-
+            DisplayTreatmentMedicineConfirmationDialog("REMOVE");
         }
         #endregion
 
@@ -233,8 +238,6 @@ namespace UWPMedlinkApp.View.Pages
 
         private void ClearTreatmentMedicineInfo()
         {
-            dtgAllMedicines.SelectedItem = null;
-
             txbMedi_Name.Text = "";
             txbMedi_TotalQuantity.Text = "";
 
@@ -243,6 +246,50 @@ namespace UWPMedlinkApp.View.Pages
 
             cboMedi_UOM.SelectedItem = null;
         }
+
+        private void SaveTreatmentMedicineInfo()
+        {
+            if (isNewTreatmentMedicine)
+            {
+                _newTreatmentMedicine.Trme_treatment_id = _selectedTreatment.Trea_id;
+                MedicineDB auxMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
+                _newTreatmentMedicine.Trme_medicine_id = auxMedicine.Medi_id;
+
+                DateTime auxDateStart = dtpMedi_DateStart.Date.Value.DateTime;
+                _newTreatmentMedicine.Trme_date_start = auxDateStart;
+                DateTime auxDateEnd = dtpMedi_DateEnd.Date.Value.DateTime;
+                _newTreatmentMedicine.Trme_date_end = auxDateEnd;
+
+                float total_qty = (float)Convert.ToDouble(txbMedi_TotalQuantity.Text);
+                _newTreatmentMedicine.Trme_total_quantity = total_qty;
+                TimeSpan duration = auxDateEnd - auxDateStart;
+                float quantity_per_day = total_qty / (float)duration.TotalDays;
+                _newTreatmentMedicine.Trme_quantity_per_day = quantity_per_day;
+
+                UnitsOfMeasureDB auxUOM = (UnitsOfMeasureDB)cboMedi_UOM.SelectedItem;
+                _newTreatmentMedicine.Trme_units_of_measure_id = auxUOM.Unme_id;
+            }
+            else
+            {
+                _selectedTreatmentMedicineCopy.Trme_treatment_id = _selectedTreatmentMedicine.Trme_treatment_id;
+                MedicineDB auxMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
+                _selectedTreatmentMedicineCopy.Trme_medicine_id = auxMedicine.Medi_id;
+
+                DateTime auxDateStart = dtpMedi_DateStart.Date.Value.DateTime;
+                _selectedTreatmentMedicineCopy.Trme_date_start = auxDateStart;
+                DateTime auxDateEnd = dtpMedi_DateEnd.Date.Value.DateTime;
+                _selectedTreatmentMedicineCopy.Trme_date_end = auxDateEnd;
+
+                float total_qty = (float)Convert.ToDouble(txbMedi_TotalQuantity.Text);
+                _selectedTreatmentMedicineCopy.Trme_total_quantity = total_qty;
+                TimeSpan duration = auxDateEnd - auxDateStart;
+                float quantity_per_day = total_qty / (float)duration.TotalDays;
+                _selectedTreatmentMedicineCopy.Trme_quantity_per_day = quantity_per_day;
+
+                UnitsOfMeasureDB auxUOM = (UnitsOfMeasureDB)cboMedi_UOM.SelectedItem;
+                _selectedTreatmentMedicineCopy.Trme_units_of_measure_id = auxUOM.Unme_id;
+            }
+        }
         #endregion
 
         #region CONTENT DIALOG METHODS
@@ -250,6 +297,84 @@ namespace UWPMedlinkApp.View.Pages
         {
             DoctorFormDialog seeDoctorDetailsDialog = new DoctorFormDialog(doctorAux);
             await seeDoctorDetailsDialog.ShowAsync();
+
+            LoadActiveDoctorInfo();
+        }
+
+        public async Task DisplayTreatmentMedicineConfirmationDialog(string action)
+        {
+            MedicinePage_TreatmentCRUDConfirmationDialog crudMedicineDialog = new MedicinePage_TreatmentCRUDConfirmationDialog()
+            {
+                Title = "CONFIRMATION: " + action + " MEDICINE",
+                Content = "Do you really want to " + action + " the medicine?",
+                PrimaryButtonText = "PROCEED",
+                CloseButtonText = "CANCEL"
+            };
+
+            ContentDialogResult result = await crudMedicineDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                // OK
+                switch (action)
+                {
+                    case "ADD":
+                        {
+                            // INSERT MEDICINE
+                            SaveTreatmentMedicineInfo();
+                            int insertedId = TreatmentMedicineDB.InsertTreatmentMedicine(_newTreatmentMedicine);
+
+                            ClearTreatmentMedicineInfo();
+
+                            isNewTreatmentMedicine = true;
+                            btnAddMedicine.Visibility = Visibility.Visible;
+                            btnUpdateMedicine.Visibility = Visibility.Collapsed;
+
+                            dtgMedicinesOfTreatment.ItemsSource = TreatmentMedicineDB.GetAllTretmentMedicinesByTreatmentId(_selectedTreatment.Trea_id);
+                            break;
+                        }
+                    case "UPDATE":
+                        {
+                            // UPDATE MEDICINE
+                            SaveTreatmentMedicineInfo();
+                            TreatmentMedicineDB.UpdateTreatmentMedicine(_selectedTreatmentMedicineCopy);
+
+                            ClearTreatmentMedicineInfo();
+
+                            isNewTreatmentMedicine = true;
+                            btnAddMedicine.Visibility = Visibility.Visible;
+                            btnUpdateMedicine.Visibility = Visibility.Collapsed;
+
+                            dtgMedicinesOfTreatment.ItemsSource = TreatmentMedicineDB.GetAllTretmentMedicinesByTreatmentId(_selectedTreatment.Trea_id);
+                            break;
+                        }
+                    case "REMOVE":
+                        {
+                            // DELETE MEDICINE
+
+                            /*
+                                TODO: DISABLE REMOVE BUTTON IF ISNEWTREATMENTMEDICINE 
+                             */
+
+                            TreatmentMedicineDB.DeleteTreatmentMedicineByTreatmentAndMedicineId(_selectedTreatment.Trea_id, _selectedTreatmentMedicine.Trme_medicine_id);
+
+                            ClearTreatmentMedicineInfo();
+
+                            isNewTreatmentMedicine = true;
+                            btnAddMedicine.Visibility = Visibility.Visible;
+                            btnUpdateMedicine.Visibility = Visibility.Collapsed;
+
+                            dtgMedicinesOfTreatment.ItemsSource = TreatmentMedicineDB.GetAllTretmentMedicinesByTreatmentId(_selectedTreatment.Trea_id);
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                // CANCEL / DO NOTHING
+            }
         }
         #endregion
     }

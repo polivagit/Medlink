@@ -25,9 +25,8 @@ namespace UWPMedlinkApp.View.Dialogs
         private static bool emailOk = false;
         private static bool emailSent = false;
 
-        private static string senderEmail = "tmedlink@gmail.com";
-        private const string APP_KEY = "bftnvincwvxagvyp";
-        private static string recieverEmail = "tmedlink@gmail.com";
+        public static string senderEmail = "tmedlink@gmail.com";
+        public static string APP_KEY = "bftnvincwvxagvyp";
 
         public LoginPage_PasswordRecoveryDialog()
         {
@@ -38,16 +37,16 @@ namespace UWPMedlinkApp.View.Dialogs
         {
             DoctorDB auxDoctor = DoctorDB.GetDoctorByEmail(txbRecoveryEmail.Text);
             string newPasswd = DBUtils.GenerateUniqueHexString(20);
-
+            
             // UPDATE PASSWORD
             DoctorDB.UpdateDoctorPassword(auxDoctor.Pers_id, newPasswd);
 
             // SEND EMAIL (NOTIFY)
             emailSent = DBUtils.SendEmail(senderEmail,
                                             APP_KEY,
-                                            recieverEmail,
+                                            auxDoctor.Pers_email,
                                             "Medlink password recovery",
-                                            @"Hello, your password has changed. Your new password is: " + newPasswd + " . Remember that your username is: " + auxDoctor.Pers_login_username);
+                                            @"Hello, your password has changed. Your new password is: " + newPasswd + ". Remember that your username is: " + auxDoctor.Pers_login_username);
 
         }
 

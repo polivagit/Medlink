@@ -215,6 +215,163 @@ namespace DbLibrary.Model
             }
             return treatmentMedicineAux;
         }
+
+        public static int InsertTreatmentMedicine(TreatmentMedicineDB treatmentMedicineAux)
+        {
+            int insertedId = -1;
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (DbConnection connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (DbCommand query = connection.CreateCommand())
+                        {
+                            query.Transaction = transaction;
+
+                            DBUtils.crearParametre(query, "@m_trea_id", treatmentMedicineAux.Trme_treatment_id, DbType.Int32);
+                            DBUtils.crearParametre(query, "@m_medi_id", treatmentMedicineAux.Trme_medicine_id, DbType.Int32);
+                            DBUtils.crearParametre(query, "@m_date_start", treatmentMedicineAux.Trme_date_start, DbType.DateTime);
+                            DBUtils.crearParametre(query, "@m_date_end", treatmentMedicineAux.Trme_date_end, DbType.DateTime);
+                            DBUtils.crearParametre(query, "@m_qty_per_day", treatmentMedicineAux.Trme_quantity_per_day, DbType.Double);
+                            DBUtils.crearParametre(query, "@m_total_qty", treatmentMedicineAux.Trme_total_quantity, DbType.Double);
+                            DBUtils.crearParametre(query, "@m_uom_id", treatmentMedicineAux.Trme_units_of_measure_id, DbType.Int32);
+
+                            query.CommandText = @"INSERT INTO treatment_medicine (trme_treatment_id, 
+                                                                        trme_medicine_id, 
+                                                                        trme_date_start,
+                                                                        trme_date_end,
+                                                                        trme_quantity_per_day, 
+                                                                        trme_total_quantity,
+                                                                        trme_unit_of_measure_id) 
+                                                    values ( @m_trea_id, 
+                                                                @m_medi_id, 
+                                                                @m_date_start, 
+                                                                @m_date_end, 
+                                                                @m_qty_per_day, 
+                                                                @m_total_qty, 
+                                                                @m_uom_id)";
+
+                            int numRowsInserted = query.ExecuteNonQuery();
+                            if (numRowsInserted != 1)
+                            {
+                                transaction.Rollback();
+                                return -1;
+                            }
+
+                            query.CommandText = @"SELECT LAST_INSERT_ID()";
+
+                            insertedId = Convert.ToInt32(query.ExecuteScalar());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("ERROR" + ex);
+                    }
+
+                    transaction.Commit();
+                    return insertedId;
+                }
+            }
+        }
+
+        public static bool UpdateTreatmentMedicine(TreatmentMedicineDB treatmentMedicineAux)
+        {
+            bool success = true;
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (DbConnection connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        using (DbCommand consulta = connection.CreateCommand())
+                        {
+                            DBUtils.crearParametre(consulta, "@m_trea_id", treatmentMedicineAux.Trme_treatment_id, DbType.Int32);
+                            DBUtils.crearParametre(consulta, "@m_medi_id", treatmentMedicineAux.Trme_medicine_id, DbType.Int32);
+                            DBUtils.crearParametre(consulta, "@m_date_start", treatmentMedicineAux.Trme_date_start, DbType.DateTime);
+                            DBUtils.crearParametre(consulta, "@m_date_end", treatmentMedicineAux.Trme_date_end, DbType.DateTime);
+                            DBUtils.crearParametre(consulta, "@m_qty_per_day", treatmentMedicineAux.Trme_quantity_per_day, DbType.Double);
+                            DBUtils.crearParametre(consulta, "@m_total_qty", treatmentMedicineAux.Trme_total_quantity, DbType.Double);
+                            DBUtils.crearParametre(consulta, "@m_uom_id", treatmentMedicineAux.Trme_units_of_measure_id, DbType.Int32);
+
+                            consulta.CommandText = @"UPDATE treatment_medicine SET 
+                                                                    trme_date_start = @m_date_start,
+                                                                    trme_date_end = @m_date_end,
+                                                                    trme_quantity_per_day = @m_qty_per_day,
+                                                                    trme_total_quantity = @m_total_qty,
+                                                                    trme_unit_of_measure_id = @m_uom_id
+                                                    WHERE trme_treatment_id = @m_trea_id 
+                                                            AND trme_medicine_id = @m_medi_id";
+
+                            int numUpdatedTreaRows = consulta.ExecuteNonQuery();
+                            if (numUpdatedTreaRows != 1)
+                            {
+                                transaction.Rollback();
+                                success = false;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("ERROR" + ex);
+                    }
+
+                    transaction.Commit();
+                    return success;
+                }
+            }
+        }
+
+        public static bool DeleteTreatmentMedicineByTreatmentAndMedicineId(int treatmentId, int medicineId)
+        {
+            bool success = true;
+            using (MySQLConnDbContext context = new MySQLConnDbContext()) // CREATE DB CONTEXT
+            {
+                using (DbConnection connection = context.Database.GetDbConnection()) // GET DB CONNECTION
+                {
+                    connection.Open();
+                    DbTransaction transaction = connection.BeginTransaction(); // CREATE TRANSACTION
+
+                    using (DbCommand query = connection.CreateCommand())
+                    {
+                        query.Transaction = transaction; // SET QUERY IN TRANSACTION
+
+                        DBUtils.crearParametre(query, "@treatment_id", treatmentId, DbType.Int32);
+                        DBUtils.crearParametre(query, "@medicine_id", medicineId, DbType.Int32);
+
+                        // DELETE FROM TREATMENT_MEDICINE TABLE =========================
+                        query.CommandText = @"SELECT COUNT(1) 
+                                                FROM treatment_medicine
+                                                WHERE trme_treatment_id = @treatment_id AND trme_medicine_id = @medicine_id";
+
+                        long numTreatmentsMedicine = (long)query.ExecuteScalar();
+                        if (numTreatmentsMedicine < 0) return false;
+
+                        query.CommandText = @"DELETE FROM treatment_medicine 
+                                                WHERE trme_treatment_id = @treatment_id AND trme_medicine_id = @medicine_id";
+
+                        int numTreatmentMedicineDeleted = query.ExecuteNonQuery();
+                        if (numTreatmentMedicineDeleted != 1)
+                        {
+                            transaction.Rollback();
+                            success = false;
+                        }
+                        // ===================================================
+
+                        transaction.Commit();
+                        return success;
+                    }
+                }
+            }
+        }
         #endregion
     }
 }

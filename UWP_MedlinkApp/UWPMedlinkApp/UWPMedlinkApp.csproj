@@ -135,6 +135,9 @@
     <Compile Include="View\Dialogs\LoginPage_PasswordRecoveryDialog.xaml.cs">
       <DependentUpon>LoginPage_PasswordRecoveryDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialogs\MedicinePage_TreatmentCRUDConfirmationDialog.xaml.cs">
+      <DependentUpon>MedicinePage_TreatmentCRUDConfirmationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialogs\PatientsPage_PatientCRUDConfirmationDialog.xaml.cs">
       <DependentUpon>PatientsPage_PatientCRUDConfirmationDialog.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Dialogs\LoginPage_PasswordRecoveryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\MedicinePage_TreatmentCRUDConfirmationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

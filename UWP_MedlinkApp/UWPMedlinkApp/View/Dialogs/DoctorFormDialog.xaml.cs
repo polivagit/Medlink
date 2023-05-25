@@ -27,11 +27,11 @@ namespace UWPMedlinkApp.View.Dialogs
         {
             this.InitializeComponent();
 
-            IsPrimaryButtonEnabled = dataChanged;
-
             ReloadGenderCombobox();
             LoadDoctorInfo(doctorAux);
             _doctorCopy = doctorAux;
+
+            IsPrimaryButtonEnabled = dataChanged;
         }
 
         #region BUTTON LISTENERS
@@ -96,6 +96,17 @@ namespace UWPMedlinkApp.View.Dialogs
             _doctorCopy.Pers_addrs_city = txbCity.Text;
             _doctorCopy.Pers_addrs_province = txbProvince.Text;
             _doctorCopy.Pers_addrs_country = txbCountry.Text;
+
+            foreach (GenderTypeDB gender in Enum.GetValues(typeof(GenderTypeDB)))
+            {
+                string key = gender.ToString();
+                int value = (int)gender;
+
+                if (cboDoctorGender.SelectedValue.ToString() == key)
+                {
+                    _doctorCopy.Pers_gender = (GenderTypeDB)value;
+                }
+            }
         }
         #endregion
 

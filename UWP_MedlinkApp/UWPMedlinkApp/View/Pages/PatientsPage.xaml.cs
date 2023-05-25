@@ -1,4 +1,5 @@
-﻿using DbLibrary.Model;
+﻿using DbLibrary.DB;
+using DbLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,10 @@ namespace UWPMedlinkApp.View.Pages
         public static DoctorDB _activeDoctor = DoctorDB._currentDoctor;
         public static PatientDB _selectedPatient = new PatientDB();
         private static PatientDB _selectedPatientCopy = new PatientDB();
+        private static PatientDB _newPatient = new PatientDB();
+        private static PersonDB _caregiverOfPatient = new PersonDB();
+
+        private static bool isNewPatient = true;
 
         public PatientsPage()
         {
@@ -59,6 +64,7 @@ namespace UWPMedlinkApp.View.Pages
 
                 _selectedPatientCopy = _selectedPatient;
 
+                isNewPatient = false;
                 btnAddPatient.Visibility = Visibility.Collapsed;
                 btnUpdatePatient.Visibility = Visibility.Visible;
             }
@@ -78,6 +84,7 @@ namespace UWPMedlinkApp.View.Pages
 
         private void btnNewPatient_Click(object sender, RoutedEventArgs e)
         {
+            isNewPatient = true;
             btnAddPatient.Visibility = Visibility.Visible;
             btnUpdatePatient.Visibility = Visibility.Collapsed;
 
@@ -111,7 +118,8 @@ namespace UWPMedlinkApp.View.Pages
 
         private void btnRemoveCaregiver_Click(object sender, RoutedEventArgs e)
         {
-
+            _caregiverOfPatient = new PersonDB();
+            txbPati_CaregiverName.Text = "NO CAREGIVER";
         }
         #endregion
 
@@ -165,7 +173,7 @@ namespace UWPMedlinkApp.View.Pages
             txbPati_Weight.Text = patientAux.Pati_weight + "";
             txbPati_Height.Text = patientAux.Pati_height + "";
             txbPati_Remarks.Text = patientAux.Pati_remarks + "";
-            txbPati_Caregiver.Text = patientAux.Pers_Caregiver;
+            txbPati_CaregiverName.Text = patientAux.Pers_CaregiverName;
 
             dtpPati_Birthdate.Date = patientAux.Pers_birthdate;
 
@@ -201,8 +209,7 @@ namespace UWPMedlinkApp.View.Pages
             txbPati_Weight.Text = "";
             txbPati_Height.Text = "";
             txbPati_Remarks.Text = "";
-            txbPati_Caregiver.Text = "";
-
+            txbPati_CaregiverName.Text = "";
             dtpPati_Birthdate.Date = new DateTimeOffset(new DateTime(1950, 01, 01));
 
             cboPati_Gender.SelectedIndex = -1;
@@ -214,12 +221,20 @@ namespace UWPMedlinkApp.View.Pages
         {
             DoctorFormDialog seeDoctorDetailsDialog = new DoctorFormDialog(doctorAux);
             await seeDoctorDetailsDialog.ShowAsync();
+
+            LoadActiveDoctorInfo();
         }
 
         private async Task LoadCaregiverAssignmentDialog()
         {
-            CaregiverAssignmentDialog caregiverAssignmentForm = new CaregiverAssignmentDialog();
-            await caregiverAssignmentForm.ShowAsync();
+            CaregiverAssignmentDialog caregiverAssignmentDialog = new CaregiverAssignmentDialog();
+            var res = await caregiverAssignmentDialog.ShowAsync();
+
+            if (res == ContentDialogResult.Primary)
+            {
+                _caregiverOfPatient = caregiverAssignmentDialog._selectedCaregiver;
+                txbPati_CaregiverName.Text = _caregiverOfPatient.Pers_FullName;
+            }
         }
 
         public async Task DisplayPatientConfirmationDialog(string action)
@@ -242,7 +257,8 @@ namespace UWPMedlinkApp.View.Pages
                     case "ADD":
                     {
                             // INSERT PATIENT
-
+                            SavePatientInfo();
+                            int insertedId = PatientDB.InsertPatient(_newPatient);
 
                             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
                             ClearPatientInfo();
@@ -251,6 +267,7 @@ namespace UWPMedlinkApp.View.Pages
                     case "UPDATE":
                     {
                             // UPDATE PATIENT
+                            SavePatientInfo();
                             PatientDB.UpdatePatient(_selectedPatientCopy);
 
                             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
@@ -287,104 +304,166 @@ namespace UWPMedlinkApp.View.Pages
 
         private void txbPati_FirstName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_first_name = txbPati_FirstName.Text;
+            
         }
 
         private void txbPati_LastName1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_last_name_1 = txbPati_LastName1.Text;
+            
         }
 
         private void txbPati_LastName2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_last_name_2 = txbPati_LastName2.Text;
+            
         }
 
         private void txbPati_Nif_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_nif = txbPati_Nif.Text;
+            
         }
 
         private void txbPati_PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_phone_number = txbPati_PhoneNumber.Text;
+            
         }
 
         private void txbPati_Email_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_email = txbPati_Email.Text;
+            
         }
 
         private void txbPati_Street_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_addrs_street = txbPati_Street.Text;
+            
         }
 
         private void txbPati_PostalCode_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_addrs_zip_code = txbPati_PostalCode.Text;
+            
         }
 
         private void txbPati_City_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_addrs_city = txbPati_City.Text;
+            
         }
 
         private void txbPati_Province_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_addrs_province = txbPati_Province.Text;
+            
         }
 
         private void txbPati_Country_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_addrs_country = txbPati_Country.Text;
+            
         }
 
         private void txbPati_Username_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pers_login_username = txbPati_Username.Text;
+            
         }
 
         private void txbPati_Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //float weight = (float)Convert.ToDouble(txbPati_Weight.Text);
-
-            //_selectedPatientCopy.Pati_weight = weight;
+            
         }
 
         private void txbPati_Height_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //_selectedPatientCopy.Pati_height = Int32.Parse(txbPati_Height.Text);
+            
         }
 
         private void txbPati_Remarks_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _selectedPatientCopy.Pati_remarks = txbPati_Remarks.Text;
+            
         }
         #endregion
 
         #region OTHER LISTENERS
         private void dtpPati_Birthdate_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            /*
-            _selectedPatientCopy.Pers_birthdate = dtpPati_Birthdate.Date.Value;
-            */
+            
         }
 
         private void cboPati_Gender_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*
-            foreach (GenderTypeDB gender in Enum.GetValues(typeof(GenderTypeDB)))
-            {
-                string key = gender.ToString();
-                int value = (int)gender;
 
-                if (cboPati_Gender.SelectedValue.ToString() == key)
+        }
+        #endregion
+
+        #region OTHER METHODS
+        private void SavePatientInfo()
+        {
+            if (isNewPatient)
+            {
+                _newPatient.Pers_first_name = txbPati_FirstName.Text;
+                _newPatient.Pers_last_name_1 = txbPati_LastName1.Text;
+                _newPatient.Pers_last_name_2 = txbPati_LastName2.Text;
+                _newPatient.Pers_nif = txbPati_Nif.Text;
+                _newPatient.Pers_phone_number = txbPati_PhoneNumber.Text;
+                _newPatient.Pers_email = txbPati_Email.Text;
+
+                DateTime auxBirthdate = dtpPati_Birthdate.Date.Value.DateTime;
+                _newPatient.Pers_birthdate = auxBirthdate;
+
+                foreach (GenderTypeDB gender in Enum.GetValues(typeof(GenderTypeDB)))
                 {
-                    _selectedPatientCopy.Pers_gender = value;
+                    string key = gender.ToString();
+                    int value = (int)gender;
+
+                    if (cboPati_Gender.SelectedValue.ToString() == key)
+                    {
+                        _newPatient.Pers_gender = (GenderTypeDB)value;
+                    }
                 }
+
+                _newPatient.Pati_caregiver_id = _caregiverOfPatient.Pers_id;
+
+                _newPatient.Pers_addrs_street = txbPati_Street.Text;
+                _newPatient.Pers_addrs_zip_code = txbPati_PostalCode.Text;
+                _newPatient.Pers_addrs_city = txbPati_City.Text;
+                _newPatient.Pers_addrs_province = txbPati_Province.Text;
+                _newPatient.Pers_addrs_country = txbPati_Country.Text;
+                _newPatient.Pers_login_username = txbPati_Username.Text;
+                _newPatient.Pers_login_password = DBUtils.GenerateUniqueHexString(20);
+                _newPatient.Pati_weight = (float)Convert.ToDouble(txbPati_Weight.Text);
+                _newPatient.Pati_height = int.Parse(txbPati_Height.Text);
+                _newPatient.Pati_remarks = txbPati_Remarks.Text;
             }
-            */
+            else
+            {
+                _selectedPatientCopy.Pers_first_name = txbPati_FirstName.Text;
+                _selectedPatientCopy.Pers_last_name_1 = txbPati_LastName1.Text;
+                _selectedPatientCopy.Pers_last_name_2 = txbPati_LastName2.Text;
+                _selectedPatientCopy.Pers_nif = txbPati_Nif.Text;
+                _selectedPatientCopy.Pers_phone_number = txbPati_PhoneNumber.Text;
+                _selectedPatientCopy.Pers_email = txbPati_Email.Text;
+
+                DateTime auxBirthdate = dtpPati_Birthdate.Date.Value.DateTime;
+                _selectedPatientCopy.Pers_birthdate = auxBirthdate;
+
+                foreach (GenderTypeDB gender in Enum.GetValues(typeof(GenderTypeDB)))
+                {
+                    string key = gender.ToString();
+                    int value = (int)gender;
+
+                    if (cboPati_Gender.SelectedValue.ToString() == key)
+                    {
+                        _selectedPatientCopy.Pers_gender = (GenderTypeDB)value;
+                    }
+                }
+
+                _selectedPatientCopy.Pati_caregiver_id = _caregiverOfPatient.Pers_id;
+
+                _selectedPatientCopy.Pers_addrs_street = txbPati_Street.Text;
+                _selectedPatientCopy.Pers_addrs_zip_code = txbPati_PostalCode.Text;
+                _selectedPatientCopy.Pers_addrs_city = txbPati_City.Text;
+                _selectedPatientCopy.Pers_addrs_province = txbPati_Province.Text;
+                _selectedPatientCopy.Pers_addrs_country = txbPati_Country.Text;
+                _selectedPatientCopy.Pers_login_username = txbPati_Username.Text;
+                _selectedPatientCopy.Pati_weight = (float)Convert.ToDouble(txbPati_Weight.Text);
+                _selectedPatientCopy.Pati_height = int.Parse(txbPati_Height.Text);
+                _selectedPatientCopy.Pati_remarks = txbPati_Remarks.Text;
+            }
         }
         #endregion
     }

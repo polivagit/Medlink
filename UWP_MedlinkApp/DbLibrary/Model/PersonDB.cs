@@ -143,8 +143,8 @@ namespace DbLibrary.Model
                                                     pers_addrs_country, pers_login_username, pers_login_password
                                                 FROM person pe
                                                 WHERE  
-                                                    NOT EXISTS (SELECT 1 FROM patient pa WHERE pa.pati_person_id = pe.pers_id)
-                                                    AND NOT EXISTS (SELECT 1 FROM doctor doc WHERE doc.doct_person_id = pe.pers_id)
+                                                    NOT EXISTS (SELECT 1 FROM patient WHERE pati_person_id = pers_id)
+                                                    AND NOT EXISTS (SELECT 1 FROM doctor WHERE doct_person_id = pers_id)
                                                     AND (@person_nif='' or pers_nif like @person_nif)
                                                     AND (@person_full_name='' or CONCAT(pers_first_name,pers_last_name_1,pers_last_name_2) like @person_full_name)
                                                     AND (@person_phone_number='' or pers_phone_number like @person_phone_number)
@@ -188,6 +188,67 @@ namespace DbLibrary.Model
                 }
             }
             return caregivers;
+        }
+
+        public static PersonDB GetCaregiverById(int caregiverId)
+        {
+            PersonDB caregiverAux = new PersonDB();
+
+            using (MySQLConnDbContext context = new MySQLConnDbContext())
+            {
+                using (var connection = context.Database.GetDbConnection())
+                {
+                    connection.Open();
+                    using (var query = connection.CreateCommand())
+                    {
+                        DBUtils.crearParametre(query, "@c_id", caregiverId, DbType.String);
+
+                        query.CommandText = @"SELECT pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+                                                    pers_birthdate, pers_phone_number, pers_email, pers_gender,
+                                                    pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province, 
+                                                    pers_addrs_country, pers_login_username, pers_login_password
+                                                FROM person pe
+                                                WHERE  
+                                                    NOT EXISTS (SELECT 1 FROM patient pa WHERE pa.pati_person_id = pe.pers_id)
+                                                    AND NOT EXISTS (SELECT 1 FROM doctor doc WHERE doc.doct_person_id = pe.pers_id)
+                                                    AND pers_id = @c_id";
+
+                        DbDataReader reader = query.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            int pers_id = reader.GetInt32(reader.GetOrdinal("pers_id"));
+                            String pers_nif = DBUtils.readDBC<String>(reader, "pers_nif");
+                            String pers_first_name = DBUtils.readDBC<String>(reader, "pers_first_name");
+                            String pers_last_name_1 = DBUtils.readDBC<String>(reader, "pers_last_name_1");
+
+                            String pers_last_name_2 = null;
+                            if (reader["pers_last_name_2"] != DBNull.Value)
+                            {
+                                pers_last_name_2 = DBUtils.readDBC<String>(reader, "pers_last_name_2");
+                            }
+
+                            DateTime pers_birthdate = reader.GetDateTime(reader.GetOrdinal("pers_birthdate"));
+                            String pers_phone_number = DBUtils.readDBC<String>(reader, "pers_phone_number");
+                            String pers_email = DBUtils.readDBC<String>(reader, "pers_email");
+                            GenderTypeDB pers_gender = (GenderTypeDB)reader.GetValue(reader.GetOrdinal("pers_gender"));
+                            String pers_addrs_street = DBUtils.readDBC<String>(reader, "pers_addrs_street");
+                            String pers_addrs_zip_code = DBUtils.readDBC<String>(reader, "pers_addrs_zip_code");
+                            String pers_addrs_city = DBUtils.readDBC<String>(reader, "pers_addrs_city");
+                            String pers_addrs_province = DBUtils.readDBC<String>(reader, "pers_addrs_province");
+                            String pers_addrs_country = DBUtils.readDBC<String>(reader, "pers_addrs_country");
+                            String pers_login_username = DBUtils.readDBC<String>(reader, "pers_login_username");
+                            String pers_login_password = DBUtils.readDBC<String>(reader, "pers_login_password");
+
+                            caregiverAux = new PersonDB(pers_id, pers_nif, pers_first_name, pers_last_name_1, pers_last_name_2,
+                                        pers_birthdate, pers_phone_number, pers_email, pers_gender,
+                                        pers_addrs_street, pers_addrs_zip_code, pers_addrs_city, pers_addrs_province,
+                                        pers_addrs_country, pers_login_username, pers_login_password);;
+                        }
+                    }
+                }
+            }
+            return caregiverAux;
         }
         #endregion
 

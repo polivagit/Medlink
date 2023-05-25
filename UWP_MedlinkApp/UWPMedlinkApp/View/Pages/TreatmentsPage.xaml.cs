@@ -188,7 +188,9 @@ namespace UWPMedlinkApp.View.Pages
         private async Task LoadSeeDoctorDetailsDialog(DoctorDB doctorAux)
         {
             DoctorFormDialog seeDoctorDetailsDialog = new DoctorFormDialog(doctorAux);
-            await seeDoctorDetailsDialog.ShowAsync();            
+            await seeDoctorDetailsDialog.ShowAsync();
+
+            LoadActiveDoctorInfo();
         }
 
         public async Task DisplayTreatmentConfirmationDialog(string action)
@@ -214,6 +216,10 @@ namespace UWPMedlinkApp.View.Pages
                             SaveTreatmentInfo();
                             int insertedId = TreatmentDB.InsertTreatment(_newTreatment);
 
+                            isNewTreatment = true;
+                            btnAddTreatment.Visibility = Visibility.Visible;
+                            btnUpdateTreatment.Visibility = Visibility.Collapsed;
+
                             ClearTreatmentInfo();
                             dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
                             break;
@@ -224,6 +230,10 @@ namespace UWPMedlinkApp.View.Pages
                             SaveTreatmentInfo();
                             TreatmentDB.UpdateTreatment(_selectedTreatmentCopy);
 
+                            isNewTreatment = true;
+                            btnAddTreatment.Visibility = Visibility.Visible;
+                            btnUpdateTreatment.Visibility = Visibility.Collapsed;
+
                             ClearTreatmentInfo();
                             dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
                             break;
@@ -231,7 +241,16 @@ namespace UWPMedlinkApp.View.Pages
                     case "REMOVE":
                         {
                             // DELETE TREATMENT
+
+                            /*
+                                TODO: DISABLE REMOVE BUTTON IF ISNEWTREATMENTMEDICINE 
+                             */
+
                             TreatmentDB.DeleteTreatmentById(_selectedTreatment.Trea_id);
+
+                            isNewTreatment = true;
+                            btnAddTreatment.Visibility = Visibility.Visible;
+                            btnUpdateTreatment.Visibility = Visibility.Collapsed;
 
                             ClearTreatmentInfo();
                             dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("",_selectedPatient.Pers_id,_activeDoctor.Pers_id);
@@ -257,33 +276,6 @@ namespace UWPMedlinkApp.View.Pages
                 TreatmentDB.GetAllTreatmentsByPatientAndDoctorId(txbTreatmentFilterByName.Text,
                                                                     _selectedPatient.Pers_id,
                                                                     _activeDoctor.Pers_id);
-        }
-
-
-        private void SaveTreatmentInfo()
-        {
-            if (isNewTreatment)
-            {
-                _newTreatment.Trea_name = txbTrea_Name.Text;
-                _newTreatment.Trea_description = txbTrea_Description.Text;
-                _newTreatment.Trea_observations = txbTrea_Observations.Text;
-                _newTreatment.Trea_is_active = chkTrea_IsActive.IsChecked.Value;
-                _newTreatment.Trea_date_start = dtpTrea_DateStart.Date.Value.DateTime;
-                _newTreatment.Trea_date_end = dtpTrea_DateEnd.Date.Value.DateTime;
-                _newTreatment.Trea_doctor_id = _activeDoctor.Pers_id;
-                _newTreatment.Trea_patient_id = _selectedPatient.Pers_id;
-            }
-            else
-            {
-                _selectedTreatmentCopy.Trea_name = txbTrea_Name.Text;
-                _selectedTreatmentCopy.Trea_description = txbTrea_Description.Text;
-                _selectedTreatmentCopy.Trea_observations = txbTrea_Observations.Text;
-                _selectedTreatmentCopy.Trea_is_active = chkTrea_IsActive.IsChecked.Value;
-                _selectedTreatmentCopy.Trea_date_start = dtpTrea_DateStart.Date.Value.DateTime;
-                _selectedTreatmentCopy.Trea_date_end = dtpTrea_DateEnd.Date.Value.DateTime;
-                _selectedTreatmentCopy.Trea_doctor_id = _activeDoctor.Pers_id;
-                _selectedTreatmentCopy.Trea_patient_id = _selectedPatient.Pers_id;
-            }
         }
 
         private void txbTrea_Name_TextChanged(object sender, TextChangedEventArgs e)
@@ -320,6 +312,34 @@ namespace UWPMedlinkApp.View.Pages
         private void dtpTrea_DateEnd_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
             
+        }
+        #endregion
+
+        #region OTHER METHODS
+        private void SaveTreatmentInfo()
+        {
+            if (isNewTreatment)
+            {
+                _newTreatment.Trea_name = txbTrea_Name.Text;
+                _newTreatment.Trea_description = txbTrea_Description.Text;
+                _newTreatment.Trea_observations = txbTrea_Observations.Text;
+                _newTreatment.Trea_is_active = chkTrea_IsActive.IsChecked.Value;
+                _newTreatment.Trea_date_start = dtpTrea_DateStart.Date.Value.DateTime;
+                _newTreatment.Trea_date_end = dtpTrea_DateEnd.Date.Value.DateTime;
+                _newTreatment.Trea_doctor_id = _activeDoctor.Pers_id;
+                _newTreatment.Trea_patient_id = _selectedPatient.Pers_id;
+            }
+            else
+            {
+                _selectedTreatmentCopy.Trea_name = txbTrea_Name.Text;
+                _selectedTreatmentCopy.Trea_description = txbTrea_Description.Text;
+                _selectedTreatmentCopy.Trea_observations = txbTrea_Observations.Text;
+                _selectedTreatmentCopy.Trea_is_active = chkTrea_IsActive.IsChecked.Value;
+                _selectedTreatmentCopy.Trea_date_start = dtpTrea_DateStart.Date.Value.DateTime;
+                _selectedTreatmentCopy.Trea_date_end = dtpTrea_DateEnd.Date.Value.DateTime;
+                _selectedTreatmentCopy.Trea_doctor_id = _activeDoctor.Pers_id;
+                _selectedTreatmentCopy.Trea_patient_id = _selectedPatient.Pers_id;
+            }
         }
         #endregion
     }

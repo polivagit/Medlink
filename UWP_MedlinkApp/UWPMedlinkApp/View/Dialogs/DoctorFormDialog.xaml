@@ -10,7 +10,8 @@
     PrimaryButtonText="SAVE CHANGES"
     SecondaryButtonText="CANCEL"
     PrimaryButtonClick="SaveChangesClick"
-    SecondaryButtonClick="CancelClick">
+    SecondaryButtonClick="CancelClick"
+    IsPrimaryButtonEnabled="False">
 
     <Grid>
         <Grid.RowDefinitions>
