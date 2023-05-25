@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light"
     x:Name="Medicines"
-    Loaded="Medicines_Loaded">
+    Loaded="Medicines_Loaded"
+    Unloaded="Medicines_Unloaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -334,7 +335,7 @@
                         <Button x:Name="btnUpdateMedicine" Click="btnUpdateMedicine_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE70F; &#xE77B; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Text="&#xE70F; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="UPDATE" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>

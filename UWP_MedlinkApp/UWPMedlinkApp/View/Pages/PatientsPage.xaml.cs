@@ -2,6 +2,8 @@
 using DbLibrary.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 using UWPMedlinkApp.View.Dialogs;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,10 +44,16 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Patients_Loaded(object sender, RoutedEventArgs e)
         {
+            MainPage.NavigationViewItemIsEnabled("nviPatientsPage", true);
+            MainPage.NavigationViewItemIsEnabled("nviTreatmentsPage", false);
+            MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", false);
+
             _activeDoctor = DoctorDB._currentDoctor;
 
             LoadActiveDoctorInfo();
             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
+
+            SetInitialButtonDisplay();
 
             ReloadGenderCombobox();
         }
@@ -61,6 +70,9 @@ namespace UWPMedlinkApp.View.Pages
                 dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
 
                 LoadSelectedPatientInfo(_selectedPatient);
+
+                SetButtonEnabled("btnUpdatePatient", true);
+                SetButtonEnabled("btnRemovePatient", true);
 
                 _selectedPatientCopy = _selectedPatient;
 
@@ -87,6 +99,8 @@ namespace UWPMedlinkApp.View.Pages
             isNewPatient = true;
             btnAddPatient.Visibility = Visibility.Visible;
             btnUpdatePatient.Visibility = Visibility.Collapsed;
+
+            SetInitialButtonDisplay();
 
             ClearPatientInfo();
         }
@@ -247,6 +261,9 @@ namespace UWPMedlinkApp.View.Pages
                 CloseButtonText = "CANCEL"
             };
 
+            // Modify the dialog's style
+            crudPatientDialog.Style = (Style)Application.Current.Resources["CRUDConfirmationDialogStyle"];
+
             ContentDialogResult result = await crudPatientDialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
@@ -262,6 +279,7 @@ namespace UWPMedlinkApp.View.Pages
 
                             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
                             ClearPatientInfo();
+                            SetInitialButtonDisplay();
                             break;
                     }
                     case "UPDATE":
@@ -272,6 +290,7 @@ namespace UWPMedlinkApp.View.Pages
 
                             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
                             ClearPatientInfo();
+                            SetInitialButtonDisplay();
                             break;
                     }
                     case "REMOVE":
@@ -281,7 +300,8 @@ namespace UWPMedlinkApp.View.Pages
 
                             dtgPatients.ItemsSource = PatientDB.GetAllPatients("");
                             ClearPatientInfo();
-                        break;
+                            SetInitialButtonDisplay();
+                            break;
                     }
                     default:
                         break;
@@ -295,6 +315,23 @@ namespace UWPMedlinkApp.View.Pages
         #endregion
 
         #region TEXT LISTENERS
+        bool isValidNif = false;
+        bool isValidFirstName = false;
+        bool isValidLastName1 = false;
+        bool isValidLastName2 = false;
+        bool isValidBirthdate = false;
+        bool isValidPhoneNumber = false;
+        bool isValidEmail = false;
+        bool isValidGender = false;
+        bool isValidStreet = false;
+        bool isValidZipCode = false;
+        bool isValidCity = false;
+        bool isValidProvince = false;
+        bool isValidCountry = false;
+        bool isValidUsername = false;
+        bool isValidHeight = false;
+        bool isValidWeight = false;
+
         private void txbPatientFilterByFullName_TextChanged(object sender, TextChangedEventArgs e)
         {
             ReloadUIElements();
@@ -304,89 +341,279 @@ namespace UWPMedlinkApp.View.Pages
 
         private void txbPati_FirstName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.IsValidFirstName(txbPati_FirstName.Text))
+            {
+                txbPati_FirstName.Background = new SolidColorBrush(Colors.Transparent);
+                isValidFirstName = true;
+            }
+            else
+            {
+                txbPati_FirstName.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidFirstName = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_LastName1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.IsValidLastName1(txbPati_LastName1.Text))
+            {
+                txbPati_LastName1.Background = new SolidColorBrush(Colors.Transparent);
+                isValidLastName1 = true;
+            }
+            else
+            {
+                txbPati_LastName1.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidLastName1 = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_LastName2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.IsValidLastName2(txbPati_LastName2.Text))
+            {
+                txbPati_LastName2.Background = new SolidColorBrush(Colors.Transparent);
+                isValidLastName2 = true;
+            }
+            else
+            {
+                txbPati_LastName2.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidLastName2 = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Nif_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.IsValidNIF(txbPati_Nif.Text))
+            {
+                txbPati_Nif.Background = new SolidColorBrush(Colors.Transparent);
+                isValidNif = true;
+            }
+            else
+            {
+                txbPati_Nif.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidNif = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidPhoneNumber(txbPati_PhoneNumber.Text))
+            {
+                txbPati_PhoneNumber.Background = new SolidColorBrush(Colors.Transparent);
+                isValidPhoneNumber = true;
+            }
+            else
+            {
+                txbPati_PhoneNumber.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidPhoneNumber = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Email_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidEmail(txbPati_Email.Text))
+            {
+                txbPati_Email.Background = new SolidColorBrush(Colors.Transparent);
+                isValidEmail = true;
+            }
+            else
+            {
+                txbPati_Email.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidEmail = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Street_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidStreet(txbPati_Street.Text))
+            {
+                txbPati_Street.Background = new SolidColorBrush(Colors.Transparent);
+                isValidStreet = true;
+            }
+            else
+            {
+                txbPati_Street.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidStreet = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_PostalCode_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidAddrsZipCode(txbPati_PostalCode.Text))
+            {
+                txbPati_PostalCode.Background = new SolidColorBrush(Colors.Transparent);
+                isValidZipCode = true;
+            }
+            else
+            {
+                txbPati_PostalCode.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidZipCode = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_City_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidAddrsCity(txbPati_City.Text))
+            {
+                txbPati_City.Background = new SolidColorBrush(Colors.Transparent);
+                isValidCity = true;
+            }
+            else
+            {
+                txbPati_City.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidCity = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Province_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidAddrsProvince(txbPati_Province.Text))
+            {
+                txbPati_Province.Background = new SolidColorBrush(Colors.Transparent);
+                isValidProvince = true;
+            }
+            else
+            {
+                txbPati_Province.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidProvince = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Country_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidAddrsCountry(txbPati_Country.Text))
+            {
+                txbPati_Country.Background = new SolidColorBrush(Colors.Transparent);
+                isValidCountry = true;
+            }
+            else
+            {
+                txbPati_Country.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidCountry = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Username_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (PersonDB.isValidLoginUsername(txbPati_Username.Text))
+            {
+                txbPati_Username.Background = new SolidColorBrush(Colors.Transparent);
+                isValidUsername = true;
+            }
+            else
+            {
+                txbPati_Username.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidUsername = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            try
+            {
+                if (PatientDB.isValidWeight((float.Parse(txbPati_Weight.Text, CultureInfo.InvariantCulture))))
+                {
+                    txbPati_Weight.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidWeight = true;
+                }
+                else
+                {
+                    //No aconsegueixo controlar aixo, aixi que ho poso a true
+                    txbPati_Weight.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidWeight = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Height_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            try
+            {
+                int result = Int32.Parse(txbPati_Height.Text + "");
+
+                if (PatientDB.isValidHeight(result))
+                {
+                    txbPati_Height.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidHeight = true;
+                }
+                else
+                {
+                    txbPati_Height.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidHeight = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            FieldValidationCheck();
         }
 
         private void txbPati_Remarks_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
+            if ()
+            {
+                txbPati_Nif.Background = new SolidColorBrush(Colors.Transparent);
+            }
+            else
+            {
+                txbPati_Nif.Background = new SolidColorBrush(Colors.IndianRed);
+            }
+            */
+
+            FieldValidationCheck();
         }
         #endregion
 
         #region OTHER LISTENERS
         private void dtpPati_Birthdate_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            
+            if (PersonDB.IsValidBirthdate(dtpPati_Birthdate.Date.Value.DateTime))
+            {
+                dtpPati_Birthdate.Foreground = new SolidColorBrush(Colors.Black);
+                isValidBirthdate = true;
+            }
+            else
+            {
+                dtpPati_Birthdate.Foreground = new SolidColorBrush(Colors.IndianRed);
+                isValidBirthdate = false;
+            }
+
+            FieldValidationCheck();
         }
 
         private void cboPati_Gender_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cboPati_Gender.SelectedItem != null)
+            {
+                cboPati_Gender.Background = new SolidColorBrush(Colors.Transparent);
+                isValidGender = true;
+            }
+            else
+            {
+                cboPati_Gender.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidGender = false;
+            }
 
+            FieldValidationCheck();
         }
         #endregion
 
@@ -466,5 +693,125 @@ namespace UWPMedlinkApp.View.Pages
             }
         }
         #endregion
+
+        private void Patients_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void SetInitialButtonDisplay()
+        {
+            SetButtonEnabled("btnAddPatient", false);
+            SetButtonEnabled("btnUpdatePatient", false);
+            SetButtonEnabled("btnRemovePatient", false);
+        }
+
+        public void SetButtonEnabled(string buttonName, bool isEnabled)
+        {
+            Button button = FindButtonInVisualTree(buttonName);
+
+            if (button != null)
+            {
+                button.IsEnabled = isEnabled;
+            }
+        }
+
+        private Button FindButtonInVisualTree(string buttonName)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            var page = rootFrame.Content as MainPage;
+
+            Button button = FindButtonByName(page, buttonName);
+            return button;
+        }
+
+        private Button FindButtonByName(DependencyObject parent, string buttonName)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is Button button && button.Name == buttonName)
+                {
+                    return button;
+                }
+
+                var result = FindButtonByName(child, buttonName);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        private void FieldValidationCheck()
+        {
+                if (isValidNif
+                && isValidFirstName
+                && isValidLastName1
+                && isValidLastName2
+                && isValidBirthdate
+                && isValidPhoneNumber
+                && isValidEmail
+                && isValidGender
+                && isValidStreet
+                && isValidZipCode
+                && isValidCity
+                && isValidProvince
+                && isValidCountry
+                && isValidUsername
+                && isValidHeight
+                && isValidWeight)
+            {
+
+                if (isNewPatient)
+                {
+                    SetButtonEnabled("btnAddPatient", true);
+                    SetButtonEnabled("btnUpdatePatient", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnAddPatient", false);
+                    SetButtonEnabled("btnUpdatePatient", true);
+                }
+            }
+            else
+            {
+                if (isNewPatient)
+                {
+                    SetButtonEnabled("btnAddPatient", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnUpdatePatient", false);
+                }
+            }
+        }
+
+        /*
+        private void txbPati_Weight_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+        */
+
+        private void txbPati_Height_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        private void txbPati_PostalCode_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        private void txbPati_PhoneNumber_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
     }
 }

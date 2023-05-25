@@ -63,7 +63,21 @@ namespace DbLibrary.Model
         }
 
         public int Pers_id { get => pers_id; set => pers_id = value; }
-        public string Pers_nif { get => pers_nif; set => pers_nif = value; }
+        public string Pers_nif
+        {
+            get { return pers_nif; }
+            set
+            {
+                if (IsValidNIF(value))
+                {
+                    pers_nif = value;
+                }
+                else
+                {
+                    throw new ArgumentException("ERROR: Invalid NIF format.");
+                }
+            }
+        }
         public string Pers_first_name { get => pers_first_name; set => pers_first_name = value; }
         public string Pers_last_name_1 { get => pers_last_name_1; set => pers_last_name_1 = value; }
         public string Pers_last_name_2 { get => pers_last_name_2; set => pers_last_name_2 = value; }
@@ -253,25 +267,15 @@ namespace DbLibrary.Model
         #endregion
 
         #region VERIFICATION METHODS
-        public static bool verificarNIF(string nif)
+        public static bool IsValidNIF(string value)
         {
-            Regex regex = new Regex(@"^[0-9]{8}[A-Z]{1}$");
-
-            Match match = regex.Match(nif);
-
-            if (match.Success)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            string pattern = "^[0-9]{8}[A-Z]{1}$";
+            return Regex.IsMatch(value, pattern);
         }
 
-        public static bool verificarFirstName(string first_name)
+        public static bool IsValidFirstName(string first_name)
         {
-            if ((string.IsNullOrWhiteSpace(first_name) || string.IsNullOrEmpty(first_name)) && (first_name.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(first_name) || string.IsNullOrEmpty(first_name)) || (first_name.Length <= 0) || (first_name.Length >= 50))
             {
                 return false;
             }
@@ -281,9 +285,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarLastName1(string last_name_1)
+        public static bool IsValidLastName1(string last_name_1)
         {
-            if ((string.IsNullOrWhiteSpace(last_name_1) || string.IsNullOrEmpty(last_name_1)) && (last_name_1.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(last_name_1) || string.IsNullOrEmpty(last_name_1)) || (last_name_1.Length <= 0) || (last_name_1.Length >= 50))
             {
                 return false;
             }
@@ -293,11 +297,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarBirthdate(DateTime birthdate)
+        public static bool IsValidLastName2(string last_name_2)
         {
-            //(value.Ticks > new DateTime(1900, 01, 01).Ticks) && (value.Ticks <= DateTime.Now.Ticks)
-
-            if (!(birthdate.Ticks > new DateTime(1900, 01, 01).Ticks) && (birthdate.Ticks <= DateTime.Now.Ticks))
+            if (!(string.IsNullOrWhiteSpace(last_name_2) || string.IsNullOrEmpty(last_name_2)) && (last_name_2.Length <= 0) || (last_name_2.Length >= 50))
             {
                 return false;
             }
@@ -307,9 +309,23 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarPhoneNumber(string phone_number)
+        public static bool IsValidBirthdate(DateTime birthdate)
         {
-            if ((string.IsNullOrWhiteSpace(phone_number) || string.IsNullOrEmpty(phone_number)) && (phone_number.Length != 9))
+            DateTime startDate = new DateTime(1900, 1, 1);
+            DateTime currentDate = DateTime.Now;
+
+            return birthdate >= startDate && birthdate <= currentDate;
+        }
+
+        public static bool isValidPhoneNumber(string phone_number)
+        {
+            string pattern = @"^\d{9}$";
+            return Regex.IsMatch(phone_number, pattern);
+        }
+
+        public static bool isValidEmail(string email)
+        {
+            if ((string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email)) || (email.Length <= 4) || (email.Length >= 50))
             {
                 return false;
             }
@@ -319,9 +335,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarEmail(string email)
+        public static bool isValidStreet(string addrs_street)
         {
-            if ((string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email)) && (email.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(addrs_street) || string.IsNullOrEmpty(addrs_street)) || (addrs_street.Length <= 4) || (addrs_street.Length >= 100))
             {
                 return false;
             }
@@ -331,9 +347,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarAddrsStreet(string addrs_street)
+        public static bool isValidAddrsZipCode(string addrs_zip_code)
         {
-            if ((string.IsNullOrWhiteSpace(addrs_street) || string.IsNullOrEmpty(addrs_street)) && (addrs_street.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(addrs_zip_code) || string.IsNullOrEmpty(addrs_zip_code)) || (addrs_zip_code.Length <= 4) || (addrs_zip_code.Length >= 10))
             {
                 return false;
             }
@@ -343,9 +359,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarAddrsZipCode(string addrs_zip_code)
+        public static bool isValidAddrsCity(string addrs_city)
         {
-            if ((string.IsNullOrWhiteSpace(addrs_zip_code) || string.IsNullOrEmpty(addrs_zip_code)) && (addrs_zip_code.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(addrs_city) || string.IsNullOrEmpty(addrs_city)) || (addrs_city.Length <= 4) || (addrs_city.Length >= 50))
             {
                 return false;
             }
@@ -355,9 +371,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarAddrsCity(string addrs_city)
+        public static bool isValidAddrsProvince(string addrs_province)
         {
-            if ((string.IsNullOrWhiteSpace(addrs_city) || string.IsNullOrEmpty(addrs_city)) && (addrs_city.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(addrs_province) || string.IsNullOrEmpty(addrs_province)) || (addrs_province.Length <= 4) || (addrs_province.Length >= 50))
             {
                 return false;
             }
@@ -367,9 +383,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarAddrsProvince(string addrs_province)
+        public static bool isValidAddrsCountry(string addrs_country)
         {
-            if ((string.IsNullOrWhiteSpace(addrs_province) || string.IsNullOrEmpty(addrs_province)) && (addrs_province.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(addrs_country) || string.IsNullOrEmpty(addrs_country)) || (addrs_country.Length <= 4) || (addrs_country.Length >= 50))
             {
                 return false;
             }
@@ -379,33 +395,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarAddrsCountry(string addrs_country)
+        public static bool isValidLoginUsername(string login_username)
         {
-            if ((string.IsNullOrWhiteSpace(addrs_country) || string.IsNullOrEmpty(addrs_country)) && (addrs_country.Length <= 0))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static bool verificarLoginUsername(string login_username)
-        {
-            if ((string.IsNullOrWhiteSpace(login_username) || string.IsNullOrEmpty(login_username)) && (login_username.Length <= 0))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static bool verificarLoginPassword(string login_password)
-        {
-            if ((string.IsNullOrWhiteSpace(login_password) || string.IsNullOrEmpty(login_password)) && (login_password.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(login_username) || string.IsNullOrEmpty(login_username)) || (login_username.Length <= 2) || (login_username.Length >= 40))
             {
                 return false;
             }

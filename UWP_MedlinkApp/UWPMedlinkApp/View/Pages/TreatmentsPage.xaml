@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light"
     x:Name="Treatments"
-    Loaded="Treatments_Loaded">
+    Loaded="Treatments_Loaded"
+    Unloaded="Treatments_Unloaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,7 +36,7 @@
                 <!-- TREATMENTS LIST TITLE -->
                 <Grid Grid.Row="0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" ></TextBlock>
+                        <TextBlock Text="&#xE8B7;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" ></TextBlock>
                         <TextBlock Text="Treatment List" FontWeight="Bold" FontSize="60" ></TextBlock>
                     </StackPanel>
                 </Grid>
@@ -151,7 +152,7 @@
                     <Button x:Name="btnGoToMedicinesDetails" Click="btnGoToMedicinesDetails_Click" FontSize="20" FontWeight="Bold"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="#3399ff" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE71D; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xE8C8; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="See Medicines Details" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -326,6 +327,7 @@
                     <Grid Grid.Column="0" Margin="10">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Description:" VerticalAlignment="Top" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text=" *" VerticalAlignment="Top" FontWeight="Bold" Foreground="Red"></TextBlock>
                         </StackPanel>
                     </Grid>
 
@@ -368,7 +370,7 @@
                     <Button x:Name="btnNewTreatment" Click="btnNewTreatment_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="CadetBlue">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE710; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xE710; &#xE8B7; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="NEW" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -378,7 +380,7 @@
                     <Button x:Name="btnAddTreatment" Click="btnAddTreatment_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Visibility="Visible">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE74E; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xE74E; &#xE8B7; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="ADD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -388,7 +390,7 @@
                     <Button x:Name="btnUpdateTreatment" Click="btnUpdateTreatment_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE70F; &#xE77B; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xE70F; &#xE8B7; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="UPDATE" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
@@ -398,7 +400,7 @@
                     <Button x:Name="btnRemoveTreatment" Click="btnRemoveTreatment_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Background="IndianRed">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE711; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xE711; &#xE8B7; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock Text="REMOVE" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UWPMedlinkApp.View.Dialogs;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,6 +41,10 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Treatments_Loaded(object sender, RoutedEventArgs e)
         {
+            MainPage.NavigationViewItemIsEnabled("nviPatientsPage", true);
+            MainPage.NavigationViewItemIsEnabled("nviTreatmentsPage", true);
+            MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", false);
+
             LoadActiveDoctorInfo();
 
             _activeDoctor = PatientsPage._activeDoctor;
@@ -50,6 +55,8 @@ namespace UWPMedlinkApp.View.Pages
             {
                 dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
             }
+
+            SetInitialButtonDisplay();
         }
 
         #region DATAGRID LISTENERS
@@ -67,6 +74,9 @@ namespace UWPMedlinkApp.View.Pages
                 _selectedTreatmentCopy = _selectedTreatment;
 
                 LoadSelectedTreatmentInfo(_selectedTreatment);
+
+                SetButtonEnabled("btnUpdatePatient", true);
+                SetButtonEnabled("btnRemovePatient", true);
 
                 isNewTreatment = false;
                 btnAddTreatment.Visibility = Visibility.Collapsed;
@@ -96,6 +106,8 @@ namespace UWPMedlinkApp.View.Pages
             isNewTreatment = true;
             btnAddTreatment.Visibility = Visibility.Visible;
             btnUpdateTreatment.Visibility = Visibility.Collapsed;
+
+            SetInitialButtonDisplay();
 
             ClearTreatmentInfo();
         }
@@ -153,7 +165,7 @@ namespace UWPMedlinkApp.View.Pages
         {
             txbTrea_Name.Text = treatmentAux.Trea_name;
             txbTrea_Description.Text = treatmentAux.Trea_description;
-            txbTrea_Observations.Text = treatmentAux.Trea_observations+"";
+            txbTrea_Observations.Text = treatmentAux.Trea_observations + "";
 
             dtpTrea_DateStart.Date = treatmentAux.Trea_date_start;
             dtpTrea_DateEnd.Date = treatmentAux.Trea_date_end;
@@ -203,6 +215,9 @@ namespace UWPMedlinkApp.View.Pages
                 CloseButtonText = "CANCEL"
             };
 
+            // Modify the dialog's style
+            crudTreatmentDialog.Style = (Style)Application.Current.Resources["CRUDConfirmationDialogStyle"];
+
             ContentDialogResult result = await crudTreatmentDialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
@@ -222,6 +237,7 @@ namespace UWPMedlinkApp.View.Pages
 
                             ClearTreatmentInfo();
                             dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
+                            SetInitialButtonDisplay();
                             break;
                         }
                     case "UPDATE":
@@ -236,6 +252,7 @@ namespace UWPMedlinkApp.View.Pages
 
                             ClearTreatmentInfo();
                             dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
+                            SetInitialButtonDisplay();
                             break;
                         }
                     case "REMOVE":
@@ -253,7 +270,8 @@ namespace UWPMedlinkApp.View.Pages
                             btnUpdateTreatment.Visibility = Visibility.Collapsed;
 
                             ClearTreatmentInfo();
-                            dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("",_selectedPatient.Pers_id,_activeDoctor.Pers_id);
+                            dtgTreatments.ItemsSource = TreatmentDB.GetAllTreatmentsByPatientAndDoctorId("", _selectedPatient.Pers_id, _activeDoctor.Pers_id);
+                            SetInitialButtonDisplay();
                             break;
                         }
                     default:
@@ -268,6 +286,12 @@ namespace UWPMedlinkApp.View.Pages
         #endregion
 
         #region TEXT LISTENERS
+
+        bool isValidName = false;
+        bool isValidDescripition = false;
+        bool isValidDateStart = false;
+        bool isValidDateEnd = false;
+
         private void txbTreatmentFilterByName_TextChanged(object sender, TextChangedEventArgs e)
         {
             ReloadUIElements();
@@ -280,17 +304,37 @@ namespace UWPMedlinkApp.View.Pages
 
         private void txbTrea_Name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (TreatmentDB.IsValidName(txbTrea_Name.Text))
+            {
+                txbTrea_Name.Background = new SolidColorBrush(Colors.Transparent);
+                isValidName = true;
+            }
+            else
+            {
+                txbTrea_Name.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidName = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbTrea_Description_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (TreatmentDB.isValidDescription(txbTrea_Description.Text))
+            {
+                txbTrea_Description.Background = new SolidColorBrush(Colors.Transparent);
+                isValidDescripition = true;
+            }
+            else
+            {
+                txbTrea_Description.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidDescripition = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbTrea_Observations_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
         #endregion
 
@@ -302,16 +346,50 @@ namespace UWPMedlinkApp.View.Pages
 
         private void chkTrea_IsActive_Unchecked(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void dtpTrea_DateStart_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            
+            try
+            {
+                if (TreatmentDB.IsValidDateStart(dtpTrea_DateStart.Date.Value.DateTime))
+                {
+                    dtpTrea_DateStart.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidDateStart = true;
+                }
+                else
+                {
+                    dtpTrea_DateStart.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidDateStart = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            FieldValidationCheck();
         }
 
         private void dtpTrea_DateEnd_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            
+            try
+            {
+                if (TreatmentDB.IsValidDateEnd(dtpTrea_DateEnd.Date.Value.DateTime))
+                {
+                    dtpTrea_DateEnd.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidDateEnd = true;
+                }
+                else
+                {
+                    dtpTrea_DateEnd.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidDateEnd = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            FieldValidationCheck();
         }
         #endregion
 
@@ -342,5 +420,91 @@ namespace UWPMedlinkApp.View.Pages
             }
         }
         #endregion
+
+        private void Treatments_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FieldValidationCheck()
+        {
+           if (isValidName
+                || isValidDescripition
+                || isValidDateStart
+                || isValidDateEnd)
+            {
+
+                if (isNewTreatment)
+                {
+                    SetButtonEnabled("btnAddPatient", true);
+                    SetButtonEnabled("btnUpdatePatient", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnAddPatient", false);
+                    SetButtonEnabled("btnUpdatePatient", true);
+                }
+            }
+            else
+            {
+                if (isNewTreatment)
+                {
+                    SetButtonEnabled("btnAddPatient", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnUpdatePatient", false);
+                }
+            }
+        }
+
+        private void SetInitialButtonDisplay()
+        {
+            SetButtonEnabled("btnAddPatient", false);
+            SetButtonEnabled("btnUpdatePatient", false);
+            SetButtonEnabled("btnRemovePatient", false);
+        }
+
+        public void SetButtonEnabled(string buttonName, bool isEnabled)
+        {
+            Button button = FindButtonInVisualTree(buttonName);
+
+            if (button != null)
+            {
+                button.IsEnabled = isEnabled;
+            }
+        }
+
+        private Button FindButtonInVisualTree(string buttonName)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            var page = rootFrame.Content as MainPage;
+
+            Button button = FindButtonByName(page, buttonName);
+            return button;
+        }
+
+        private Button FindButtonByName(DependencyObject parent, string buttonName)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is Button button && button.Name == buttonName)
+                {
+                    return button;
+                }
+
+                var result = FindButtonByName(child, buttonName);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
     }
 }

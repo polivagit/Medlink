@@ -399,9 +399,9 @@ namespace DbLibrary.Model
         #endregion
 
         #region VERIFICATION METHODS
-        public static bool verificarTreaName(string name)
+        public static bool IsValidName(string name)
         {
-            if ((string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name)) && (name.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name)) || (name.Length <= 0) || (name.Length >= 60))
             {
                 return false;
             }
@@ -411,9 +411,9 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarTreaDescription(string desc)
+        public static bool isValidDescription(string desc)
         {
-            if ((string.IsNullOrWhiteSpace(desc) || string.IsNullOrEmpty(desc)) && (desc.Length <= 0))
+            if ((string.IsNullOrWhiteSpace(desc) || string.IsNullOrEmpty(desc)) || (desc.Length <= 0) || (desc.Length >= 60))
             {
                 return false;
             }
@@ -423,16 +423,20 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarTreaDateStart(DateTime start_date)
+        public static bool IsValidDateStart(DateTime start_date)
         {
-            if (!(start_date.Ticks > new DateTime(2000,01,01).Ticks) && (start_date.Ticks <= DateTime.Now.Ticks))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            DateTime startDate = new DateTime(2000,01,01);
+            DateTime endDate = DateTime.Now.AddDays(1);
+
+            return start_date >= startDate && start_date <= endDate;
+        }
+
+        public static bool IsValidDateEnd(DateTime end_date)
+        {
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = new DateTime(3000, 01, 01);
+
+            return end_date >= startDate && end_date <= endDate;
         }
         #endregion
     }

@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Light"
     x:Name="Patients"
-    Loaded="Patients_Loaded">
+    Loaded="Patients_Loaded"
+    Unloaded="Patients_Unloaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -337,7 +338,7 @@
                     </Grid>
 
                     <Grid Grid.Column="1" Margin="5">
-                        <TextBox x:Name="txbPati_PhoneNumber" TextChanged="txbPati_PhoneNumber_TextChanged"
+                        <TextBox x:Name="txbPati_PhoneNumber" TextChanged="txbPati_PhoneNumber_TextChanged" BeforeTextChanging="txbPati_PhoneNumber_BeforeTextChanging"
                                  VerticalAlignment="Center" PlaceholderText="Phone Number..."></TextBox>
                     </Grid>
                 </Grid>
@@ -480,7 +481,7 @@
                     </Grid>
 
                     <Grid Grid.Column="1" Margin="5">
-                        <TextBox x:Name="txbPati_PostalCode" TextChanged="txbPati_PostalCode_TextChanged"
+                        <TextBox x:Name="txbPati_PostalCode" TextChanged="txbPati_PostalCode_TextChanged" BeforeTextChanging="txbPati_PostalCode_BeforeTextChanging"
                                  VerticalAlignment="Center" PlaceholderText="Postal Code..."></TextBox>
                     </Grid>
                 </Grid>
@@ -594,8 +595,8 @@
                     </Grid>
 
                     <Grid Grid.Column="1" Margin="5">
-                        <TextBox x:Name="txbPati_Height" TextChanged="txbPati_Height_TextChanged"
-                                 VerticalAlignment="Center" PlaceholderText="Remarks..."></TextBox>
+                        <TextBox x:Name="txbPati_Height" TextChanged="txbPati_Height_TextChanged" BeforeTextChanging="txbPati_Height_BeforeTextChanging"
+                                 VerticalAlignment="Center" PlaceholderText="Height..."></TextBox>
                     </Grid>
                 </Grid>
 

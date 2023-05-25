@@ -41,6 +41,9 @@ namespace UWPMedlinkApp.View.Pages
 
         private void Medicines_Loaded(object sender, RoutedEventArgs e)
         {
+            MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", true); 
+            MainPage.NavigationViewItemIsEnabled("nviTreatmentsPage", true);
+
             _selectedTreatment = TreatmentsPage._selectedTreatment;
 
             LoadActiveDoctorInfo();
@@ -311,6 +314,9 @@ namespace UWPMedlinkApp.View.Pages
                 CloseButtonText = "CANCEL"
             };
 
+            // Modify the dialog's style
+            crudMedicineDialog.Style = (Style)Application.Current.Resources["CRUDConfirmationDialogStyle"];
+
             ContentDialogResult result = await crudMedicineDialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
@@ -377,5 +383,10 @@ namespace UWPMedlinkApp.View.Pages
             }
         }
         #endregion
+
+        private void Medicines_Unloaded(object sender, RoutedEventArgs e)
+        {
+            MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", false);
+        }
     }
 }

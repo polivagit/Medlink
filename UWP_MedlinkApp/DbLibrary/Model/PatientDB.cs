@@ -269,6 +269,7 @@ namespace DbLibrary.Model
                             DBUtils.crearParametre(query, "@p_pers_addrs_province", patientAux.Pers_addrs_province, DbType.String);
                             DBUtils.crearParametre(query, "@p_pers_addrs_country", patientAux.Pers_addrs_country, DbType.String);
                             DBUtils.crearParametre(query, "@p_pers_login_username", patientAux.Pers_login_username, DbType.String);
+                            DBUtils.crearParametre(query, "@p_pers_login_password", patientAux.Pers_login_password, DbType.String);
 
                             // PATIENT TABLE FIELDS
                             DBUtils.crearParametre(query, "@p_pers_pati_height", patientAux.Pati_height, DbType.Int32);
@@ -298,7 +299,8 @@ namespace DbLibrary.Model
                                                                         pers_addrs_city,
                                                                         pers_addrs_province,
                                                                         pers_addrs_country,
-                                                                        pers_login_username) 
+                                                                        pers_login_username,
+                                                                        pers_login_password) 
                                                     values ( @p_nif,
                                                                 @p_first_name,
                                                                 @p_last_name_1,
@@ -312,7 +314,8 @@ namespace DbLibrary.Model
                                                                 @p_pers_addrs_city,
                                                                 @p_pers_addrs_province,
                                                                 @p_pers_addrs_country,
-                                                                @p_pers_login_username)";
+                                                                @p_pers_login_username,
+                                                                @p_pers_login_password)";
 
                             int numRowsPersInserted = query.ExecuteNonQuery();
                             if (numRowsPersInserted != 1)
@@ -528,7 +531,7 @@ namespace DbLibrary.Model
         #endregion
 
         #region VERIFICATION METHODS
-        public static bool verificarHeight(int height)
+        public static bool isValidHeight(int height)
         {
             if (!(height >= 30 && height <= 260))
             {
@@ -540,7 +543,7 @@ namespace DbLibrary.Model
             }
         }
 
-        public static bool verificarWeight(float weight)
+        public static bool isValidWeight(float weight)
         {
             if (!(weight >= 2 && weight <= 400))
             {

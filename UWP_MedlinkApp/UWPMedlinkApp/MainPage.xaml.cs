@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0xc0a
 
@@ -48,7 +49,7 @@ namespace UWPMedlinkApp
             {
                 if (DoctorDB._currentDoctor != null)
                 {
-                    // If LoginPage tab is selected
+                    // If PatientsPage tab is selected from active LoginPage
                     frmPrincipal.Navigate(typeof(PatientsPage));
                 }
 
@@ -64,10 +65,37 @@ namespace UWPMedlinkApp
             {
                 if (DoctorDB._currentDoctor != null)
                 {
-                    // If MedicinesPage tab is selected
+                    // If MedicinesPage tab is selected and _selectedTreatment is not null
                     frmPrincipal.Navigate(typeof(MedicinesPage));
                 }
             }
-}
+        }
+
+        public static void NavigationViewItemIsEnabled(string navigationItemName, bool isEnabled)
+        {
+            // Access NavigationView items from another page
+            var rootFrame = Window.Current.Content as Frame;
+            var mainPage = rootFrame.Content as MainPage;
+
+            if (mainPage != null)
+            {
+                NavigationView navigationView = mainPage.FindName("nvgMain") as NavigationView;
+
+                if (navigationView != null)
+                {
+                    // Access the NavigationView items
+                    var navigationItems = navigationView.MenuItems;
+
+                    // Modify the IsEnabled property for each item
+                    foreach (NavigationViewItemBase item in navigationItems)
+                    {
+                        if (item.Name.Equals(navigationItemName))
+                        {
+                            item.IsEnabled = isEnabled; // Set the desired IsEnabled value for each item
+                        }
+                    }
+                }
+            }
+        }
     }
 }

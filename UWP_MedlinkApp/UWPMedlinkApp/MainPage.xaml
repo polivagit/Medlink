@@ -12,14 +12,15 @@
     Loaded="Main_Loaded">
 
     <Grid Background="White">
-        <NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+        <NavigationView x:Name="nvgMain" UseSystemFocusVisuals="True"
+                        ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
 
             <!-- MENU NAVIGATION VIEW -->
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="nviLoginPage" Icon="Permissions" FontWeight="Bold" Content="Login" FontSize="25"></NavigationViewItem>
-                <NavigationViewItem x:Name="nviPatientsPage" Icon="People" FontWeight="Bold" Content="Patients" FontSize="25"></NavigationViewItem>
-                <NavigationViewItem x:Name="nviTreatmentsPage" Icon="Copy" FontWeight="Bold" Content="Treatments" FontSize="25"></NavigationViewItem>
-                <NavigationViewItem x:Name="nviMedicinesPage" Icon="Document" FontWeight="Bold" Content="Medicines" FontSize="25"></NavigationViewItem>
+                <NavigationViewItem x:Name="nviLoginPage" Icon="Permissions" FontWeight="Bold" Content="Login" FontSize="25" IsEnabled="True"></NavigationViewItem>
+                <NavigationViewItem x:Name="nviPatientsPage" Icon="People" FontWeight="Bold" Content="Patients" FontSize="25" IsEnabled="False"></NavigationViewItem>
+                <NavigationViewItem x:Name="nviTreatmentsPage" Icon="Folder" FontWeight="Bold" Content="Treatments" FontSize="25" IsEnabled="False"></NavigationViewItem>
+                <NavigationViewItem x:Name="nviMedicinesPage" Icon="Copy" FontWeight="Bold" Content="Medicines" FontSize="25" IsEnabled="False"></NavigationViewItem>
             </NavigationView.MenuItems>
 
             <!-- FRAME PRINCIPAL (BASE) -->
