@@ -4,12 +4,14 @@ import com.example.medlinkapp.utils.login.ChangePasswordResponse;
 import com.example.medlinkapp.utils.login.LoginResponse;
 import com.example.medlinkapp.utils.login.RestorePasswordResponse;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentResponse;
+import com.example.medlinkapp.utils.medicines_with_static_json.MedicineTreatmentResponseStatic;
 import com.example.medlinkapp.utils.treatment.TreatmentResponse;
 import com.example.medlinkapp.utils.user_info.UserInfoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -74,6 +76,9 @@ public interface ApiService {
             @Field("user") String username,
             @Field("pass") String password
     );
+
+    @GET("treatment3Medicines.json")
+    Call<MedicineTreatmentResponseStatic> getMedicineTreatmentStatic();
 
 
 }

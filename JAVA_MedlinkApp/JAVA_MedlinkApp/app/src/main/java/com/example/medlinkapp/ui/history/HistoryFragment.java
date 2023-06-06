@@ -137,6 +137,52 @@ public class HistoryFragment extends Fragment implements MedicineStartAdapter.On
                     List<TreatmentData> treatmentDataList = treatmentResponse.getData();
                     if (!treatmentDataList.isEmpty()) {
                         for (TreatmentData treatmentData: treatmentDataList) {
+                            // Obtener los datos del tratamiento actual
+                            treaId = treatmentData.getTreaId();
+                            treaName = treatmentData.getTrea_name();
+                            treaDescription = treatmentData.getTrea_description();
+                            treaDateStart = treatmentData.getTrea_date_start();
+                            treaDateEnd = treatmentData.getTrea_date_end();
+                            treaObservations = treatmentData.getTrea_observations();
+                            treaIsActive = treatmentData.getTrea_is_active();
+                            treaDoctorId = treatmentData.getTrea_doctor_id();
+                            treaPatientId = treatmentData.getTrea_patient_id();
+
+                            if (treaIsActive.equals("0")){
+                                isActive = false;
+                            }else{
+                                isActive = true;
+                            }
+
+                            treaIdInt = Integer.parseInt(treaId);
+                            dateStart = convertStringToGregorianCalendar(treaDateStart);
+                            dateEnd = convertStringToGregorianCalendar(treaDateEnd);
+                            doctorId = Integer.parseInt(treaDoctorId);
+                            patientIdInt = Integer.parseInt(treaPatientId);
+                            mTreatments.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
+                            adapter = new TreatmentAdapter(mTreatments);
+                            adapter.setOnItemClickListener(new TreatmentAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+
+                                    TreatmentData selectedTreatmentData = treatmentDataList.get(position);
+                                    String selectedTreaId = selectedTreatmentData.getTreaId();
+                                    String selectedTreaName = selectedTreatmentData.getTrea_name();
+                                    String selectedTreaDateStart = selectedTreatmentData.getTrea_date_start();
+                                    String selectedTreaDateEnd = selectedTreatmentData.getTrea_date_end();
+                                    String selectedTreaDesc = selectedTreatmentData.getTrea_description();
+
+                                    Bundle args = new Bundle();
+                                    args.putString("treaId", selectedTreaId);
+                                    args.putString("treaName", selectedTreaName);
+                                    args.putString("treaDateStart", selectedTreaDateStart);
+                                    args.putString("treaDateEnd", selectedTreaDateEnd);
+                                    args.putString("treaDesc", selectedTreaDesc);
+
+                                    Navigation.findNavController(requireView()).navigate(R.id.action_global_historyDetailFragment, args);
+                                }
+                            });
+                        /*for (TreatmentData treatmentData: treatmentDataList) {
                             treaId = treatmentData.getTreaId();
                             treaName = treatmentData.getTrea_name();
                             treaDescription = treatmentData.getTrea_description();
@@ -174,8 +220,10 @@ public class HistoryFragment extends Fragment implements MedicineStartAdapter.On
                                 args.putString("treaDesc",treaDescription);
                                 Navigation.findNavController(requireView()).navigate(R.id.action_global_historyDetailFragment,args);
                             }
-                        });
-                        rcyHistory.setAdapter(adapter);
+                        });*/
+                            rcyHistory.setAdapter(adapter);
+                        }
+
                     }else {
                         showDialog("There are no treatments to show.");
                         Log.e("treatments:", "La lista esta vacia");

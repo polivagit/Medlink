@@ -31,6 +31,8 @@ import com.example.medlinkapp.model.Treatment;
 import com.example.medlinkapp.utils.api.ApiService;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentData;
 import com.example.medlinkapp.utils.medicines.MedicineTreatmentResponse;
+import com.example.medlinkapp.utils.medicines_with_static_json.MedicineTreatmentDataStatic;
+import com.example.medlinkapp.utils.medicines_with_static_json.MedicineTreatmentResponseStatic;
 import com.example.medlinkapp.utils.treatment.TreatmentData;
 import com.example.medlinkapp.utils.treatment.TreatmentResponse;
 
@@ -60,8 +62,9 @@ public class MedicinesFragment extends Fragment {
     List<String> mTreatmentsIds;
 
     List<MedicineTreatmentData>mMedicineTreatment;
+    TextView txvObservations;
 
-    private String dateStart,dateEnd,quantityPerDay,medicineName,unitOfMeasure,patientId;
+    private String dateStart,dateEnd,quantityPerDay,medicineName,unitOfMeasure,patientId,mediIntakeValue;
 
     private static final String WEBSERVICE_URL = "http://169.254.30.133/Medlink/WEB_MedlinkApp/Server/index.php/apix/Request/";
 
@@ -79,6 +82,7 @@ public class MedicinesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_medicines,container,false);
         rcyMedicines = v.findViewById(R.id.rcyMedicines);
         getTreatmentIdFromWebService(patientId);
+        txvObservations = v.findViewById(R.id.txvObservations);
         rcyMedicines.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcyMedicines.setHasFixedSize(true);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcyMedicines.getContext(),
@@ -178,9 +182,14 @@ public class MedicinesFragment extends Fragment {
                             }
                         }
                         adapter = new MedicineStartAdapter(mMedicineTreatment);
+                        adapter.setOnItemClickListener(new MedicineStartAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                getIntakeTime();
+                            }
+                        });
                         rcyMedicines.setAdapter(adapter);
                     }else {
-                        showDialog("The are no medicines to show today.");
                     }
 
 
@@ -205,5 +214,36 @@ public class MedicinesFragment extends Fragment {
                     }
                 });
         builder.create().show();
+    }
+
+    public void getIntakeTime(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://nereatorregrosa.github.io/JSONProjecte3.github.io/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<MedicineTreatmentResponseStatic> call = apiService.getMedicineTreatmentStatic();
+        call.enqueue(new Callback<MedicineTreatmentResponseStatic>() {
+            @Override
+            public void onResponse(Call<MedicineTreatmentResponseStatic> call, Response<MedicineTreatmentResponseStatic> response) {
+                if (response.isSuccessful()) {
+                    MedicineTreatmentResponseStatic medicineTreatmentStatic = response.body();
+                    List<MedicineTreatmentDataStatic> mediIntake = medicineTreatmentStatic.getData();
+
+                    for (MedicineTreatmentDataStatic medicineData : mediIntake) {
+                        mediIntakeValue = medicineData.getMedi_intake_time();
+                    }
+                    txvObservations.setText(mediIntakeValue);
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MedicineTreatmentResponseStatic> call, Throwable t) {
+                // Maneja el error de la solicitud HTTP
+            }
+        });
     }
 }
