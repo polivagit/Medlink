@@ -19,7 +19,7 @@ namespace DbLibrary.DB
 
             if (hostName == "DESKTOP-F1G0I13")
             {
-                optionBuilder.UseMySQL("Server=localhost;Database=medlink;UID=root;Password=");
+                optionBuilder.UseMySQL("Server=localhost;Database=medlink2;UID=root;Password=");
             }
             else
             {

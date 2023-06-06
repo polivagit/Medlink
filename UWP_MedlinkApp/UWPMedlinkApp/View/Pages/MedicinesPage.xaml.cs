@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UWPMedlinkApp.View.Dialogs;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -44,6 +45,7 @@ namespace UWPMedlinkApp.View.Pages
             MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", true); 
             MainPage.NavigationViewItemIsEnabled("nviTreatmentsPage", true);
 
+            SetInitialButtonDisplay();
             _selectedTreatment = TreatmentsPage._selectedTreatment;
 
             LoadActiveDoctorInfo();
@@ -87,6 +89,12 @@ namespace UWPMedlinkApp.View.Pages
                 isNewTreatmentMedicine = false;
                 btnAddMedicine.Visibility = Visibility.Collapsed;
                 btnUpdateMedicine.Visibility = Visibility.Visible;
+
+                SetButtonEnabled("btnRemoveMedicine", true);
+            }
+            else
+            {
+                SetButtonEnabled("btnRemoveMedicine", false);
             }
         }
         #endregion
@@ -132,6 +140,12 @@ namespace UWPMedlinkApp.View.Pages
         #endregion
 
         #region TEXT LISTENERS
+        bool isValidQuantity = false;
+        bool isValidDateStart = false;
+        bool isValidDateEnd = false;
+        bool isValidUOM = false;
+        bool isValidFrequency = false;
+
         private void txbMedicineFilterByName_TextChanged(object sender, TextChangedEventArgs e)
         {
             ReloadUIElements();
@@ -152,6 +166,40 @@ namespace UWPMedlinkApp.View.Pages
         private void txbMedi_TotalQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+            if (float.TryParse(txbMedi_TotalQuantity.Text, out float quantity))
+            {
+                if (TreatmentMedicineDB.IsValidTotalQuantity(quantity))
+                {
+                    txbMedi_TotalQuantity.Background = new SolidColorBrush(Colors.Transparent);
+                    isValidQuantity = true;
+                }
+                else
+                {
+                    txbMedi_TotalQuantity.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidQuantity = false;
+                }
+            }
+            else
+            {
+                txbMedi_TotalQuantity.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidQuantity = false;
+            }
+            FieldValidationCheck();
+        }
+
+        private void txbMedi_Frequency_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TreatmentMedicineDB.IsValidFrequency(txbMedi_Frequency.Text))
+            {
+                txbMedi_Frequency.Background = new SolidColorBrush(Colors.Transparent);
+                isValidFrequency = true;
+            }
+            else
+            {
+                txbMedi_Frequency.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidFrequency = false;
+            }
+            FieldValidationCheck();
         }
 
         private void txbMedi_TotalQuantity_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
@@ -190,7 +238,97 @@ namespace UWPMedlinkApp.View.Pages
 
         private void cboMedi_UOM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cboMedi_UOM.SelectedItem != null)
+            {
+                cboMedi_UOM.Background = new SolidColorBrush(Colors.Transparent);
+                isValidUOM = true;
+            }
+            else
+            {
+                cboMedi_UOM.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidUOM = false;
+            }
+            FieldValidationCheck();
+        }
 
+        private void FieldValidationCheck()
+        {
+            if (isValidQuantity
+                && isValidFrequency
+                && isValidUOM)
+            {
+
+                if (isNewTreatmentMedicine)
+                {
+                    SetButtonEnabled("btnAddMedicine", true);
+                    SetButtonEnabled("btnUpdateMedicine", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnAddMedicine", false);
+                    SetButtonEnabled("btnUpdateMedicine", true);
+                }
+            }
+            else
+            {
+                if (isNewTreatmentMedicine)
+                {
+                    SetButtonEnabled("btnAddMedicine", false);
+                }
+                else
+                {
+                    SetButtonEnabled("btnUpdateMedicine", false);
+                }
+            }
+        }
+
+        private void SetInitialButtonDisplay()
+        {
+            SetButtonEnabled("btnAddMedicine", false);
+            SetButtonEnabled("btnUpdateTreatmentMedicine", false);
+            SetButtonEnabled("btnRemoveMedicine", false);
+        }
+
+        public void SetButtonEnabled(string buttonName, bool isEnabled)
+        {
+            Button button = FindButtonInVisualTree(buttonName);
+
+            if (button != null)
+            {
+                button.IsEnabled = isEnabled;
+            }
+        }
+
+        private Button FindButtonInVisualTree(string buttonName)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            var page = rootFrame.Content as MainPage;
+
+            Button button = FindButtonByName(page, buttonName);
+            return button;
+        }
+
+        private Button FindButtonByName(DependencyObject parent, string buttonName)
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (int i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is Button button && button.Name == buttonName)
+                {
+                    return button;
+                }
+
+                var result = FindButtonByName(child, buttonName);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
         }
         #endregion
 
@@ -237,6 +375,8 @@ namespace UWPMedlinkApp.View.Pages
             UnitsOfMeasureDB uomAux = new UnitsOfMeasureDB();
             uomAux = UnitsOfMeasureDB.GetUOMById(treatmentMedicineAux.Trme_units_of_measure_id);
             cboMedi_UOM.SelectedItem = uomAux;
+
+            txbMedi_Frequency.Text = treatmentMedicineAux.Trme_frequency;
         }
 
         private void ClearTreatmentMedicineInfo()
@@ -248,35 +388,45 @@ namespace UWPMedlinkApp.View.Pages
             dtpMedi_DateEnd.Date = new DateTimeOffset(DateTime.Now.AddDays(1));
 
             cboMedi_UOM.SelectedItem = null;
+
+            txbMedi_Frequency.Text = "";
         }
 
         private void SaveTreatmentMedicineInfo()
         {
             if (isNewTreatmentMedicine)
             {
-                _newTreatmentMedicine.Trme_treatment_id = _selectedTreatment.Trea_id;
-                MedicineDB auxMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
-                _newTreatmentMedicine.Trme_medicine_id = auxMedicine.Medi_id;
+                try
+                {
+                    _newTreatmentMedicine.Trme_treatment_id = _selectedTreatment.Trea_id;
+                    MedicineDB auxMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
+                    _newTreatmentMedicine.Trme_medicine_id = auxMedicine.Medi_id;
 
-                DateTime auxDateStart = dtpMedi_DateStart.Date.Value.DateTime;
-                _newTreatmentMedicine.Trme_date_start = auxDateStart;
-                DateTime auxDateEnd = dtpMedi_DateEnd.Date.Value.DateTime;
-                _newTreatmentMedicine.Trme_date_end = auxDateEnd;
+                    DateTime auxDateStart = dtpMedi_DateStart.Date.Value.DateTime;
+                    _newTreatmentMedicine.Trme_date_start = auxDateStart;
+                    DateTime auxDateEnd = dtpMedi_DateEnd.Date.Value.DateTime;
+                    _newTreatmentMedicine.Trme_date_end = auxDateEnd;
 
-                float total_qty = (float)Convert.ToDouble(txbMedi_TotalQuantity.Text);
-                _newTreatmentMedicine.Trme_total_quantity = total_qty;
-                TimeSpan duration = auxDateEnd - auxDateStart;
-                float quantity_per_day = total_qty / (float)duration.TotalDays;
-                _newTreatmentMedicine.Trme_quantity_per_day = quantity_per_day;
+                    float total_qty = (float)Convert.ToDouble(txbMedi_TotalQuantity.Text);
+                    _newTreatmentMedicine.Trme_total_quantity = total_qty;
+                    TimeSpan duration = auxDateEnd - auxDateStart;
+                    float quantity_per_day = total_qty / (float)duration.TotalDays;
+                    _newTreatmentMedicine.Trme_quantity_per_day = quantity_per_day;
 
-                UnitsOfMeasureDB auxUOM = (UnitsOfMeasureDB)cboMedi_UOM.SelectedItem;
-                _newTreatmentMedicine.Trme_units_of_measure_id = auxUOM.Unme_id;
+                    UnitsOfMeasureDB auxUOM = (UnitsOfMeasureDB)cboMedi_UOM.SelectedItem;
+                    _newTreatmentMedicine.Trme_units_of_measure_id = auxUOM.Unme_id;
+
+                    _newTreatmentMedicine.Trme_frequency = txbMedi_Frequency.Text;
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             else
             {
                 _selectedTreatmentMedicineCopy.Trme_treatment_id = _selectedTreatmentMedicine.Trme_treatment_id;
-                MedicineDB auxMedicine = (MedicineDB)dtgAllMedicines.SelectedItem;
-                _selectedTreatmentMedicineCopy.Trme_medicine_id = auxMedicine.Medi_id;
+                _selectedTreatmentMedicineCopy.Trme_medicine_id = _selectedTreatmentMedicine.Trme_medicine_id;
 
                 DateTime auxDateStart = dtpMedi_DateStart.Date.Value.DateTime;
                 _selectedTreatmentMedicineCopy.Trme_date_start = auxDateStart;
@@ -291,6 +441,8 @@ namespace UWPMedlinkApp.View.Pages
 
                 UnitsOfMeasureDB auxUOM = (UnitsOfMeasureDB)cboMedi_UOM.SelectedItem;
                 _selectedTreatmentMedicineCopy.Trme_units_of_measure_id = auxUOM.Unme_id;
+
+                _selectedTreatmentMedicineCopy.Trme_frequency = txbMedi_Frequency.Text;
             }
         }
         #endregion
@@ -337,6 +489,7 @@ namespace UWPMedlinkApp.View.Pages
                             btnUpdateMedicine.Visibility = Visibility.Collapsed;
 
                             dtgMedicinesOfTreatment.ItemsSource = TreatmentMedicineDB.GetAllTretmentMedicinesByTreatmentId(_selectedTreatment.Trea_id);
+                            SetInitialButtonDisplay();
                             break;
                         }
                     case "UPDATE":
@@ -352,6 +505,7 @@ namespace UWPMedlinkApp.View.Pages
                             btnUpdateMedicine.Visibility = Visibility.Collapsed;
 
                             dtgMedicinesOfTreatment.ItemsSource = TreatmentMedicineDB.GetAllTretmentMedicinesByTreatmentId(_selectedTreatment.Trea_id);
+                            SetInitialButtonDisplay();
                             break;
                         }
                     case "REMOVE":
@@ -388,5 +542,7 @@ namespace UWPMedlinkApp.View.Pages
         {
             MainPage.NavigationViewItemIsEnabled("nviMedicinesPage", false);
         }
+
+        
     }
 }

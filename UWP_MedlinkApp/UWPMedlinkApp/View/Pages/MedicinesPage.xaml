@@ -197,11 +197,12 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
@@ -302,8 +303,28 @@
                                     PlaceholderText="Unit of measure..."></ComboBox>
                     </Grid>
                 </Grid>
-                
-                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="20">
+
+                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Frequency:" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text=" *" VerticalAlignment="Center" FontWeight="Bold" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="5">
+                        <TextBox x:Name="txbMedi_Frequency" TextChanged="txbMedi_Frequency_TextChanged"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                    PlaceholderText="Frequency description..."></TextBox>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -323,7 +344,7 @@
 
                     <Grid Grid.Column="2">
                         <Button x:Name="btnAddMedicine" Click="btnAddMedicine_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Visibility="Visible">
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Visibility="Visible" IsEnabled="False">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE74E; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="ADD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -343,7 +364,7 @@
 
                     <Grid Grid.Column="3">
                         <Button x:Name="btnRemoveMedicine" Click="btnRemoveMedicine_Click" FontSize="20" FontWeight="Bold" MinWidth="150"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Background="IndianRed">
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Background="IndianRed" IsEnabled="False">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE711; &#xE7C3; " FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                 <TextBlock Text="REMOVE" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -353,7 +374,7 @@
                 </Grid>
 
                 <!-- MEDICINES OF TREATMENT (DATAGRID) -->
-                <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20">
+                <Grid Grid.Row="5" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20">
                     <controls:DataGrid x:Name="dtgMedicinesOfTreatment" SelectionChanged="dtgMedicinesOfTreatment_SelectionChanged"
                                        CanUserResizeColumns="True" Background="white" AutoGenerateColumns="False" BorderBrush="Black" 
                                        BorderThickness="4" IsReadOnly="True" Grid.ColumnSpan="2">
@@ -385,6 +406,10 @@
                             <controls:DataGridTextColumn 
                                 Header="UOM"
                                 Binding="{Binding Trme_UOM_Name}">
+                            </controls:DataGridTextColumn>
+                            <controls:DataGridTextColumn 
+                                Header="Frequency"
+                                Binding="{Binding Trme_frequency}">
                             </controls:DataGridTextColumn>
                         </controls:DataGrid.Columns>
                     </controls:DataGrid>
