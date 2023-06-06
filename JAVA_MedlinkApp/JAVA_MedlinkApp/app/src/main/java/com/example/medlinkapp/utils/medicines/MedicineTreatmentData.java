@@ -15,6 +15,10 @@ public class MedicineTreatmentData {
     @SerializedName("unme_abbreviation")
     private String unme_abbreviation;
 
+    @SerializedName("meca_name")
+    private String meca_name;
+
+
     public MedicineTreatmentData(String trme_date_start, String trme_date_end, String trme_quantity_per_day, String medi_name, String unme_abbreviation) {
         this.trme_date_start = trme_date_start;
         this.trme_date_end = trme_date_end;
@@ -41,5 +45,9 @@ public class MedicineTreatmentData {
 
     public String getUnme_abbreviation() {
         return unme_abbreviation;
+    }
+
+    public String getMeca_name() {
+        return meca_name;
     }
 }

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Today:"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"></TextView>
@@ -26,4 +26,21 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="15dp">
     </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Observations:"
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"></TextView>
+    <TextView
+        android:id="@+id/txvObservations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor="#4B4B4B"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></TextView>
 </LinearLayout>

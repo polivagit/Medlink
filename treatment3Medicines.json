@@ -1,0 +1,23 @@
+{
+  "message": "Medicines",
+  "data": [
+    {
+		"trme_treatment_id": "3",
+		"trme_medicine_id": "49",
+		"trme_date_start": "2022-01-20",
+		"trme_date_end": "2023-09-01",
+		"trme_quantity_per_day": "24",
+		"trme_total_quantity": "14136",
+		"trme_unit_of_measure_id": "6",
+		"medi_id": "49",
+		"medi_name": "Olmesartan",
+		"medi_category_id": "2",
+		"unme_id": "6",
+		"unme_name": "Millilitre",
+		"unme_abbreviation": "ml",
+		"meca_id": "2",
+		"meca_name": "Cardiovascular",
+		"medi_intake_time": "before breakfast"
+    }
+  ]
+}

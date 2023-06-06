@@ -17,12 +17,15 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medlinkapp.LoginActivity;
+import com.example.medlinkapp.MainActivity;
 import com.example.medlinkapp.R;
+import com.example.medlinkapp.adapters.MedicineStartAdapter;
 import com.example.medlinkapp.adapters.TreatmentAdapter;
 import com.example.medlinkapp.databinding.FragmentHistoryBinding;
 import com.example.medlinkapp.model.Treatment;
@@ -43,7 +46,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements MedicineStartAdapter.OnItemClickListener{
 
     private FragmentHistoryBinding binding;
     EditText etSearchTreatment;
@@ -160,6 +163,18 @@ public class HistoryFragment extends Fragment {
                             mTreatments.add(new Treatment(treaIdInt,treaName,treaDescription,dateStart,dateEnd,treaObservations,isActive,doctorId,patientIdInt));
                         }
                         adapter = new TreatmentAdapter(mTreatments);
+                        adapter.setOnItemClickListener(new TreatmentAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                Bundle args = new Bundle();
+                                args.putString("treaId", treaId);
+                                args.putString("treaName",treaName);
+                                args.putString("treaDateStart",treaDateStart);
+                                args.putString("treaDateEnd",treaDateEnd);
+                                args.putString("treaDesc",treaDescription);
+                                Navigation.findNavController(requireView()).navigate(R.id.action_global_historyDetailFragment,args);
+                            }
+                        });
                         rcyHistory.setAdapter(adapter);
                     }else {
                         showDialog("There are no treatments to show.");
@@ -203,5 +218,10 @@ public class HistoryFragment extends Fragment {
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

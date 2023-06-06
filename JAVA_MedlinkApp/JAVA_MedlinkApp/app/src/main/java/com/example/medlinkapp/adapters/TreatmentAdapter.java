@@ -22,6 +22,7 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
 
 
     private List<Treatment> mTreatments;
+    private OnItemClickListener onItemClickListener;
 
 
 
@@ -60,7 +61,14 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
             holder.grdlHisotry.setBackgroundColor(holder.itemView.getContext().getResources().getColor(backgroundColor));
         }
 
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -84,5 +92,13 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.View
 
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

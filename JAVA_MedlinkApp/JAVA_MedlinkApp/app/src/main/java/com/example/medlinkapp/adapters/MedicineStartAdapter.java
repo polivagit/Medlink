@@ -16,6 +16,7 @@ import java.util.List;
 public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdapter.ViewHolder> {
 
     private List<MedicineTreatmentData> mTreatmentMedicines;
+    private OnItemClickListener onItemClickListener;
 
     public MedicineStartAdapter(List<MedicineTreatmentData> pTreatmentMedicines){
         mTreatmentMedicines = pTreatmentMedicines;
@@ -34,6 +35,14 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
         MedicineTreatmentData tm = mTreatmentMedicines.get(position);
         holder.txvMedicineName.setText(tm.getMedi_name()+"");
         holder.txvMedicineQuantity.setText(tm.getTrme_quantity_per_day()+"" + tm.getUnme_abbreviation());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
 
@@ -53,4 +62,13 @@ public class MedicineStartAdapter extends RecyclerView.Adapter<MedicineStartAdap
             txvMedicineQuantity = filaview.findViewById(R.id.txvMedicineQuantity);
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
 }

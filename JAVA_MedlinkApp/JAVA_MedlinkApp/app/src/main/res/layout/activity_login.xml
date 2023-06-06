@@ -49,6 +49,7 @@
             android:layout_width="300dp"
             android:layout_height="48dp"
             android:hint="User"
+            android:text="psanchez1"
             android:paddingLeft="10dp"
             android:background="@drawable/edit_text_border"
             android:layout_marginLeft="20dp">
@@ -58,6 +59,7 @@
             android:layout_width="300dp"
             android:layout_height="48dp"
             android:hint="Password"
+            android:text="9311Z"
             android:paddingLeft="10dp"
             android:background="@drawable/edit_text_border"
             android:layout_marginTop="20dp"

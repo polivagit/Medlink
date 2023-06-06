@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Login successful, handle response
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     LoginResponse loginResponse = response.body();
+                    Log.e("patata","Result" + response);
                     List<LoginData> loginDataList = loginResponse.getData();
                     if (!loginDataList.isEmpty()) {
                         for (LoginData loginData: loginDataList) {
@@ -119,6 +120,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 // Handle failure
                 Toast.makeText(LoginActivity.this, "Network error", Toast.LENGTH_SHORT).show();
+                Log.e("patata","Result" + t.getMessage());
+
             }
         });
     }
