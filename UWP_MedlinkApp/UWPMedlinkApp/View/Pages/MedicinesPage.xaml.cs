@@ -228,12 +228,66 @@ namespace UWPMedlinkApp.View.Pages
 
         private void dtpMedi_DateEnd_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-
+            if ((dtpMedi_DateEnd.Date.Value.DateTime >= _selectedTreatment.Trea_date_start)
+                && (dtpMedi_DateEnd.Date.Value.DateTime <= _selectedTreatment.Trea_date_end))
+            {
+                if (dtpMedi_DateStart.Date.HasValue)
+                {
+                    if (dtpMedi_DateEnd.Date.Value.DateTime > dtpMedi_DateStart.Date.Value.DateTime)
+                    {
+                        dtpMedi_DateEnd.Background = new SolidColorBrush(Colors.Transparent);
+                        isValidDateEnd = true;
+                    }
+                    else
+                    {
+                        dtpMedi_DateEnd.Background = new SolidColorBrush(Colors.IndianRed);
+                        isValidDateEnd = false;
+                    }
+                }
+                else
+                {
+                    dtpMedi_DateEnd.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidDateEnd = false;
+                }
+            }
+            else
+            {
+                dtpMedi_DateEnd.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidDateEnd = false;
+            }
+            FieldValidationCheck();
         }
 
         private void dtpMedi_DateStart_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-
+            if ((dtpMedi_DateStart.Date.Value.DateTime >= _selectedTreatment.Trea_date_start) 
+                && (dtpMedi_DateStart.Date.Value.DateTime <= _selectedTreatment.Trea_date_end))
+            {
+                if (dtpMedi_DateEnd.Date.HasValue)
+                {
+                    if (dtpMedi_DateStart.Date.Value.DateTime < dtpMedi_DateEnd.Date.Value.DateTime)
+                    {
+                        dtpMedi_DateStart.Background = new SolidColorBrush(Colors.Transparent);
+                        isValidDateStart = true;
+                    }
+                    else
+                    {
+                        dtpMedi_DateStart.Background = new SolidColorBrush(Colors.IndianRed);
+                        isValidDateStart = false;
+                    }
+                }
+                else
+                {
+                    dtpMedi_DateStart.Background = new SolidColorBrush(Colors.IndianRed);
+                    isValidDateStart = false;
+                }
+            }
+            else
+            {
+                dtpMedi_DateStart.Background = new SolidColorBrush(Colors.IndianRed);
+                isValidDateStart = false;
+            }
+            FieldValidationCheck();
         }
 
         private void cboMedi_UOM_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -255,7 +309,9 @@ namespace UWPMedlinkApp.View.Pages
         {
             if (isValidQuantity
                 && isValidFrequency
-                && isValidUOM)
+                && isValidUOM
+                && isValidDateStart
+                && isValidDateEnd)
             {
 
                 if (isNewTreatmentMedicine)
